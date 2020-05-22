@@ -1,0 +1,19 @@
+@import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Roboto", "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 8.5px;
+  }
+}

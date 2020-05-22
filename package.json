@@ -1,0 +1,10 @@
+{
+  "name": "credit-account",
+  "version": "1.0.0",
+  "description": "A web app to manage credit account built with React",
+  "main": "index.js",
+  "repository": "https://github.com/chaehwanlim/credit-account.git",
+  "author": "Chaehwan Lim <chlim428@gmail.com>",
+  "license": "MIT",
+  "private": true
+}

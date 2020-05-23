@@ -7,6 +7,7 @@ import { StoreState } from './modules';
 import { lightMode, darkMode } from './modules/globalTheme';
 import Appbar from './components/Appbar';
 import Home from './components/Home';
+import Footer from './components/Footer';
 
 
 const App: React.FC = () => {
@@ -34,6 +35,7 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Route path="/" component={Home} />
         </BrowserRouter>
+        <Footer />
       </>
     </ThemeProvider>
   )

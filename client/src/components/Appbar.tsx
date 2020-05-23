@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { StylesProvider } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import DarkIcon from '@material-ui/icons/Brightness4';
 import LightIcon from '@material-ui/icons/Brightness5';
 
@@ -11,17 +14,18 @@ interface ButtonProps {
 }
 
 const StyledAppBar = styled(AppBar)`
-  && {
-    background-color: transparent;
-    box-shadow: none;
-  }
+  background-color: transparent;
+  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+
 `
 const StyledButton = styled(Button)<ButtonProps>`
-  &&{
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: ${( props ) => props.darkModeEnabled ? "white" : "black"}
-  }
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: ${( props ) => props.darkModeEnabled ? "white" : "black"};
+  float: right;
+
 `
 
 interface AppbarPropsType {
@@ -49,19 +53,22 @@ const Appbar: React.SFC<AppbarPropsType> = ({ globalThemeMode, lightMode, darkMo
   }
   
   return (
-    <StyledAppBar position="static">
-      <Toolbar>
-        <div></div>
-        <StyledButton
-          darkModeEnabled={globalThemeMode === 'lightMode' ? false : true}
-          onClick={toggleThemeMode}
-        >
-          {nextMode()}
-        </StyledButton>
-      </Toolbar>
-    </StyledAppBar>
+    <Container maxWidth="md">
+      <StylesProvider injectFirst>
+        <StyledAppBar position="static">
+        <Toolbar style={{padding: 0}}>
+          <StyledButton
+            darkModeEnabled={globalThemeMode === 'lightMode' ? false : true}
+            onClick={toggleThemeMode}
+          >
+            {nextMode()}
+          </StyledButton>
+        </Toolbar>
+      </StyledAppBar>
+      </StylesProvider>
+      
+    </Container>
   )
-
 }
 
 export default Appbar;

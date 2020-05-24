@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme, GlobalStyles } from './components/GlobalStyles';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from './modules';
 import { lightMode, darkMode } from './modules/globalTheme';
-import Appbar from './components/Appbar';
-import Home from './components/Home';
+import Appbar from './components/Appbar/Appbar';
+import Home from './components/Home/Home';
 import Footer from './components/Footer';
 
 

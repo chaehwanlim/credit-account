@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components';
 
 interface globalThemeType {
   bg: string;
@@ -31,5 +30,9 @@ export const GlobalStyles = createGlobalStyle<{ theme: globalThemeType }>`
     html {
       font-size: 8.5px;
     }
+  }
+
+  a, div, input, p, span {
+    -webkit-text-stroke: 0.3px;
   }
 `

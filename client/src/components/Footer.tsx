@@ -8,11 +8,13 @@ const StyledFooter = styled.footer`
   font-weight: 400;
   color: grey;
   background: transparent;
-  margin: 4rem 0rem;
 
-  position: absolute;
+  clear: both;
+  position: relative;
   bottom: 0;
   width: 100%;
+  height: 4rem;
+  margin: 4rem 0rem 4rem 0rem;
 `;
 
 const StyledLink = styled(Link)`

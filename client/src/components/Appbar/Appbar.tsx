@@ -1,24 +1,44 @@
 import React from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
 import { StyledAppBar, StyledTitle, StyledButton } from './styled';
 import Menu from './Menu';
-import IconButton from '@material-ui/core/IconButton';
-import DarkIcon from '@material-ui/icons/Brightness4';
-import LightIcon from '@material-ui/icons/Brightness5';
 
 
 interface AppbarPropsType {
   globalThemeMode: string;
   lightMode: () => void;
   darkMode: () => void;
+  window?: () => Window;
+  children: React.ReactElement;
 }
 
-const Appbar: React.SFC<AppbarPropsType> = ({ globalThemeMode, lightMode, darkMode }) => {
+interface ElevationProps {
+  window?: () => Window;
+  children: React.ReactElement;
+}
+
+const ElevationScroll = (props: ElevationProps) => {
+  const { window, children } = props;
+
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window(): undefined,
+  });
+
+  return React.cloneElement(children, {
+    backgroundColor: trigger ? 'red' : 'blue',
+  });
+
+}
+
+const Appbar: React.SFC<AppbarPropsType> = (props: AppbarPropsType) => {
 
   const nextMode = () => {
-    if (globalThemeMode === 'lightMode')
+    if (props.globalThemeMode === 'lightMode')
       return '다크 모드';
     else {
       return '라이트 모드';
@@ -26,31 +46,29 @@ const Appbar: React.SFC<AppbarPropsType> = ({ globalThemeMode, lightMode, darkMo
   }
 
   const toggleThemeMode = () => {
-    if (globalThemeMode === 'lightMode') {
-      darkMode();
+    if (props.globalThemeMode === 'lightMode') {
+      props.darkMode();
     } else {
-      lightMode();
+      props.lightMode();
     }
   }
   
   return (
-    <Container maxWidth="md">
-      <StylesProvider injectFirst>
-        <StyledAppBar position="static">
-          <Toolbar style={{padding: 0}}>
-            <StyledTitle darkModeEnabled={globalThemeMode === 'darkMode' ? true : false}>
-            </StyledTitle>
-            <Menu globalThemeMode={globalThemeMode} />
-            <StyledButton
-              darkModeEnabled={globalThemeMode === 'darkMode' ? true : false}
-              onClick={toggleThemeMode}
-            >
-              {nextMode()}
-            </StyledButton>
-          </Toolbar>
+    <StylesProvider injectFirst>
+      <ElevationScroll {...props}>
+        <StyledAppBar position="fixed">
+          <Container maxWidth="md">
+            <Toolbar style={{padding: 0}}>
+              <StyledTitle />
+              <Menu />
+              <StyledButton onClick={toggleThemeMode}>
+                {nextMode()}
+              </StyledButton>
+            </Toolbar>
+          </Container>
         </StyledAppBar>
-      </StylesProvider>
-    </Container>
+      </ElevationScroll>
+    </StylesProvider>
   )
 }
 

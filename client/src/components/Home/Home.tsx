@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import HomeTransaction from './HomeTransaction';
+import HomeCompany from './HomeCompany';
+import HomeMenu from './HomeMenu';
+import { Title, Company } from './styled';
 
-const Title = styled.div`
-  margin-top: 3rem;
-  font-size: 5rem;
-  font-weight: 700;
-`;
-
-const Company = styled.div`
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: grey;
-`;
 
 const Home: React.FC = () => {
   const [isLogined, setIsLogined] = useState(false);
+  const [companyName, setCompanyName] = useState<string>('화끈불끈');
 
   useEffect(() => {
     const company = sessionStorage.getItem('company');
@@ -29,12 +23,21 @@ const Home: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      <Title>외상장부</Title>
-      <Company>화끈불끈</Company>
-      <HomeContentTitle>거래</HomeContentTitle>
-      <HomeTransaction />
-      <HomeContentTitle>기업 정보</HomeContentTitle>
-      
+      <StylesProvider injectFirst>
+        <Title>외상장부</Title>
+        <Company>{companyName}</Company>
+        <Grid container spacing={2} alignItems="stretch">
+          <Grid item md={6} xs={12}>
+            <HomeTransaction />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <HomeCompany />
+          </Grid>
+          <Grid item md={12}>
+            <HomeMenu />
+          </Grid>
+        </Grid>
+      </StylesProvider>
     </Container>
   )
 }

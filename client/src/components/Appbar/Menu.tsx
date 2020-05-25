@@ -6,11 +6,7 @@ interface MenuItem {
   link: string;
 }
 
-interface MenuProps {
-  globalThemeMode: string;
-}
-
-const Menu: React.SFC<MenuProps> = ({ globalThemeMode }) => {
+const Menu: React.FC = () => {
   const menuObjects: MenuItem[] = [
     { 
       name: "홈",
@@ -29,9 +25,7 @@ const Menu: React.SFC<MenuProps> = ({ globalThemeMode }) => {
   return (
     <div>
       {menuObjects.map((menuObject: MenuItem) => (
-        <StyledButton
-          darkModeEnabled={globalThemeMode === 'lightMode' ? false : true}
-        >
+        <StyledButton>
           {menuObject.name}
         </StyledButton>
       ))}

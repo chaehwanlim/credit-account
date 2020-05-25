@@ -23,6 +23,9 @@ const App: React.FC = () => {
     dispatch(darkMode());
   }
 
+  if(!globalThemeMode)
+    return <div></div>
+
   return (
     <ThemeProvider theme={globalThemeMode === 'lightMode' ? lightTheme : darkTheme}>
       <>

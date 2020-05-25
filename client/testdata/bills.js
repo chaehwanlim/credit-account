@@ -11,7 +11,8 @@ export default
     "service": [
       { "산낙지": 1 }
     ],
-    "total": 88000
+    "total": 88000,
+    "isPaid": 1
   },
   {
     "date": "20200422",
@@ -24,7 +25,8 @@ export default
     "service": [
       { "과일": 1 }
     ],
-    "total": 93000
+    "total": 93000,
+    "isPaid": 1
   },
   {
     "date": "20200424",
@@ -37,7 +39,8 @@ export default
     "service": [
       { "연어(소)": 1 }
     ],
-    "total": 83000
+    "total": 83000,
+    "isPaid": 1
   },
   {
     "date": "20200425",
@@ -51,7 +54,8 @@ export default
     "service": [
       { "과일": 1 }
     ],
-    "total": 72500
+    "total": 72500,
+    "isPaid": 0
   },
   {
     "date": "20200427",
@@ -65,7 +69,8 @@ export default
     "service": [
       { "과일": 1 }
     ],
-    "total": 86000
+    "total": 86000,
+    "isPaid": 1
   },
   {
     "date": "20200428",
@@ -78,7 +83,8 @@ export default
     "service": [
       { "산낙지": 1 }
     ],
-    "total": 63000
+    "total": 63000,
+    "isPaid": 0
   },
   {
     "date": "20200430",
@@ -92,7 +98,8 @@ export default
     "service": [
       { "닭발": 1 }
     ],
-    "total": 52500
+    "total": 52500,
+    "isPaid": 1
   },
   {
     "date": "20200501",
@@ -103,9 +110,10 @@ export default
       { "맥주": 8 }
     ],
     "service": [
-      { "건오징어": 1}
+      { "건오징어": 1 }
     ],
-    "total": 58000
+    "total": 58000,
+    "isPaid": 1
   },
   {
     "date": "20200502",
@@ -119,6 +127,7 @@ export default
       { "해삼": 1 },
       { "과일": 1 }
     ],
-    "total": 66000
+    "total": 66000,
+    "isPaid": 0
   }
 ]

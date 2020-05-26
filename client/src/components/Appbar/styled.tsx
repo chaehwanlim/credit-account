@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 
 export const StyledAppBar = styled(AppBar)`
   background-color: ${({ theme }) => theme.bg};
-
   display: flex;
   justify-content: space-between;
 `;
@@ -13,7 +12,14 @@ export const StyledAppBar = styled(AppBar)`
 export const StyledButton = styled(Button)`
   font-size: 1.5rem;
   font-weight: 500;
+  letter-spacing: -1px;
   color: ${({ theme }) => theme.text};
+  text-decoration: none;
+`;
+
+export const StyledLink = styled.a`
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
 `;
 
 export const StyledTitle = styled(Typography)`

@@ -27,12 +27,6 @@ export const BoxTitle = styled.div`
   flex: 1;
 `;
 
-export const BoxSubTitle = styled.div`
-  font-size: 2rem;
-  font-weight: 500;
-  flex: 1;
-`;
-
 export const BoxTotal = styled.span`
   font-size: 2.5rem;
   font-weight: 400;
@@ -54,27 +48,12 @@ export const BoxContent = styled.div`
   justify-content: space-between;
 `;
 
-export const Debtor = styled.span`
+export const Representative = styled.span`
   color: ${({ theme }) => theme.text};
 `;
 
-export const CreditAmount = styled.span`
+export const People = styled.span`
   color: ${({ theme }) => theme.subtext};
   margin-left: 1rem;
-  text-align: right;
-`;
-
-export const Attribute = styled(CreditAmount)`
-  margin-left: 0;
-`;
-
-export const Info = styled(Debtor)`
-  margin-left: 1rem;
-`;
-
-export const Name = Debtor;
-export const Price = CreditAmount;
-
-export const Remain = styled(BoxContent)`
   text-align: right;
 `;

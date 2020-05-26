@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyledButton } from './styled';
+import { StylesProvider } from '@material-ui/core/styles';
+import { StyledButton, StyledLink } from './styled';
 
 interface MenuItem {
   name: string;
@@ -23,13 +24,15 @@ const Menu: React.FC = () => {
   ];
 
   return (
-    <div>
+    <StylesProvider injectFirst>
       {menuObjects.map((menuObject: MenuItem) => (
         <StyledButton>
-          {menuObject.name}
+          <StyledLink href={menuObject.link}>
+            {menuObject.name}
+          </StyledLink>
         </StyledButton>
       ))}
-    </div>
+    </StylesProvider>
   );
 }
 

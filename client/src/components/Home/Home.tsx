@@ -26,14 +26,18 @@ const Home: React.FC = () => {
       <StylesProvider injectFirst>
         <Title>외상장부</Title>
         <Company>{companyName}</Company>
-        <Grid container spacing={2} alignItems="stretch">
+        <Grid container spacing={2} 
+          direction="row"
+          justify="center"
+          alignItems="stretch"
+        >
           <Grid item md={6} xs={12}>
             <HomeTransaction />
           </Grid>
           <Grid item md={6} xs={12}>
             <HomeCompany />
           </Grid>
-          <Grid item md={12}>
+          <Grid item xs={12}>
             <HomeMenu />
           </Grid>
         </Grid>

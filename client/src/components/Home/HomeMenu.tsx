@@ -5,18 +5,14 @@ import { StyledBox, BoxTitle, BoxSubTitle, StyledDivider, BoxContent, Name, Pric
 
 const HomeMenu: React.FC = () => {
 
-  useEffect(() => {
-    console.log(companyFile.menuDisplay.food)
-  }, []);
-
   return (
     <StyledBox>
       <BoxTitle>
         메뉴
       </BoxTitle>
       <StyledDivider />
-      <Grid container>
-        <Grid item xs={12} md={6}>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
           <BoxSubTitle>
             주류
           </BoxSubTitle>
@@ -27,13 +23,13 @@ const HomeMenu: React.FC = () => {
                   {item.이름}
                 </Name>
                 <Price>
-                  {item.가격}
+                  {item.가격}원
                 </Price>
               </BoxContent>
             ))
           }
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={6}>
           <BoxSubTitle>
             음식
           </BoxSubTitle>
@@ -44,7 +40,7 @@ const HomeMenu: React.FC = () => {
                   {item.이름}
                 </Name>
                 <Price>
-                  {item.가격}
+                  {item.가격}원
                 </Price>
               </BoxContent>
             ))

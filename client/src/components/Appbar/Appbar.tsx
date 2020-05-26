@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
@@ -11,8 +11,6 @@ interface AppbarPropsType {
   globalThemeMode: string;
   lightMode: () => void;
   darkMode: () => void;
-  window?: () => Window;
-  children: React.ReactElement;
 }
 
 interface ElevationProps {
@@ -36,6 +34,26 @@ const ElevationScroll = (props: ElevationProps) => {
 }
 
 const Appbar: React.SFC<AppbarPropsType> = (props: AppbarPropsType) => {
+  const [scrollPos, setScrollPos] = useState(0);
+  const [appbarTitle, setAppbarTitle] = useState('');
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  });
+
+  const handleScroll = (e) => {
+    let scrollTop = document.body.scrollTop;
+
+    if (scrollTop > 10) {
+      setAppbarTitle('홈');
+      console.log('scrolling');
+    }
+
+  }
 
   const nextMode = () => {
     if (props.globalThemeMode === 'lightMode')
@@ -56,10 +74,12 @@ const Appbar: React.SFC<AppbarPropsType> = (props: AppbarPropsType) => {
   return (
     <StylesProvider injectFirst>
       <ElevationScroll {...props}>
-        <StyledAppBar position="fixed">
+        <StyledAppBar position="fixed" onScroll={handleScroll}>
           <Container maxWidth="md">
             <Toolbar style={{padding: 0}}>
-              <StyledTitle />
+              <StyledTitle>
+                {appbarTitle}
+              </StyledTitle>
               <Menu />
               <StyledButton onClick={toggleThemeMode}>
                 {nextMode()}

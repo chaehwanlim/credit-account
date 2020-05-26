@@ -7,6 +7,7 @@ import { StoreState } from './modules';
 import { lightMode, darkMode } from './modules/globalTheme';
 import Appbar from './components/Appbar/Appbar';
 import Home from './components/Home/Home';
+import Bill from './components/Bill/Bill';
 import Footer from './components/Footer';
 
 
@@ -36,7 +37,10 @@ const App: React.FC = () => {
           darkMode={_darkMode}
         />
         <BrowserRouter>
-          <Route path="/" component={Home} />
+          <Route exact path="/" component={Home} />
+          <Route path="/bill" component={Bill} />
+          <Route path="/add" />
+          <Route path="/company" />
         </BrowserRouter>
         <Footer />
       </>

@@ -74,7 +74,7 @@ const Appbar: React.SFC<AppbarPropsType> = (props: AppbarPropsType) => {
   return (
     <StylesProvider injectFirst>
       <ElevationScroll {...props}>
-        <StyledAppBar position="fixed" onScroll={handleScroll}>
+        <StyledAppBar position="sticky" onScroll={handleScroll}>
           <Container maxWidth="md">
             <Toolbar style={{padding: 0}}>
               <StyledTitle>

@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import HomeTransaction from './HomeTransaction';
 import HomeCompany from './HomeCompany';
 import HomeMenu from './HomeMenu';
-import { Title, Company } from './styled';
+import { Title, Company } from '../styled';
 
 
 const Home: React.FC = () => {

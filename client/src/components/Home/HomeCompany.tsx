@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import companyFile from '../../../testdata/company';
-import { StyledBox, BoxTitle, StyledDivider, BoxContent, Attribute, Info, Name, Price } from './styled';
+import { StyledBox, BoxTitle, StyledDivider, BoxContent, Attribute, Info, Name, Price } from '../styled';
 
 const HomeCompany: React.FC = () => {
   const [company, setCompany] = useState({});

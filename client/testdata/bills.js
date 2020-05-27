@@ -5,11 +5,11 @@ export default
     "people": 3,
     "representative": "abc",
     "order": [
-      { "이름": "건오징어", "수량": 1 },
-      { "이름": "맥주", "수량": 14 }
+      { "name": "건오징어", "quantity": 1 },
+      { "name": "맥주", "quantity": 14 }
     ],
     "service": [
-      { "이름": "산낙지" },
+      { "name": "산낙지" },
     ],
     "total": 88000,
     "isPaid": 1
@@ -19,11 +19,11 @@ export default
     "people": 3,
     "representative": "edf",
     "order": [      
-      { "이름": "건오징어", "수량": 1 },
-      { "이름": "맥주", "수량": 15 }
+      { "name": "건오징어", "quantity": 1 },
+      { "name": "맥주", "quantity": 15 }
     ],
     "service": [
-      { "이름": "과일" }
+      { "name": "과일" }
     ],
     "total": 93000,
     "isPaid": 1
@@ -33,11 +33,11 @@ export default
     "people": 2,
     "representative": "asjd",
     "order": [
-      { "이름": "건오징어", "수량": 1 },
-      { "이름": "맥주", "수량": 15 }
+      { "name": "건오징어", "quantity": 1 },
+      { "name": "맥주", "quantity": 15 }
     ],
     "service": [
-      { "이름": "연어(소)" }
+      { "name": "연어(소)" }
     ],
     "total": 83000,
     "isPaid": 1
@@ -47,12 +47,12 @@ export default
     "people": 3,
     "representative": "qwre",
     "order": [
-      { "이름": "건오징어", "수량": 1 },
-      { "이름": "맥주", "수량": 10 },
-      { "이름": "소주", "수량": 1 }
+      { "name": "건오징어", "quantity": 1 },
+      { "name": "맥주", "quantity": 10 },
+      { "name": "소주", "quantity": 1 }
     ],
     "service": [
-      { "이름": "과일" }
+      { "name": "과일" }
     ],
     "total": 72500,
     "isPaid": 0
@@ -62,12 +62,12 @@ export default
     "people": 2,
     "representative": "qwuio",
     "order": [
-      { "이름": "해삼", "수량": 1 },
-      { "이름": "맥주", "수량": 9 },
-      { "이름": "칭따오", "수량": 3 }
+      { "name": "해삼", "quantity": 1 },
+      { "name": "맥주", "quantity": 9 },
+      { "name": "칭따오", "quantity": 3 }
     ],
     "service": [
-      { "이름": "과일" }
+      { "name": "과일" }
     ],
     "total": 86000,
     "isPaid": 1
@@ -77,11 +77,11 @@ export default
     "people": 3,
     "representative": "할아버지",
     "order": [
-      { "이름": "건오징어", "수량": 1 },
-      { "이름": "맥주", "수량": 9 }
+      { "name": "건오징어", "quantity": 1 },
+      { "name": "맥주", "quantity": 9 }
     ],
     "service": [
-      { "이름": "산낙지" }
+      { "name": "산낙지" }
     ],
     "total": 63000,
     "isPaid": 0
@@ -91,12 +91,12 @@ export default
     "people": 5,
     "representative": "둘째삼촌",
     "order": [
-      { "이름": "해삼", "수량": 1 },
-      { "이름": "맥주", "수량": 6 },
-      { "이름": "소주", "수량": 1 }
+      { "name": "해삼", "quantity": 1 },
+      { "name": "맥주", "quantity": 6 },
+      { "name": "소주", "quantity": 1 }
     ],
     "service": [
-      { "이름": "닭발" }
+      { "name": "닭발" }
     ],
     "total": 52500,
     "isPaid": 1
@@ -106,11 +106,11 @@ export default
     "people": 3,
     "representative": "ㅁㄴㅇㄹ",
     "order": [
-      { "이름": "해삼", "수량": 1 },
-      { "이름": "맥주", "수량": 8 }
+      { "name": "해삼", "quantity": 1 },
+      { "name": "맥주", "quantity": 8 }
     ],
     "service": [
-      { "이름": "건오징어" }
+      { "name": "건오징어" }
     ],
     "total": 58000,
     "isPaid": 1
@@ -120,12 +120,12 @@ export default
     "people": 4,
     "representative": "ㅋㅌㅊㅍ",
     "order": [
-      { "이름": "노가리", "수량": 16000 },
-      { "이름": "맥주", "수량": 10 }
+      { "name": "노가리", "quantity": 1 },
+      { "name": "맥주", "quantity": 10 }
     ],
     "service": [
-      { "이름": "해삼" },
-      { "이름": "과일" }
+      { "name": "해삼" },
+      { "name": "과일" }
     ],
     "total": 66000,
     "isPaid": 0

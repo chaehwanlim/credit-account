@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import billFile from '../../../testdata/bills';
-import { StyledBox, BoxTitle, BoxTotal, StyledDivider, BoxContent, Debtor, CreditAmount, Remain } from './styled';
+import { StyledBox, BoxTitle, BoxTotal, StyledDivider, BoxContent, Debtor, CreditAmount, Remain } from '../styled';
 
 
 const HomeTransaction: React.FC = () => {

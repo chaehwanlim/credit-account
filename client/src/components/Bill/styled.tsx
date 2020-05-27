@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 
 export const Title = styled.div`
   margin-top: 12rem;
@@ -14,6 +15,10 @@ export const Company = styled.div`
   color: ${({ theme }) => theme.subtext};
   margin-bottom: 4rem;
 `;
+
+export const BillGridContainer = styled(Grid)`
+  margin-top: 3rem;
+`
 
 export const StyledBox = styled(Box)`
   background-color: ${({ theme }) => theme.elementBg};
@@ -40,7 +45,7 @@ export const StyledDivider = styled(Divider)`
 `;
 
 export const BoxContent = styled.div`
-  margin: 1rem 0rem 0rem 0rem;
+  margin: 0rem;
   font-size: 1.8rem;
   font-weight: 400;
   display: flex;
@@ -49,11 +54,18 @@ export const BoxContent = styled.div`
 `;
 
 export const Representative = styled.span`
+  margin: 0rem;
   color: ${({ theme }) => theme.text};
 `;
 
 export const People = styled.span`
-  color: ${({ theme }) => theme.subtext};
+  color: ${({ theme }) => theme.subtext}
   margin-left: 1rem;
   text-align: right;
 `;
+
+export const Name = Representative;
+export const Quantity = People;
+
+export const IsPaid = Representative;
+export const Total = Representative;

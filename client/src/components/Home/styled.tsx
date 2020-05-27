@@ -48,9 +48,9 @@ export const StyledDivider = styled(Divider)`
 export const BoxContent = styled.div`
   margin: 1rem 0rem 0rem 0rem;
   font-size: 1.8rem;
-  font-weight: 400;
+  font-weight: 300;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
 `;
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import companyFile from '../../../testdata/company';
-import { StyledBox, BoxTitle, BoxSubTitle, StyledDivider, BoxContent, Name, Price } from './styled';
+import { StyledBox, BoxTitle, BoxSubTitle, StyledDivider, BoxContent, MenuName, Price } from '../styled';
 
 const HomeMenu: React.FC = () => {
 
@@ -19,11 +19,11 @@ const HomeMenu: React.FC = () => {
           {
             companyFile.menuDisplay.drink.map((item, index) => (
               <BoxContent key={index}>
-                <Name>
-                  {item.이름}
-                </Name>
+                <MenuName>
+                  {item.name}
+                </MenuName>
                 <Price>
-                  {item.가격}원
+                  {item.price}원
                 </Price>
               </BoxContent>
             ))
@@ -36,11 +36,11 @@ const HomeMenu: React.FC = () => {
           {
             companyFile.menuDisplay.food.map((item, index) => (
               <BoxContent key={index}>
-                <Name>
-                  {item.이름}
-                </Name>
+                <MenuName>
+                  {item.name}
+                </MenuName>
                 <Price>
-                  {item.가격}원
+                  {item.price}원
                 </Price>
               </BoxContent>
             ))

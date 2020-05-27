@@ -1,3 +1,3 @@
 import React, { useState, useEffect } from 'react';
-import { StyledBox } from './styled';
+import { StyledBox } from '../styled';
 

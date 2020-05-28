@@ -6,7 +6,7 @@ import Check from '@material-ui/icons/CheckCircleOutline';
 import NotChecked from '@material-ui/icons/NotInterested';
 
 export const Title = styled.div`
-  margin-top: 12rem;
+  margin-top: 8rem;
   font-size: 5rem;
   font-weight: 700;
 `;

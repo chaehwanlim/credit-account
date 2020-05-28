@@ -8,6 +8,9 @@ import companyFile from '../../../testdata/company';
 
 
 const Bill: React.FC = () => {
+  useEffect(() => {
+    document.title = "외상장부 - 계산서";
+  }, []);
 
   const RenderBills: React.FC = () => (
     <BillGridContainer container spacing={3}
@@ -59,8 +62,6 @@ const Bill: React.FC = () => {
                   )
                 })
               }
-
-              <StyledDivider />
 
               <BoxContent>
                 <BillAttribute>

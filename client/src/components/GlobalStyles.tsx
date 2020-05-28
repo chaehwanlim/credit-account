@@ -8,9 +8,9 @@ export interface globalThemeType {
 }
 
 export const lightTheme = {
-  bg: '#F0F0F3',
+  bg: '#F2F2F4',
   elementBg: 'white',
-  text: 'black',
+  text: '#181F29',
   subtext: '#777788',
   divider: '#BBBBBB',
   progress: '0181FF',

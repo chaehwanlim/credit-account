@@ -8,6 +8,7 @@ import { lightMode, darkMode } from './modules/globalTheme';
 import Appbar from './components/Appbar/Appbar';
 import Home from './components/Home/Home';
 import Bill from './components/Bill/Bill';
+import Add from './components/Add/Add';
 import Footer from './components/Footer';
 
 
@@ -39,7 +40,7 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Route exact path="/" component={Home} />
           <Route path="/bill" component={Bill} />
-          <Route path="/add" />
+          <Route path="/add" component={Add}/>
           <Route path="/company" />
         </BrowserRouter>
         <Footer />

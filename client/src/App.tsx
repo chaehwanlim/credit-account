@@ -10,6 +10,8 @@ import Home from './components/Home/Home';
 import Bill from './components/Bill/Bill';
 import Add from './components/Add/Add';
 import Footer from './components/Footer';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiTheme, MuiThemeDark } from './MuiStyles';
 
 
 const App: React.FC = () => {
@@ -30,21 +32,26 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={globalThemeMode === 'lightMode' ? lightTheme : darkTheme}>
-      <>
+      <MuiThemeProvider theme={globalThemeMode === 'lightMode' ? MuiTheme : MuiThemeDark }>
+
         <GlobalStyles />
+
         <Appbar 
           globalThemeMode={globalThemeMode}
           lightMode={_lightMode}
           darkMode={_darkMode}
         />
+
         <BrowserRouter>
           <Route exact path="/" component={Home} />
           <Route path="/bill" component={Bill} />
           <Route path="/add" component={Add}/>
           <Route path="/company" />
         </BrowserRouter>
+
         <Footer />
-      </>
+
+      </MuiThemeProvider>
     </ThemeProvider>
   )
 }

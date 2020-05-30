@@ -4,6 +4,9 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Check from '@material-ui/icons/CheckCircleOutline';
 import NotChecked from '@material-ui/icons/NotInterested';
+import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
 
 export const Title = styled.div`
   margin-top: 8rem;
@@ -112,8 +115,66 @@ export const NotCheckedIcon = styled(NotChecked)`
   font-size: 2rem;
   background-color: '#FF4444';
   margin-left: 0.5rem;
+`;
+
+//Add
+export const AddTitleFirst = BillTitle;
+export const AddTitle = styled(BillTitle)`
+
+`;
+export const AddContent = styled(BoxContent)`
+  margin: 0.5rem 0;
+  width: 100%;
+  justify-content: space-between;
+`
+export const AddContentItem = styled.span`
+  margin-left: 1rem;
+  min-width: 4rem;
+`
+export const StyledAddButton = styled(Button)`
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.button};
+  text-decoration: none;
+  min-width: 6rem;
+  border-radius: 1rem;
+`;
+
+
+export const AddTotal = styled(AddContent)`
+  font-size: 2rem;
+  font-weight: 700;
+  justify-content: flex-end;
+
+  margin-top: 4rem;
+`;
+export const AddTotalPerPerson = styled(AddContent)`
+  font-size: 1.5rem;
+  justify-content: flex-end;
+
+`;
+
+export const StyledAddButtonBig = styled(Button)`
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 700;
+  background: ${({ theme }) => theme.button};
+  color: white;
+  border-radius: 1rem;
+
+  margin-top: 2rem;
+  padding: 2rem 0rem;
+`;
+
+export const AddArrayBox = styled(StyledBox)`
+  background-color: ${({ theme }) => theme.bg};
+  margin-top: 1rem;
 `
 
+export const QuantityButton = styled(IconButton)`
+  padding: 0.5rem;
+`
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;
 $bookGreen : #1ABF80;

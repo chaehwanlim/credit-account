@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import companyFile from '../../../testdata/company';
-import { StyledBox, BoxTitle, BoxSubTitle, StyledDivider, BoxContent, MenuName, Price } from '../styled';
+import { StyledBox, BoxTitle, BoxSubTitle, StyledDivider, BoxContent, MenuName, Price, HomeButton } from '../styled';
 
 const HomeMenu: React.FC = () => {
 
   return (
     <StyledBox>
-      <BoxTitle>
-        메뉴
-      </BoxTitle>
+      <HomeButton onClick={() => location.assign('/company')}>
+        <BoxTitle>
+          메뉴&nbsp;&#xE001;
+        </BoxTitle>
+      </HomeButton>
       <StyledDivider />
       <Grid container spacing={3}>
         <Grid item xs={6}>
@@ -23,7 +25,7 @@ const HomeMenu: React.FC = () => {
                   {item.name}
                 </MenuName>
                 <Price>
-                  {item.price}원
+                  {item.price.toLocaleString()}원
                 </Price>
               </BoxContent>
             ))
@@ -40,7 +42,7 @@ const HomeMenu: React.FC = () => {
                   {item.name}
                 </MenuName>
                 <Price>
-                  {item.price}원
+                  {item.price.toLocaleString()}원
                 </Price>
               </BoxContent>
             ))

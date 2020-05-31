@@ -14,7 +14,7 @@ export const lightTheme = {
   subtext: '#777788',
   divider: '#BBBBBB',
   progress: '0181FF',
-  button: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+  button: 'linear-gradient(45deg, #2176FF 30%, #21CBFF 80%)',
   backdrop: 'brightness(98%)'
 }
 
@@ -25,7 +25,7 @@ export const darkTheme = {
   subtext: "#C0C4C8",
   divider: '#4B4A50',
   progress: '05CDFF',
-  button: 'linear-gradient(45deg, #2196F3 50%, #21CBF3 90%)',
+  button: 'linear-gradient(45deg, #2176FF 30%, #21CBFF 80%)',
   backdrop: 'brightness(120%)'
 }
 

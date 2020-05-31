@@ -3,9 +3,12 @@ import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import HomeTransaction from './HomeTransaction';
+import HomeButtons from './HomeButtons';
 import HomeCompany from './HomeCompany';
 import HomeMenu from './HomeMenu';
-import { Title, Company } from '../styled';
+import { Title, Company, HomeButton } from '../styled';
+import billFile from '../../../testdata/bills';
+import companyFile from '../../../testdata/company';
 
 
 const Home: React.FC = () => {
@@ -24,11 +27,12 @@ const Home: React.FC = () => {
   return (
     <Container maxWidth="md">
       <StylesProvider injectFirst>
+
         <Title>외상장부</Title>
         <Company>{companyName}</Company>
         <Grid container spacing={2} 
           direction="row"
-          justify="center"
+          justify="flex-start"
           alignItems="stretch"
         >
           <Grid item md={6} xs={12}>

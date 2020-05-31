@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import companyFile from '../../../testdata/company';
-import { StyledBox, BoxTitle, StyledDivider, BoxContent, Attribute, Info } from '../styled';
+import { StyledBox, BoxTitle, StyledDivider, BoxContent, Attribute, Info, HomeButton } from '../styled';
 
 const HomeCompany: React.FC = () => {
   const [company, setCompany] = useState({});
 
   return (
     <StyledBox>
-      <BoxTitle>
-        업체 정보
-      </BoxTitle>
+      <HomeButton onClick={() => location.assign('/company')}>
+        <BoxTitle>
+          업체 정보&nbsp;&#xE001;
+        </BoxTitle>
+      </HomeButton>
 
       <StyledDivider />
 

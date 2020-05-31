@@ -9,7 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 
 export const Title = styled.div`
-  margin-top: 8rem;
+  margin-top: 4rem;
   font-size: 5rem;
   font-weight: 700;
 `;
@@ -116,6 +116,12 @@ export const NotCheckedIcon = styled(NotChecked)`
   background-color: '#FF4444';
   margin-left: 0.5rem;
 `;
+export const TotalPerPerson = styled(CreditAmount)`
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 100%;
+  text-align: right;
+`;
 
 //Add
 export const AddTitleFirst = BillTitle;
@@ -143,14 +149,14 @@ export const StyledAddButton = styled(Button)`
 
 
 export const AddTotal = styled(AddContent)`
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   justify-content: flex-end;
 
   margin-top: 4rem;
 `;
 export const AddTotalPerPerson = styled(AddContent)`
-  font-size: 1.5rem;
+  font-size: 2rem;
   justify-content: flex-end;
 
 `;
@@ -175,6 +181,28 @@ export const AddArrayBox = styled(StyledBox)`
 export const QuantityButton = styled(IconButton)`
   padding: 0.5rem;
 `
+
+//Company
+export const CompanyTitle = BillTitle;
+export const CompanyContent = AddContent;
+export const CompanyArrayBox = AddArrayBox;
+
+//Home
+export const HomeButton = styled(StyledAddButtonBig)`
+  background: ${({ theme }) => theme.elementBg};
+  color: ${({ theme }) => theme.text};
+  margin: 0;
+  padding: 0;
+  text-align: left;
+`;
+
+export const BillButton = styled(StyledAddButtonBig)`
+  background: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.subtext};
+  padding: 1rem 0rem;
+  margin: 0;
+`
+
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;
 $bookGreen : #1ABF80;

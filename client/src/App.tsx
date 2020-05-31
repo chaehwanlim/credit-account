@@ -9,6 +9,7 @@ import Appbar from './components/Appbar/Appbar';
 import Home from './components/Home/Home';
 import Bill from './components/Bill/Bill';
 import Add from './components/Add/Add';
+import Company from './components/Company/Company';
 import Footer from './components/Footer';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { MuiTheme, MuiThemeDark } from './MuiStyles';
@@ -45,8 +46,8 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Route exact path="/" component={Home} />
           <Route path="/bill" component={Bill} />
-          <Route path="/add" component={Add}/>
-          <Route path="/company" />
+          <Route path="/add" component={Add} />
+          <Route path="/company" component={Company} />
         </BrowserRouter>
 
         <Footer />

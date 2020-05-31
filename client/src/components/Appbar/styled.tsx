@@ -15,11 +15,8 @@ export const StyledButton = styled(Button)`
   letter-spacing: -1px;
   color: ${({ theme }) => theme.text};
   text-decoration: none;
-`;
-
-export const StyledLink = styled.a`
-  color: ${({ theme }) => theme.text};
-  text-decoration: none;
+  min-width: 0;
+  margin-left: 1rem;
 `;
 
 export const StyledTitle = styled(Typography)`

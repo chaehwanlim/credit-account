@@ -11,6 +11,7 @@ export default
     "service": [
       { "name": "산낙지" },
     ],
+    "memo": "",
     "total": 88000,
     "isPaid": 1
   },
@@ -25,6 +26,7 @@ export default
     "service": [
       { "name": "과일" }
     ],
+    "memo": "",
     "total": 93000,
     "isPaid": 1
   },
@@ -39,6 +41,7 @@ export default
     "service": [
       { "name": "연어(소)" }
     ],
+    "memo": "",
     "total": 83000,
     "isPaid": 1
   },
@@ -54,6 +57,7 @@ export default
     "service": [
       { "name": "과일" }
     ],
+    "memo": "",
     "total": 72500,
     "isPaid": 0
   },
@@ -69,6 +73,7 @@ export default
     "service": [
       { "name": "과일" }
     ],
+    "memo": "",
     "total": 86000,
     "isPaid": 1
   },
@@ -83,6 +88,7 @@ export default
     "service": [
       { "name": "산낙지" }
     ],
+    "memo": "",
     "total": 63000,
     "isPaid": 0
   },
@@ -98,6 +104,7 @@ export default
     "service": [
       { "name": "닭발" }
     ],
+    "memo": "",
     "total": 52500,
     "isPaid": 1
   },
@@ -112,6 +119,7 @@ export default
     "service": [
       { "name": "건오징어" }
     ],
+    "memo": "",
     "total": 58000,
     "isPaid": 1
   },
@@ -127,6 +135,7 @@ export default
       { "name": "해삼" },
       { "name": "과일" }
     ],
+    "memo": "",
     "total": 66000,
     "isPaid": 0
   }

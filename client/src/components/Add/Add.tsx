@@ -18,24 +18,34 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/ClearRounded';
 
 
+interface Form {
+  date: string;
+  people: number;
+  representative: string;
+  order: { name: string, quantity: number }[];
+  service: { name: string }[];
+  memo: string;
+  total: number;
+  isPaid: number;
+}
+
 const Add: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [menuArray, setMenuArray] = useState<object[]>([]);
-  const [billForm, setBillForm] = useState({
+  const [billForm, setBillForm] = useState<Form>({
     date: "",
     people: 1,
     representative: "",
     order: [],
     service: [],
+    memo: "",
     total: 0,
     isPaid: 0
   });
-  const [selectedOrder, setSelectedOrder] = useState("메뉴를 선택해주세요.");
-  const [orderArray, setOrderArray] = useState([]);
-  const [serviceInput, setServiceInput] = useState("");
-  const [serviceArray, setServiceArray] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [totalPerPerson, setTotalPerPerson] = useState(0);
+  const [selectedOrder, setSelectedOrder] = useState<string>("메뉴를 선택해주세요.");
+  const [serviceInput, setServiceInput] = useState<string>("");
+  const [total, setTotal] = useState<number>(0);
+  const [totalPerPerson, setTotalPerPerson] = useState<number>(0);
 
   useEffect(() => {
     document.title = "외상장부 - 추가";
@@ -43,14 +53,24 @@ const Add: React.FC = () => {
     dateToString();
 
     calculateTotal();
-  }, []);
+  }, [selectedDate, billForm.people, billForm.representative]);
 
   const dateToString = () => {
     let dateStr = ""
 
     dateStr = dateStr.concat(selectedDate.getFullYear().toString());
-    dateStr = dateStr.concat(selectedDate.getMonth().toString());
-    dateStr = dateStr.concat(selectedDate.getDate().toString())
+    
+    if (selectedDate.getMonth() + 1 < 10) {
+      dateStr = dateStr.concat("0" + (selectedDate.getMonth() + 1).toString());
+    } else {
+      dateStr = dateStr.concat((selectedDate.getMonth() + 1).toString());
+    }
+
+    if (selectedDate.getDate() < 10) {
+      dateStr = dateStr.concat("0" + selectedDate.getDate().toString());
+    } else {
+      dateStr = dateStr.concat(selectedDate.getDate().toString());
+    }
 
     setBillForm({
       ...billForm,
@@ -64,15 +84,18 @@ const Add: React.FC = () => {
     dateToString();
   }
 
+  const handleRep = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBillForm({
+      ...billForm,
+      representative: e.target.value as string
+    });
+  }
+
   const handlePeople = (e: React.ChangeEvent<{ value: number }>) => {
     setBillForm({
       ...billForm,
       people: e.target.value
     });
-
-    calculateTotal();
-
-    console.log(billForm.people);
   };
 
   const PeopleSelection: React.FC = () => {
@@ -116,7 +139,7 @@ const Add: React.FC = () => {
       </ListSubheader>
       {
         companyFile.menuDisplay.drink.map((item, index) => (
-        <MenuItem value={item.name} key={index}>{item.name} · {item.price}원</MenuItem>
+        <MenuItem value={item.name} key={index}>{item.name} · {item.price.toLocaleString()}원</MenuItem>
         ))
       }
       <ListSubheader>
@@ -124,7 +147,7 @@ const Add: React.FC = () => {
       </ListSubheader>
       {
         companyFile.menuDisplay.food.map((item, index) => (
-        <MenuItem value={item.name} key={index}>{item.name} · {item.price}원</MenuItem>
+        <MenuItem value={item.name} key={index}>{item.name} · {item.price.toLocaleString()}원</MenuItem>
         ))
       }
     </Select>
@@ -157,7 +180,7 @@ const Add: React.FC = () => {
   }
 
   const handleServiceValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setServiceInput(e.target.value);
+    setServiceInput(e.target.value as string);
 
   const handleServiceAdd = () => {
     let serviceExists: boolean = false;
@@ -178,10 +201,17 @@ const Add: React.FC = () => {
     }
   }
 
+  const handleMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBillForm({
+      ...billForm,
+      memo: e.target.value as string
+    })
+  }
+
   const calculateTotal = () => {
     let total = 0;
 
-    billForm.order.map((item) => (total = total + item.quantity * companyFile.price[item.name]))
+    billForm.order.map((item) => (total = total + item.quantity * companyFile.price[item.name]));
 
     setTotal(total);
 
@@ -189,6 +219,7 @@ const Add: React.FC = () => {
   }
 
   const handleSubmit = () => {
+
     console.log(billForm);
   }
 
@@ -293,7 +324,12 @@ const Add: React.FC = () => {
                 인원
               </AddTitle>
               <AddContent>
-                <Input fullWidth/>
+                <Input 
+                  value={billForm.representative}
+                  onChange={handleRep}
+                  placeholder="모임의 대표자를 입력해주세요."
+                  fullWidth
+                />
                 <AddContentItem>
                   포함
                 </AddContentItem>
@@ -374,14 +410,28 @@ const Add: React.FC = () => {
                 </AddArrayBox>
               : null}
             </Grid>
+
+            <Grid item xs={12}>
+              <AddTitle>
+                메모
+              </AddTitle>
+              <AddContent>
+                <Input 
+                  value={billForm.memo}
+                  onChange={handleMemo}
+                  placeholder="메모를 입력하세요."
+                  fullWidth
+                />
+              </AddContent>
+            </Grid>
             
           </Grid>
 
           <AddTotal>
-            합계 {total}원
+            합계 {total.toLocaleString()}원
           </AddTotal>
           <AddTotalPerPerson>
-            1명 당 {totalPerPerson}원
+            1인 {totalPerPerson.toLocaleString()}원
           </AddTotalPerPerson>
 
           <StyledAddButtonBig onClick={handleSubmit}>

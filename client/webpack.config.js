@@ -90,7 +90,7 @@ module.exports = {
     open: true,
 
     proxy: {
-      '/api/':  {
+      '/api':  {
         target: 'http://localhost:5000',
         changeOrigin: true
       }

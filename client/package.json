@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "client": "webpack-dev-server src/index.tsx --output dist/bundle.js --mode development --open --hot"
+    "client": "webpack-dev-server src/index.tsx --output dist/bundle.js --mode development --open --hot",
+    "client_build": "webpack --mode production --optimize-minimize"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",

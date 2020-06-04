@@ -1,6 +1,7 @@
 export default
 [
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200421",
     "people": 3,
     "representative": "abc",
@@ -9,13 +10,14 @@ export default
       { "name": "맥주", "quantity": 14 }
     ],
     "service": [
-      { "name": "산낙지" },
+      { "name": "산낙지" }
     ],
     "memo": "",
     "total": 88000,
     "isPaid": 1
   },
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200422",
     "people": 3,
     "representative": "edf",
@@ -31,6 +33,7 @@ export default
     "isPaid": 1
   },
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200424",
     "people": 2,
     "representative": "asjd",
@@ -46,6 +49,7 @@ export default
     "isPaid": 1
   },
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200425",
     "people": 3,
     "representative": "qwre",
@@ -62,6 +66,7 @@ export default
     "isPaid": 0
   },
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200427",
     "people": 2,
     "representative": "qwuio",
@@ -78,6 +83,7 @@ export default
     "isPaid": 1
   },
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200428",
     "people": 3,
     "representative": "할아버지",
@@ -93,6 +99,7 @@ export default
     "isPaid": 0
   },
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200430",
     "people": 5,
     "representative": "둘째삼촌",
@@ -109,6 +116,7 @@ export default
     "isPaid": 1
   },
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200501",
     "people": 3,
     "representative": "ㅁㄴㅇㄹ",
@@ -124,6 +132,7 @@ export default
     "isPaid": 1
   },
   {
+    "companyID": "5ed7c560f959c162942a38a6",
     "date": "20200502",
     "people": 4,
     "representative": "ㅋㅌㅊㅍ",

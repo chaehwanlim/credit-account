@@ -16,10 +16,14 @@ const Home: React.FC = () => {
   const [companyName, setCompanyName] = useState<string>('화끈불끈');
 
   useEffect(() => {
-    const company = sessionStorage.getItem('company');
+    const company = sessionStorage.getItem('name');
 
     if (company) {
       //privateHome 반환
+      setCompanyName(company);
+      setIsLogined(true);
+    } else {
+      location.assign('/login');
     }
 
   }, []);

@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Check from '@material-ui/icons/CheckCircleOutline';
 import NotChecked from '@material-ui/icons/NotInterested';
 import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
+import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 
 export const Title = styled.div`
@@ -201,7 +201,47 @@ export const BillButton = styled(StyledAddButtonBig)`
   color: ${({ theme }) => theme.subtext};
   padding: 1rem 0rem;
   margin: 0;
+`;
+
+//Login
+export const LoginBox = styled(StyledBox)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
+
+export const LoginBoxTitle = styled(BoxTitle)`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+export const LoginInput = styled(InputBase)`
+  background: ${({ theme }) => theme.bg};
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  font-weight: 500;
+`;
+
+export const LoginForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 30rem;
+`;
+
+export const LoginButton = styled(StyledAddButtonBig)`
+  margin: 1rem 0rem 4rem 0rem;
+  padding: 1.5rem;
+`
+
+export const RegisterButton = styled(StyledAddButtonBig)`
+  background: ${({ theme }) => theme.subButton};
+  margin: 1rem 0rem 4rem 0rem;
+  padding: 1.5rem;
+`;
 
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;

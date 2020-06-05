@@ -15,6 +15,7 @@ export const lightTheme = {
   divider: '#BBBBBB',
   progress: '0181FF',
   button: 'linear-gradient(45deg, #2176FF 30%, #21CBFF 80%)',
+  subButton: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
   backdrop: 'brightness(98%)'
 }
 
@@ -26,6 +27,7 @@ export const darkTheme = {
   divider: '#4B4A50',
   progress: '05CDFF',
   button: 'linear-gradient(45deg, #2176FF 30%, #21CBFF 80%)',
+  subButton: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
   backdrop: 'brightness(120%)'
 }
 
@@ -46,6 +48,6 @@ export const GlobalStyles = createGlobalStyle<{ theme: globalThemeType }>`
   }
 
   a, div, input, p, span {
-    -webkit-text-stroke: 0.2px;
+    -webkit-text-stroke: 0.45px;
   }
 `

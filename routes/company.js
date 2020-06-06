@@ -30,6 +30,8 @@ const companySchema = new Schema({
   phone: { type: String },
   price: { type: Object },
   menuDisplay: { type: Object }
+}, {
+  versionKey: false
 });
 
 const Company = mongoose.model('Company', companySchema);

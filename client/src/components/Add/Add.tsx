@@ -10,28 +10,16 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import companyFile from '../../../testdata/company';
-import billFile from '../../../testdata/bills';
 import AddIcon from '@material-ui/icons/AddRounded';
 import RemoveIcon from '@material-ui/icons/RemoveRounded';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/ClearRounded';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Axios from 'axios';
 
-
-interface Form {
-  date: string;
-  people: number;
-  representative: string;
-  order: { name: string, quantity: number }[];
-  service: { name: string }[];
-  memo: string;
-  total: number;
-  isPaid: number;
-}
 
 const Add: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [menuArray, setMenuArray] = useState<object[]>([]);
   const [billForm, setBillForm] = useState<Form>({
     date: "",
     people: 1,
@@ -39,16 +27,21 @@ const Add: React.FC = () => {
     order: [],
     service: [],
     memo: "",
-    total: 0,
-    isPaid: 0
+    total: 0
   });
   const [selectedOrder, setSelectedOrder] = useState<string>("메뉴를 선택해주세요.");
   const [serviceInput, setServiceInput] = useState<string>("");
-  const [total, setTotal] = useState<number>(0);
-  const [totalPerPerson, setTotalPerPerson] = useState<number>(0);
+  const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
 
   useEffect(() => {
     document.title = "외상장부 - 추가";
+
+    Axios({
+      method: 'get',
+      url: `/api/company/${sessionStorage.getItem('companyID')}`
+    })
+    .then(res => setCompanyInfo(res.data[0]))
+    .catch(err => console.log(err));
 
     dateToString();
 
@@ -121,7 +114,7 @@ const Add: React.FC = () => {
     )
   }
 
-  const handleOrder = (e: React.ChangeEvent<{ value: string}>) => setSelectedOrder(e.target.value);
+  const handleOrder = (e: React.ChangeEvent<{ value: string }>) => setSelectedOrder(e.target.value);
 
   const OrderSelection: React.FC = () => (
     <Select 
@@ -138,7 +131,7 @@ const Add: React.FC = () => {
         주류
       </ListSubheader>
       {
-        companyFile.menuDisplay.drink.map((item, index) => (
+        companyInfo.menuDisplay.drink.map((item, index) => (
         <MenuItem value={item.name} key={index}>{item.name} · {item.price.toLocaleString()}원</MenuItem>
         ))
       }
@@ -146,7 +139,7 @@ const Add: React.FC = () => {
         음식
       </ListSubheader>
       {
-        companyFile.menuDisplay.food.map((item, index) => (
+        companyInfo.menuDisplay.food.map((item, index) => (
         <MenuItem value={item.name} key={index}>{item.name} · {item.price.toLocaleString()}원</MenuItem>
         ))
       }
@@ -211,16 +204,12 @@ const Add: React.FC = () => {
   const calculateTotal = () => {
     let total = 0;
 
-    billForm.order.map((item) => (total = total + item.quantity * companyFile.price[item.name]));
+    billForm.order.map((item) => (total = total + item.quantity * companyInfo.price[item.name]));
 
-    setTotal(total);
-
-    setTotalPerPerson(total / billForm.people);
-  }
-
-  const handleSubmit = () => {
-
-    console.log(billForm);
+    setBillForm({
+      ...billForm,
+      total: total
+    });
   }
 
   const handleQuantityAdd = (idx: number) => {
@@ -275,6 +264,31 @@ const Add: React.FC = () => {
       ...billForm,
       service: newServices
     })
+  }
+
+  const submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
+    Axios({
+      method: 'post',
+      url: '/api/bills',
+      data: {
+        ...billForm,
+        companyID: sessionStorage.getItem('companyID'),
+        isPaid: 0,
+        isDeleted: 0
+      }
+    })
+    .then(res => {
+      if (res.data.success === 1) {
+        alert('계산서를 추가했습니다!')
+      } else if (res.data.fail === 1) {
+        alert('계산서 추가에 오류가 발생했습니다. 다시 시도해주세요.');
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
+  if(!companyInfo) {
+    return <LinearProgress />
   }
 
   return (
@@ -428,13 +442,13 @@ const Add: React.FC = () => {
           </Grid>
 
           <AddTotal>
-            합계 {total.toLocaleString()}원
+            합계 {billForm.total.toLocaleString()}원
           </AddTotal>
           <AddTotalPerPerson>
-            1인 {totalPerPerson.toLocaleString()}원
+            1인 {(billForm.total / billForm.people).toLocaleString()}원
           </AddTotalPerPerson>
 
-          <StyledAddButtonBig onClick={handleSubmit}>
+          <StyledAddButtonBig onClick={submitForm}>
             추가하기
           </StyledAddButtonBig>
 

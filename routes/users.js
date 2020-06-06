@@ -34,7 +34,14 @@ const User = mongoose.model('User', userSchema);
 
 //로그인
 router.post('/', (req, res) => {
-  User.find({ id: req.body.id, password: req.body.password }, { 'name': 1, 'companyID': 1, '_id': 0 }, (err, user) => {
+  User.find({ 
+    id: req.body.id, 
+    password: req.body.password 
+  }, { 
+    'name': 1, 
+    'companyID': 1, 
+    '_id': 0 
+  }, (err, user) => {
     if (err)
       console.log(err);
     else {

@@ -29,38 +29,17 @@ const Login: React.FC = () => {
     location: ""
   });
 
-  const handleLoginFormID = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLoginForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
       ...loginForm,
-      id: e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
-  const handleLoginFormPWD = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginForm({
-      ...loginForm,
-      password: e.target.value
-    });
-  }
-
-  const handleRegisterFormID = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRegisterForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterForm({
       ...registerForm,
-      id: e.target.value
-    });
-  }
-
-  const handleRegisterFormPWD = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRegisterForm({
-      ...registerForm,
-      password: e.target.value
-    });
-  }
-
-  const handleRegisterFormName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRegisterForm({
-      ...registerForm,
-      name: e.target.name
+      [e.target.name]: e.target.value
     });
   }
 
@@ -78,7 +57,7 @@ const Login: React.FC = () => {
     .then(res => {
       sessionStorage.setItem('name', res.data[0].name);
       sessionStorage.setItem('companyID', res.data[0].companyID);
-      location.assign('/home');
+      location.assign('/');
     })
     .catch(err => console.log(err));
   }
@@ -94,7 +73,7 @@ const Login: React.FC = () => {
         <Company></Company>
 
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <LoginBox>
               <LoginBoxTitle>
                 로그인
@@ -105,14 +84,14 @@ const Login: React.FC = () => {
                   placeholder="아이디"
                   name="id"
                   value={loginForm.id}
-                  onChange={handleLoginFormID}
+                  onChange={handleLoginForm}
                 />
                 <LoginInput 
                   placeholder="패스워드"
                   type="password"
                   name="password"
                   value={loginForm.password}
-                  onChange={handleLoginFormPWD}
+                  onChange={handleLoginForm}
                 />
                 <LoginButton onClick={handleLoginSubmit}>
                   로그인
@@ -122,7 +101,7 @@ const Login: React.FC = () => {
               
             </LoginBox>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <LoginBox>
               <LoginBoxTitle>
                 회원가입
@@ -133,20 +112,20 @@ const Login: React.FC = () => {
                   placeholder="아이디"
                   name="id"
                   value={registerForm.id}
-                  onChange={handleRegisterFormID}
+                  onChange={handleRegisterForm}
                 />
                 <LoginInput 
                   placeholder="패스워드"
                   type="password"
                   name="password"
                   value={registerForm.password}
-                  onChange={handleRegisterFormPWD}
+                  onChange={handleRegisterForm}
                 />
                 <LoginInput 
                   placeholder="업체명"
                   name="name"
                   value={registerForm.name}
-                  onChange={handleRegisterFormName}
+                  onChange={handleRegisterForm}
                 />
                 <RegisterButton onClick={handleRegisterSubmit}>
                   회원가입

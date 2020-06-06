@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import companyFile from '../../../testdata/company';
 import { StyledBox, BoxTitle, BoxSubTitle, StyledDivider, BoxContent, MenuName, Price, HomeButton } from '../styled';
 
-const HomeMenu: React.FC = () => {
+const HomeMenu: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) => {
 
   return (
     <StyledBox>
@@ -19,7 +18,7 @@ const HomeMenu: React.FC = () => {
             주류
           </BoxSubTitle>
           {
-            companyFile.menuDisplay.drink.map((item, index) => (
+            companyInfo.menuDisplay.drink.map((item, index) => (
               <BoxContent key={index}>
                 <MenuName>
                   {item.name}
@@ -36,7 +35,7 @@ const HomeMenu: React.FC = () => {
             음식
           </BoxSubTitle>
           {
-            companyFile.menuDisplay.food.map((item, index) => (
+            companyInfo.menuDisplay.food.map((item, index) => (
               <BoxContent key={index}>
                 <MenuName>
                   {item.name}

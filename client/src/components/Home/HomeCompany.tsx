@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import companyFile from '../../../testdata/company';
 import { StyledBox, BoxTitle, StyledDivider, BoxContent, Attribute, Info, HomeButton } from '../styled';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Axios from 'axios';
 
-const HomeCompany: React.FC = () => {
-  const [company, setCompany] = useState({});
+const HomeCompany: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) => {
+  useEffect(() => {
+
+  }, []);
+
+  if (!companyInfo){
+    return <LinearProgress />
+  }
 
   return (
     <StyledBox>
@@ -20,7 +27,7 @@ const HomeCompany: React.FC = () => {
           업체명
         </Attribute>
         <Info>
-          {companyFile.company}
+          {companyInfo.name}
         </Info>
       </BoxContent>
       
@@ -29,7 +36,7 @@ const HomeCompany: React.FC = () => {
           주소
         </Attribute>
         <Info>
-          {companyFile.location}
+          {companyInfo.location}
         </Info>
       </BoxContent>
       
@@ -38,7 +45,7 @@ const HomeCompany: React.FC = () => {
           전화번호
         </Attribute>
         <Info>
-          {companyFile.phone}
+          {companyInfo.phone}
         </Info>
       </BoxContent>
     </StyledBox>

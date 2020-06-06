@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Title, Company, StyledBox, BoxTitle, CompanyTitle, CompanyContent, CompanyArrayBox, MenuName, Price } from '../styled';
 import Container from '@material-ui/core/Container';
 import { StylesProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import companyFile from '../../../testdata/company';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Axios from 'axios';
 
 const _Company: React.FC = () => {
+  const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
+  
+  useEffect(() => {
+    document.title = "외상장부 - 내 기업"
+
+    Axios({
+      method: 'get',
+      url: `/api/company/${sessionStorage.getItem('companyID')}`
+    })
+    .then(res => setCompanyInfo(res.data[0]))
+    .catch(err => console.log(err));
+  }, [])
+
+  if (!companyInfo) {
+    return <LinearProgress />
+  }
 
   return (
     <Container maxWidth="md">
@@ -26,7 +43,7 @@ const _Company: React.FC = () => {
                 업체명
               </CompanyTitle>
               <CompanyContent>
-                {companyFile.company}
+                {companyInfo.name}
               </CompanyContent>
             </Grid>
 
@@ -35,7 +52,7 @@ const _Company: React.FC = () => {
                 주소
               </CompanyTitle>
               <CompanyContent>
-                {companyFile.location}
+                {companyInfo.location}
               </CompanyContent>
             </Grid>
 
@@ -44,7 +61,7 @@ const _Company: React.FC = () => {
                 전화번호
               </CompanyTitle>
               <CompanyContent>
-                {companyFile.phone}
+                {companyInfo.phone}
               </CompanyContent>
             </Grid>
 
@@ -60,7 +77,7 @@ const _Company: React.FC = () => {
                       주류
                     </CompanyTitle>
                     {
-                      companyFile.menuDisplay.drink.map((item, index) => (
+                      companyInfo.menuDisplay.drink.map((item, index) => (
                         <CompanyContent>
                           <MenuName>
                             {item.name}
@@ -77,7 +94,7 @@ const _Company: React.FC = () => {
                       음식
                     </CompanyTitle>
                     {
-                      companyFile.menuDisplay.food.map((item, index) => (
+                      companyInfo.menuDisplay.food.map((item, index) => (
                         <CompanyContent>
                           <MenuName>
                             {item.name}

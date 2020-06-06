@@ -34,14 +34,17 @@ const billSchema = new Schema({
   service: Array,
   memo: String,
   total: Number,
-  isPaid: Number
+  isPaid: Number,
+  isDeleted: Number
+}, {
+  versionKey: false
 });
 
 const Bill = mongoose.model('Bill', billSchema);
 
 //특정 기업의 모든 bill 가져오기
 router.get('/company/:id', (req, res) => {
-  Bill.find({ companyID: req.params.id }, (err, bills) => {
+  Bill.find({ companyID: req.params.id, isDeleted: 0 }, {}, { sort: { date: 1 }}, (err, bills) => {
     if (err)
       console.log(err);
     else {
@@ -62,10 +65,13 @@ router.post('/', (req, res) => {
   bill.memo = req.body.memo;
   bill.total = parseInt(req.body.total);
   bill.isPaid = parseInt(req.body.isPaid);
+  bill.isDeleted = parseInt(req.body.isDeleted);
 
   bill.save((err) => {
-    if (err)
-      console.log(err)
+    if (err) {
+      console.log(err);
+      res.json({ fail: 1 });
+    }
     else {
       res.json({ success: 1 });
     }
@@ -75,8 +81,10 @@ router.post('/', (req, res) => {
 //계산서 수정하기
 router.put('/:id', (req, res) => {
   Bill.update({ _id: req.params.id }, { $set: req.body }, (err, output) => {
-    if (err)
-      console.log(err)
+    if (err) {
+      console.log(err);
+      res.json({ fail: 1 });
+    }
     else {
       res.json({ success: 1 });
     }
@@ -85,9 +93,11 @@ router.put('/:id', (req, res) => {
 
 //계산서 삭제하기
 router.delete('/:id', (req, res) => {
-  Bill.remove({ _id: req.params.id }, (err, output) => {
-    if (err)
-      console.log(err)
+  Bill.update({ _id: req.params.id }, { $set: req.body }, (err, output) => {
+    if (err) {
+      console.log(err);
+      res.json({ fail: 1 });
+    }
     else {
       res.json({ success: 1 });
     }

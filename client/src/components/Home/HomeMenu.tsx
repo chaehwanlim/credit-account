@@ -13,7 +13,7 @@ const HomeMenu: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) => {
       </HomeButton>
       <StyledDivider />
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <BoxSubTitle>
             주류
           </BoxSubTitle>
@@ -30,7 +30,7 @@ const HomeMenu: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) => {
             ))
           }
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <BoxSubTitle>
             음식
           </BoxSubTitle>

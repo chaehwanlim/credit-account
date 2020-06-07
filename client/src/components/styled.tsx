@@ -7,6 +7,8 @@ import NotChecked from '@material-ui/icons/NotInterested';
 import Button from '@material-ui/core/Button';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
+import EditRounded from '@material-ui/icons/EditRounded';
+import SaveRounded from '@material-ui/icons/SaveRounded';
 
 export const Title = styled.div`
   margin-top: 4rem;
@@ -187,6 +189,19 @@ export const CompanyTitle = BillTitle;
 export const CompanyContent = AddContent;
 export const CompanyArrayBox = AddArrayBox;
 
+export const CompanyButton = styled(StyledAddButtonBig)`
+  background: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text};
+`
+
+export const EditIcon = styled(EditRounded)`
+  margin-right: 1rem;
+`;
+export const SaveIcon = styled(SaveRounded)`
+  margin-right: 1rem;
+`;
+
+
 //Home
 export const HomeButton = styled(StyledAddButtonBig)`
   background: ${({ theme }) => theme.elementBg};
@@ -221,7 +236,7 @@ export const LoginInput = styled(InputBase)`
   margin-top: 1rem;
   padding: 1rem 1.5rem;
   border-radius: 1rem;
-  font-weight: 500;
+  font-weight: 400;
 `;
 
 export const LoginForm = styled.div`
@@ -242,6 +257,15 @@ export const RegisterButton = styled(StyledAddButtonBig)`
   margin: 1rem 0rem 4rem 0rem;
   padding: 1.5rem;
 `;
+
+
+//
+export const CompanyInput = styled(LoginInput)`
+  font-weight: 300;
+  width: 100%;
+  max-width: 50rem;
+`;
+
 
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;

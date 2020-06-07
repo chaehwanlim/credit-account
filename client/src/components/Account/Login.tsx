@@ -46,6 +46,15 @@ const Login: React.FC = () => {
   const handleLoginSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    if (loginForm.id === '') {
+      alert('아이디를 입력해주세요');
+      return;
+    }
+    if (loginForm.password === '') {
+      alert('패스워드를 6자 이상 입력해주세요');
+      return;
+    }
+
     Axios({
       method: 'post',
       url: '/api/users',
@@ -64,6 +73,19 @@ const Login: React.FC = () => {
 
   const handleRegisterSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (registerForm.id === '') {
+      alert('아이디를 입력해주세요');
+      return;
+    }
+    if (registerForm.password.length < 6) {
+      alert('패스워드를 6자 이상 입력해주세요');
+      return;
+    }
+    if (registerForm.name === '') {
+      alert('업체명을 입력해주세요');
+      return;
+    }
   }
 
   return (

@@ -80,7 +80,7 @@ router.post('/', (req, res) => {
 
 //계산서 수정하기
 router.put('/:id', (req, res) => {
-  Bill.update({ _id: req.params.id }, { $set: req.body }, (err, output) => {
+  Bill.updateOne({ _id: req.params.id }, { $set: req.body }, (err, output) => {
     if (err) {
       console.log(err);
       res.json({ fail: 1 });
@@ -93,7 +93,7 @@ router.put('/:id', (req, res) => {
 
 //계산서 삭제하기
 router.delete('/:id', (req, res) => {
-  Bill.update({ _id: req.params.id }, { $set: req.body }, (err, output) => {
+  Bill.updateOne({ _id: req.params.id }, { $set: req.body }, (err, output) => {
     if (err) {
       console.log(err);
       res.json({ fail: 1 });

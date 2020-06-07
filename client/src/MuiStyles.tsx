@@ -37,8 +37,8 @@ export const MuiTheme = createMuiTheme({
     },
     MuiSvgIcon: {
       root: {
-        width: '2rem',
-        height: '2rem'
+        width: '2.5rem',
+        height: '2.5rem'
       }
     },
     MuiMenuItem: {
@@ -57,6 +57,12 @@ export const MuiTheme = createMuiTheme({
       root: {
         fontSize: '1.5rem',
         fontWeight: 500
+      }
+    },
+    MuiBackdrop: {
+      root: {
+        backdropFilter: 'blur(8px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)'
       }
     }
   }
@@ -103,8 +109,8 @@ export const MuiThemeDark = createMuiTheme({
     },
     MuiSvgIcon: {
       root: {
-        width: '2rem',
-        height: '2rem'
+        width: '2.5rem',
+        height: '2.5rem'
       }
     },
     MuiMenuItem: {
@@ -126,8 +132,11 @@ export const MuiThemeDark = createMuiTheme({
         fontWeight: 500
       }
     },
-    MuiButton: {
-      
+    MuiBackdrop: {
+      root: {
+        backdropFilter: 'blur(8px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)'
+      }
     }
   }
 });

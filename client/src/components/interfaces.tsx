@@ -45,8 +45,8 @@ interface Form {
   date: string;
   people: number;
   representative: string;
-  order: { name: string, quantity: number }[];
-  service: { name: string }[];
+  order: Order[];
+  service: Service[];
   memo: string;
   total: number;
 }

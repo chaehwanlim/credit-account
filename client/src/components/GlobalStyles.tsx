@@ -48,6 +48,6 @@ export const GlobalStyles = createGlobalStyle<{ theme: globalThemeType }>`
   }
 
   a, div, input, p, span {
-    -webkit-text-stroke: 0.45px;
+    -webkit-text-stroke: 0.3px;
   }
 `

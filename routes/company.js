@@ -39,8 +39,10 @@ const Company = mongoose.model('Company', companySchema);
 //특정 기업의 정보 가져오기
 router.get('/:id', (req, res) => {
   Company.find({ _id: req.params.id }, (err, info) => {
-    if (err)
+    if (err) {
       console.log(err);
+      res.json({ fail: 1 });
+    }
     else {
       res.json(info);
     }
@@ -57,8 +59,10 @@ router.post('/', (req, res) => {
   company.menuDisplay = req.body.menuDisplay;
 
   company.save((err) => {
-    if (err)
+    if (err) {
       console.log(err);
+      res.json({ fail: 1 });
+    }
     else {
       res.json({ success: 1 });
     }
@@ -67,9 +71,11 @@ router.post('/', (req, res) => {
 
 //기업정보 수정
 router.put('/:id', (req, res) => {
-  Bill.update({ _id: req.params.id }, { $set: req.body }, (err, output) => {
-    if (err)
+  Company.updateOne({ _id: req.params.id }, { $set: req.body }, (err, output) => {
+    if (err) {
       console.log(err);
+      res.json({ fail: 1 });
+    }
     else {
       res.json({ success: 1 });
     }

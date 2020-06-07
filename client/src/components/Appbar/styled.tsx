@@ -7,6 +7,12 @@ export const StyledAppBar = styled(AppBar)`
   background-color: ${({ theme }) => theme.bg};
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 599px) {
+    & {
+      display: none;
+    }
+  }
 `;
 
 export const StyledButton = styled(Button)`
@@ -26,3 +32,13 @@ export const StyledTitle = styled(Typography)`
   flex-grow: 1;
   position: flex;
 `;
+
+export const StyledAppBarMini = styled(AppBar)`
+  background-color: ${({ theme }) => theme.bg};
+
+  @media screen and (min-width: 600px) {
+    & {
+      display: none;
+    }
+  }
+`

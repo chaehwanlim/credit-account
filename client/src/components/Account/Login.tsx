@@ -64,9 +64,14 @@ const Login: React.FC = () => {
       }
     })
     .then(res => {
-      sessionStorage.setItem('name', res.data[0].name);
-      sessionStorage.setItem('companyID', res.data[0].companyID);
-      location.assign('/');
+      if (res.data.code === 200) {
+        sessionStorage.setItem('name', res.data.user.name);
+        sessionStorage.setItem('companyID', res.data.user.companyID);
+        alert(res.data.alert);
+        location.assign('/');
+      } else {
+        alert(res.data.alert);
+      }
     })
     .catch(err => console.log(err));
   }
@@ -75,17 +80,37 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     if (registerForm.id === '') {
-      alert('아이디를 입력해주세요');
+      alert('아이디를 입력해주세요.');
       return;
     }
     if (registerForm.password.length < 6) {
-      alert('패스워드를 6자 이상 입력해주세요');
+      alert('패스워드를 6자 이상 입력해주세요.');
       return;
     }
     if (registerForm.name === '') {
-      alert('업체명을 입력해주세요');
+      alert('업체명을 입력해주세요.');
       return;
     }
+
+    Axios({
+      method: 'post',
+      url: '/api/users/register',
+      data: {
+        id: registerForm.id,
+        password: registerForm.password,
+        name: registerForm.name
+      }
+    })
+    .then(res => {
+      if (res.data.code === 200) {
+        sessionStorage.setItem('name', res.data.user.name);
+        sessionStorage.setItem('companyID', res.data.user.companyID);
+        alert(res.data.alert);
+        location.assign('/');
+      } else {
+        alert(res.data.alert);
+      }
+    })
   }
 
   return (

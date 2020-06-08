@@ -85,9 +85,10 @@ const HomeTransaction: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) =
       <StyledDivider />
 
       {bills.length !== 0 ? <DisplayBills /> : <DisplayNothing />}
+      {bills.length !== 0 ? 
       <Remain>
         외 {remain}건의 매출채권
-      </Remain>
+      </Remain> : null}
     </StyledBox>
   )
 

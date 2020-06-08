@@ -23,24 +23,7 @@ mongoose.connect(dbKey.mongoDB.string, { useNewUrlParser: true, useUnifiedTopolo
   .catch((err) => console.log(err));
 
 //document 구조를 정의하는 스키마 설정
-const Schema = mongoose.Schema;
-
-const billSchema = new Schema({
-  companyID: String,
-  date: String,
-  people: Number,
-  representative: String,
-  order: Array,
-  service: Array,
-  memo: String,
-  total: Number,
-  isPaid: Number,
-  isDeleted: Number
-}, {
-  versionKey: false
-});
-
-const Bill = mongoose.model('Bill', billSchema);
+const Bill = require('../models/bill');
 
 //특정 기업의 모든 bill 가져오기
 router.get('/company/:id', (req, res) => {

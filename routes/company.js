@@ -22,19 +22,7 @@ mongoose.connect(dbKey.mongoDB.string, { useNewUrlParser: true, useUnifiedTopolo
   .catch((err) => console.log(err));
 
 //document 구조를 정의하는 스키마 설정
-const Schema = mongoose.Schema;
-
-const companySchema = new Schema({
-  name: { type: String },
-  location: { type: String },
-  phone: { type: String },
-  price: { type: Object },
-  menuDisplay: { type: Object }
-}, {
-  versionKey: false
-});
-
-const Company = mongoose.model('Company', companySchema);
+const Company = require('../models/company');
 
 //특정 기업의 정보 가져오기
 router.get('/:id', (req, res) => {

@@ -9,6 +9,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import EditRounded from '@material-ui/icons/EditRounded';
 import SaveRounded from '@material-ui/icons/SaveRounded';
+import Snackbar from '@material-ui/core/Snackbar';
 
 export const Title = styled.div`
   margin-top: 4rem;
@@ -60,7 +61,7 @@ export const StyledDivider = styled(Divider)`
 export const BoxContent = styled.div`
   margin: 1rem 0rem 0rem 0rem;
   font-size: 1.8rem;
-  font-weight: 300;
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -186,13 +187,17 @@ export const QuantityButton = styled(IconButton)`
 
 //Company
 export const CompanyTitle = BillTitle;
+export const CompanySubtitle = styled(BoxContent)`
+  font-size: 2rem;
+  color: ${({ theme }) => theme.subtext};
+`
 export const CompanyContent = AddContent;
 export const CompanyArrayBox = AddArrayBox;
 
 export const CompanyButton = styled(StyledAddButtonBig)`
   background: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text};
-`
+`;
 
 export const EditIcon = styled(EditRounded)`
   margin-right: 1rem;
@@ -200,6 +205,24 @@ export const EditIcon = styled(EditRounded)`
 export const SaveIcon = styled(SaveRounded)`
   margin-right: 1rem;
 `;
+export const SearchButton = styled(IconButton)`
+  padding: 0.5rem;
+`;
+
+export const SearchResult = styled(Button)`
+  display: block;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+export const SearchResultCompany = styled(BillSubTitle)`
+  color: ${({ theme }) => theme.subtext};
+`;
+export const SearchResultLocation = styled(BoxContent)`
+  margin: 0;
+  font-weight: 400;
+`;
+export const AddButton = SearchButton;
+export const RemoveButton = SearchButton;
 
 
 //Home
@@ -239,7 +262,7 @@ export const LoginInput = styled(InputBase)`
   font-weight: 400;
 `;
 
-export const LoginForm = styled.div`
+export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -263,7 +286,16 @@ export const RegisterButton = styled(StyledAddButtonBig)`
 export const CompanyInput = styled(LoginInput)`
   font-weight: 300;
   width: 100%;
-  max-width: 50rem;
+`;
+
+export const CompanyMenuInput = styled(InputBase)`
+  border-bottom: 1rem ${({ theme }) => theme.text};
+`;
+
+export const BillSnackbar = styled(Snackbar)`
+  background: ${({ theme }) => theme.bg}
+  color: ${({ theme }) => theme.text}
+  font-size: 1.4rem;
 `;
 
 

@@ -43,7 +43,7 @@ const Login: React.FC = () => {
     });
   }
 
-  const handleLoginSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (loginForm.id === '') {
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
     .catch(err => console.log(err));
   }
 
-  const handleRegisterSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleRegisterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (registerForm.id === '') {
@@ -126,7 +126,8 @@ const Login: React.FC = () => {
                 로그인
               </LoginBoxTitle>
 
-              <LoginForm>
+
+              <LoginForm noValidate onSubmit={handleLoginSubmit}>
                 <LoginInput 
                   placeholder="아이디"
                   name="id"
@@ -140,7 +141,7 @@ const Login: React.FC = () => {
                   value={loginForm.password}
                   onChange={handleLoginForm}
                 />
-                <LoginButton onClick={handleLoginSubmit}>
+                <LoginButton type="submit">
                   로그인
                 </LoginButton>
 
@@ -154,7 +155,7 @@ const Login: React.FC = () => {
                 회원가입
               </LoginBoxTitle>
 
-              <LoginForm>
+              <LoginForm noValidate onSubmit={handleRegisterSubmit}>
                 <LoginInput 
                   placeholder="아이디"
                   name="id"
@@ -174,7 +175,7 @@ const Login: React.FC = () => {
                   value={registerForm.name}
                   onChange={handleRegisterForm}
                 />
-                <RegisterButton onClick={handleRegisterSubmit}>
+                <RegisterButton type="submit">
                   회원가입
                 </RegisterButton>
 

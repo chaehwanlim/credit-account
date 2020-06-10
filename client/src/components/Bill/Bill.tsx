@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { Title, Company, StyledBox, BoxTitle, BoxTotal, StyledDivider, BoxContent, BillTitle, BillSubTitle, PeopleRemained, BillAttribute, Debtor, MenuName, Quantity, IsPaid, Total, BillDate, BillButton, TotalPerPerson } from '../styled';
+import { Title, Company, StyledBox, BoxTitle, BoxTotal, StyledDivider, BoxContent, BillTitle, BillSubTitle, PeopleRemained, BillAttribute, Debtor, MenuName, Quantity, IsPaid, Total, BillDate, BillButton, TotalPerPerson, BillSnackbar } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import Axios from 'axios';
 
 
@@ -11,6 +12,11 @@ const Bill: React.FC = () => {
   const [totalUnpaid, setTotalUnpaid] = useState<number>(0);
   const [bills, setBills] = useState<Bill[]>([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
+  const [copiedBill, setCopiedBill] = useState<{ representative: String, date: string }>({
+    representative: '',
+    date: ''
+  });
+  const [alertOpen, setAlertOpen] = useState<boolean>(false);
   
   useEffect(() => {
     document.title = "외상장부 - 계산서";
@@ -40,11 +46,7 @@ const Bill: React.FC = () => {
 
     bills.map((bill, index) => {
       if(bill.isPaid === 0) {
-        let total = 0;
-
-        bill.order.map((item) => total = total + companyInfo.price[item.name] * item.quantity);
-
-        overallTotal = overallTotal + total;
+        overallTotal = overallTotal + bill.total;
       }
     });
 
@@ -139,16 +141,21 @@ const Bill: React.FC = () => {
               <StyledDivider />
 
               <Grid container spacing={1}>
-                <Grid item xs={4}>
+                <Grid item xs={3} md={6}>
                   <BillButton onClick={() => handlePaid(bill._id, bill.isPaid)}>
                     {bill.isPaid ? "취소" : "완료"}
                   </BillButton>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3} md={6}>
                   <BillButton onClick={handleEdit}>수정</BillButton>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3} md={6}>
                   <BillButton onClick={() => handleDelete(bill._id)}>삭제</BillButton>
+                </Grid>
+                <Grid item xs={3} md={6}>
+                  <CopyToClipboard text={message(index, stringfyDate())}>
+                    <BillButton onClick={() => handleCopy(bill.representative, stringfyDate())}>복사</BillButton>
+                  </CopyToClipboard>
                 </Grid>
               </Grid>
               
@@ -207,6 +214,22 @@ const Bill: React.FC = () => {
     .catch(err => console.log(err));
   }
 
+  const handleCopy = (representative: string, date: string) => {
+    setCopiedBill({
+      representative: representative,
+      date: date
+    })
+    setAlertOpen(true);
+  }
+
+  const message = (index: number, date: string) => {
+    const b = bills[index];
+  
+    return (
+      `안녕하세요. ${companyInfo.name}을 방문해주셔서 감사합니다. \n${date} 발생한 외상거래의 상세내역입니다. \n\n[인원] ${b.people}명 \n[주문] ${b.order.map((item) => (item.name + "(" + item.quantity + ")"))} \n[서비스] ${b.service.map((item) => (item.name))} \n[총합] ${b.total.toLocaleString()}원 (1인 ${(b.total/b.people).toLocaleString()}원) \n\n[주소] ${companyInfo.location} \n[문의] ${companyInfo.phone}`
+    )
+  }
+
   if (!companyInfo || bills.length === 0 ) {
     return <LinearProgress />
   }
@@ -237,6 +260,11 @@ const Bill: React.FC = () => {
           {bills.length !== 0 ? RenderBills() : <RenderNoBills />}
 
         </Grid>
+
+        <BillSnackbar 
+          open={alertOpen} 
+          message={`계산서 복사됨 - ${copiedBill.representative}님 ${copiedBill.date}`} 
+        />
 
       </StylesProvider>
     </Container>

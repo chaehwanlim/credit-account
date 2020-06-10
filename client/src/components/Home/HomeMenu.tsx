@@ -15,7 +15,7 @@ const HomeMenu: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <BoxSubTitle>
-            주류
+            음료
           </BoxSubTitle>
           {
             companyInfo.menuDisplay.drink.map((item, index) => (

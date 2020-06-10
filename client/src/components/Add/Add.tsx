@@ -123,7 +123,7 @@ const Add: React.FC = () => {
         메뉴를 선택해주세요.
       </MenuItem>
       <ListSubheader>
-        주류
+        음료
       </ListSubheader>
       {
         companyInfo.menuDisplay.drink.map((item, index) => (

@@ -64,6 +64,19 @@ export const MuiTheme = createMuiTheme({
         backdropFilter: 'blur(8px)',
         backgroundColor: 'rgba(0, 0, 0, 0.2)'
       }
+    },
+    MuiDrawer: {
+      paperAnchorTop: {
+        borderBottomLeftRadius: '2rem',
+        borderBottomRightRadius: '2rem'
+      }
+    },
+    MuiSnackbarContent: {
+      root: {
+        backgroundColor: '#F2F2F4',
+        color: '#181F29',
+        fontSize: '1.5rem'
+      }
     }
   }
 });
@@ -135,7 +148,20 @@ export const MuiThemeDark = createMuiTheme({
     MuiBackdrop: {
       root: {
         backdropFilter: 'blur(8px)',
-        backgroundColor: 'rgba(0, 0, 0, 0.2)'
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      }
+    },
+    MuiDrawer: {
+      paperAnchorTop: {
+        borderBottomLeftRadius: '2rem',
+        borderBottomRightRadius: '2rem'
+      }
+    },
+    MuiSnackbarContent: {
+      root: {
+        backgroundColor: '#18171C',
+        color: 'white',
+        fontSize: '1.5rem'
       }
     }
   }

@@ -2,21 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { Title, Company, StyledBox, BoxTitle, BoxTotal, StyledDivider, BoxContent, BillTitle, BillSubTitle, PeopleRemained, BillAttribute, Debtor, MenuName, Quantity, IsPaid, Total, BillDate, BillButton, TotalPerPerson, BillSnackbar } from '../styled';
+import { Title, Company, StyledBox, BoxTitle, BoxTotal, BoxContent, BillTitle, BillButton, BillSnackbar, StyledModal, ModalBox } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import BillItem from './BillItem';
 import Axios from 'axios';
 
-
 const Bill: React.FC = () => {
-  const [totalUnpaid, setTotalUnpaid] = useState<number>(0);
   const [bills, setBills] = useState<Bill[]>([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
-  const [copiedBill, setCopiedBill] = useState<{ representative: String, date: string }>({
+  const [copiedBill, setCopiedBill] = useState<{ representative: string, date: string }>({
     representative: '',
     date: ''
   });
+  const [billToDelete, setBillToDelete] = useState<{ id: string, representative: string, date: string }>({
+    id: '',
+    representative: '',
+    date: ''
+  })
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   
   useEffect(() => {
     document.title = "외상장부 - 계산서";
@@ -26,10 +32,11 @@ const Bill: React.FC = () => {
       url: `/api/company/${sessionStorage.getItem('companyID')}`
     })
     .then(res => setCompanyInfo(res.data[0]))
+    .then(() => getBills())
     .catch(err => console.log(err));
 
     getBills();
-  }, [totalUnpaid]);
+  }, []);
 
   const getBills = () => {
     Axios({
@@ -37,7 +44,6 @@ const Bill: React.FC = () => {
       url: `/api/bills/company/${sessionStorage.getItem('companyID')}`
     })
     .then(res => setBills(res.data))
-    .then(() => calculateTotal())
     .catch(err => console.log(err));
   }
 
@@ -50,131 +56,8 @@ const Bill: React.FC = () => {
       }
     });
 
-    setTotalUnpaid(overallTotal);
+    return overallTotal;
   }
-
-  const RenderBills = () => {
-    return (
-      bills.map((bill, index) => {
-        const stringfyDate = () => (
-          `${bill.date.substring(0, 4)}년 ${bill.date.substring(4, 6)}월 ${bill.date.substring(6, 8)}일`
-        )
-
-        return (
-          <Grid item md={4} sm={6} xs={12}>
-            <StyledBox key={index}>
-              <BillTitle>
-                <Debtor>{bill.representative}님</Debtor>
-              </BillTitle>
-
-              <BillSubTitle>
-                <PeopleRemained>포함 {bill.people}명</PeopleRemained>
-                <BillDate>{stringfyDate()}</BillDate>
-              </BillSubTitle>
-
-              <StyledDivider />
-
-              <BoxContent>
-                <BillAttribute>
-                  주문
-                </BillAttribute>
-              </BoxContent>
-
-              {
-                bill.order.map((item) => (
-                  <BoxContent>
-                    <MenuName>
-                      {item.name}
-                    </MenuName>
-                    <Quantity>
-                      {item.quantity}
-                    </Quantity>
-                  </BoxContent>
-                ))
-              }
-
-              <BoxContent>
-                <BillAttribute>
-                  서비스
-                </BillAttribute>
-              </BoxContent>
-
-              {
-                bill.service.map((item) => (
-                  <BoxContent>
-                    <MenuName>
-                      {item.name}
-                    </MenuName>
-                  </BoxContent>
-                ))
-              }
-              {bill.memo ? 
-                <div>
-                <BoxContent>
-                  <BillAttribute>
-                    메모
-                  </BillAttribute>
-                </BoxContent>
-                <BoxContent>
-                  {bill.memo}
-                </BoxContent>
-                </div>
-              : null}
-              
-              <StyledDivider />
-
-              <BoxContent>
-                <IsPaid isPaid={bill.isPaid}>
-                  {bill.isPaid ? "계산됨" : "계산되지 않음"}
-                </IsPaid>
-                <Total>
-                  {bill.total.toLocaleString()}원
-                </Total>
-              </BoxContent>
-
-              <BillSubTitle>
-                <TotalPerPerson>
-                  1인 {(bill.total / bill.people).toLocaleString()}원
-                </TotalPerPerson>
-              </BillSubTitle>
-              
-              <StyledDivider />
-
-              <Grid container spacing={1}>
-                <Grid item xs={3} md={6}>
-                  <BillButton onClick={() => handlePaid(bill._id, bill.isPaid)}>
-                    {bill.isPaid ? "취소" : "완료"}
-                  </BillButton>
-                </Grid>
-                <Grid item xs={3} md={6}>
-                  <BillButton onClick={handleEdit}>수정</BillButton>
-                </Grid>
-                <Grid item xs={3} md={6}>
-                  <BillButton onClick={() => handleDelete(bill._id)}>삭제</BillButton>
-                </Grid>
-                <Grid item xs={3} md={6}>
-                  <CopyToClipboard text={message(index, stringfyDate())}>
-                    <BillButton onClick={() => handleCopy(bill.representative, stringfyDate())}>복사</BillButton>
-                  </CopyToClipboard>
-                </Grid>
-              </Grid>
-              
-            </StyledBox>
-          </Grid>
-        )
-      })
-    )
-  }
-
-  const RenderNoBills: React.FC = () => (
-    <Grid item xs={12}>
-      <StyledBox>
-        <BoxTitle>
-          외상 거래가 없습니다.
-        </BoxTitle>
-      </StyledBox>
-    </Grid>
-  )
 
   const handlePaid = (id: string, isPaid: number) => {
     Axios({
@@ -197,7 +80,17 @@ const Bill: React.FC = () => {
     
   }
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: string, representative: string, date: string) => {
+    setBillToDelete({
+      id: id,
+      representative: representative,
+      date: date
+    });
+
+    setModalOpen(true);
+  }
+
+  const executeDeletion = (id: string) => {
     Axios({
       method: 'delete',
       url: `/api/bills/${id}`,
@@ -211,6 +104,7 @@ const Bill: React.FC = () => {
       else if (res.data.fail === 1)
         alert('다시 시도해주세요.');
     })
+    .then(() => setModalOpen(false))
     .catch(err => console.log(err));
   }
 
@@ -222,12 +116,31 @@ const Bill: React.FC = () => {
     setAlertOpen(true);
   }
 
-  const message = (index: number, date: string) => {
-    const b = bills[index];
-  
-    return (
-      `안녕하세요. ${companyInfo.name}을 방문해주셔서 감사합니다. \n${date} 발생한 외상거래의 상세내역입니다. \n\n[인원] ${b.people}명 \n[주문] ${b.order.map((item) => (item.name + "(" + item.quantity + ")"))} \n[서비스] ${b.service.map((item) => (item.name))} \n[총합] ${b.total.toLocaleString()}원 (1인 ${(b.total/b.people).toLocaleString()}원) \n\n[주소] ${companyInfo.location} \n[문의] ${companyInfo.phone}`
-    )
+  const RenderBills = () => (
+    bills.map((bill, index) => (
+      <BillItem key={index}
+        companyInfo={companyInfo}
+        bill={bill}
+        handlePaid={handlePaid}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        handleCopy={handleCopy}
+      />
+    ))
+  )
+
+  const RenderNoBills: React.FC = () => (
+    <Grid item xs={12}>
+      <StyledBox>
+        <BoxTitle>
+          외상 거래가 없습니다.
+        </BoxTitle>
+      </StyledBox>
+    </Grid>
+  )
+
+  const handleModalClose = () => {
+    setModalOpen(false);
   }
 
   if (!companyInfo || bills.length === 0 ) {
@@ -251,7 +164,7 @@ const Bill: React.FC = () => {
               <BoxTitle>
                 미수금
                 <BoxTotal>
-                  {totalUnpaid.toLocaleString()}원
+                  {calculateTotal().toLocaleString()}원
                 </BoxTotal>
               </BoxTitle>
             </StyledBox>
@@ -263,8 +176,42 @@ const Bill: React.FC = () => {
 
         <BillSnackbar 
           open={alertOpen} 
-          message={`계산서 복사됨 - ${copiedBill.representative}님 ${copiedBill.date}`} 
+          message={`계산서 복사됨 · ${copiedBill.representative}님 (${copiedBill.date})`} 
         />
+
+        <StyledModal
+          open={modalOpen}
+          onClose={handleModalClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500
+          }}
+        >
+          <Fade in={modalOpen}>
+            <ModalBox>
+              <BillTitle>
+                계산서 · {billToDelete.representative}님 ({billToDelete.date})
+              </BillTitle>
+              <BoxContent style={{marginBottom: '2rem'}}>
+                정말로 삭제하시겠습니까?
+              </BoxContent>
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <BillButton onClick={() => setModalOpen(false)}>
+                    취소
+                  </BillButton>
+                </Grid>
+                <Grid item xs={6}>
+                  <BillButton style={{color: '#FF4444'}} onClick={() => executeDeletion(billToDelete.id)}>
+                    삭제
+                  </BillButton>
+                </Grid>
+              </Grid>
+              
+            </ModalBox>
+          </Fade>
+        </StyledModal>
 
       </StylesProvider>
     </Container>

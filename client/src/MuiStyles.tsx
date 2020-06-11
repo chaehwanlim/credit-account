@@ -77,6 +77,11 @@ export const MuiTheme = createMuiTheme({
         color: '#181F29',
         fontSize: '1.5rem'
       }
+    },
+    MuiPopover: {
+      paper: {
+        borderRadius: '1rem'
+      }
     }
   }
 });
@@ -162,6 +167,11 @@ export const MuiThemeDark = createMuiTheme({
         backgroundColor: '#18171C',
         color: 'white',
         fontSize: '1.5rem'
+      }
+    },
+    MuiPopover: {
+      paper: {
+        borderRadius: '1rem'
       }
     }
   }

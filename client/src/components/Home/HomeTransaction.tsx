@@ -22,11 +22,7 @@ const HomeTransaction: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) =
 
     bills.map((bill, index) => {
       if(bill.isPaid === 0) {
-        let total = 0;
-
-        bill.order.map((item) => total = total + companyInfo.price[item.name] * item.quantity);
-
-        overallTotal = overallTotal + total;
+        overallTotal = overallTotal + bill.total;
       }
     });
 

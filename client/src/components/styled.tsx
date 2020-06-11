@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditRounded from '@material-ui/icons/EditRounded';
 import SaveRounded from '@material-ui/icons/SaveRounded';
 import Snackbar from '@material-ui/core/Snackbar';
+import Modal from '@material-ui/core/Modal';
 
 export const Title = styled.div`
   margin-top: 4rem;
@@ -216,10 +217,12 @@ export const SearchResult = styled(Button)`
 `;
 export const SearchResultCompany = styled(BillSubTitle)`
   color: ${({ theme }) => theme.subtext};
+  text-align: left;
 `;
 export const SearchResultLocation = styled(BoxContent)`
   margin: 0;
   font-weight: 400;
+  text-align: left;
 `;
 export const AddButton = SearchButton;
 export const RemoveButton = SearchButton;
@@ -293,11 +296,22 @@ export const CompanyMenuInput = styled(InputBase)`
 `;
 
 export const BillSnackbar = styled(Snackbar)`
-  background: ${({ theme }) => theme.bg}
-  color: ${({ theme }) => theme.text}
+  background: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text};
   font-size: 1.4rem;
 `;
 
+export const StyledModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalBox = styled(StyledBox)`
+  position: 50%;
+  max-width: 40rem;
+  outline: 0;
+`
 
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;

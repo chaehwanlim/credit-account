@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const billSchema = new Schema({
   companyID: String,
-  date: Date,
+  date: { type: Date, default: Date.now },
   people: Number,
   representative: String,
   order: Array,

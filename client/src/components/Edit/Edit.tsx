@@ -39,7 +39,6 @@ interface EditProps {
 }
 
 const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ editMode, billID, billFormToEdit }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [billForm, setBillForm] = useState<Form>(billFormToEdit);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
 
@@ -60,11 +59,6 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
     .catch(err => console.log(err));
 
   }, []);
-
-  const handleDate = (date: Date | null) => {
-    setSelectedDate(date);
-    console.log(date.toUTCString())
-  }
 
   const calculateTotal = () => {
     let total = 0;
@@ -96,7 +90,6 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
       url: '/api/bills',
       data: {
         ...billForm,
-        date: dateToString(selectedDate),
         companyID: sessionStorage.getItem('companyID'),
         isPaid: 0,
         isDeleted: 0
@@ -119,7 +112,6 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
       url: `/api/bills/${billID}`,
       data: {
         ...billForm,
-        date: dateToString(selectedDate),
         companyID: sessionStorage.getItem('companyID'),
         isPaid: 0,
         isDeleted: 0
@@ -161,8 +153,8 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
           >
 
             <EditDate 
-              selectedDate={selectedDate}
-              handleDate={handleDate}
+              billForm={billForm}
+              setBillForm={setBillForm}
             />
             
             <EditPeople

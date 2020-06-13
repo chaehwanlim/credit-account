@@ -53,7 +53,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const bill = new Bill();
   bill.companyID = req.body.companyID;
-  bill.date.push(req.body.date);
+  bill.date = req.body.date;
   bill.people = parseInt(req.body.people);
   bill.representative = req.body.representative;
   bill.order = req.body.order;

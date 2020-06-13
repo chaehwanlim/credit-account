@@ -6,11 +6,20 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import { AddTitleFirst, AddContent } from '../styled';
 
 interface EditDateProps {
-  selectedDate: Date | null;
-  handleDate: (date: Date) => void;
+  billForm: Form;
+  setBillForm: (value: React.SetStateAction<Form>) => void;
 }
 
-const EditDate: React.FC<EditDateProps> = ({ selectedDate, handleDate }) => {
+const EditDate: React.FC<EditDateProps> = ({ billForm, setBillForm }) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(billForm.date);
+
+  const handleDate = (date: Date | null) => {
+    setSelectedDate(date);
+    setBillForm({
+      ...billForm,
+      date: date
+    });
+  }
 
   return (
     <Grid item xs={12} sm={6}>

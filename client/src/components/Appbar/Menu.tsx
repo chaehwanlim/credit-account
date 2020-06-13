@@ -19,7 +19,7 @@ const Menu: React.FC = () => {
     },
     {
       name: "추가",
-      link: "/add"
+      link: "/bill/new"
     },
     {
       name: "내 기업",

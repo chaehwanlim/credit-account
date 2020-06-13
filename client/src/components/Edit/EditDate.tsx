@@ -7,15 +7,15 @@ import { AddTitleFirst, AddContent } from '../styled';
 
 interface EditDateProps {
   selectedDate: Date | null;
-  handleDate: (date: Date | null) => void;
+  handleDate: (date: Date) => void;
 }
 
-const EditDate: React.SFC<EditDateProps> = ({ selectedDate, handleDate }) => {
+const EditDate: React.FC<EditDateProps> = ({ selectedDate, handleDate }) => {
 
   return (
     <Grid item xs={12} sm={6}>
       <AddTitleFirst>
-        날짜 선택
+        거래 발생일
       </AddTitleFirst>
       <AddContent>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>

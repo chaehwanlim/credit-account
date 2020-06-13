@@ -7,16 +7,11 @@ import ClearIcon from '@material-ui/icons/ClearRounded';
 import { AddTitle, AddContent, AddContentItem, AddArrayBox, MenuName, Quantity, QuantityButton } from '../styled';
 
 interface EditServiceProps {
-  menuDisplay: { 
-    drink: { name: string, price: number }[], 
-    food: { name: string, price: number }[] 
-  };
   billForm: Form;
-  calculateTotal: () => void;
   setBillForm: (value: React.SetStateAction<Form>) => void;
 }
 
-const EditService: React.SFC<EditServiceProps> = ({ menuDisplay, billForm, calculateTotal, setBillForm }) => {
+const EditService: React.FC<EditServiceProps> = ({ billForm,setBillForm }) => {
   const [serviceInput, setServiceInput] = useState<string>("");
 
   const handleServiceValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>

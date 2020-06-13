@@ -12,7 +12,7 @@ interface CompanyMenuProps {
   setCompanyEditForm: (value: React.SetStateAction<Company>) => void;
 }
 
-const CompanyMenu: React.SFC<CompanyMenuProps> = ({ editEnabled, companyInfo, companyEditForm, handleEditForm, setCompanyEditForm }) => {
+const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, companyEditForm, handleEditForm, setCompanyEditForm }) => {
   const [drinkInput, setDrinkInput] = useState<string>('');
   const [foodInput, setFoodInput] = useState<string>('');
 

@@ -10,9 +10,12 @@ interface EditPeopleProps {
   setBillForm: (value: React.SetStateAction<Form>) => void;
 }
 
-const EditPeople: React.SFC<EditPeopleProps> = ({ billForm, setBillForm }) => {
+const EditPeople: React.FC<EditPeopleProps> = ({ billForm, setBillForm }) => {
+  const [people, setPeople] = useState<number>(billForm.people);
+  const [representative, setRepresentative] = useState<string>(billForm.representative);
 
   const handlePeople = (e: React.ChangeEvent<{ value: number }>) => {
+    setPeople(e.target.value);
     setBillForm({
       ...billForm,
       people: e.target.value
@@ -20,6 +23,7 @@ const EditPeople: React.SFC<EditPeopleProps> = ({ billForm, setBillForm }) => {
   };
 
   const handleRep = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRepresentative(e.target.value as string);
     setBillForm({
       ...billForm,
       representative: e.target.value as string
@@ -37,7 +41,7 @@ const EditPeople: React.SFC<EditPeopleProps> = ({ billForm, setBillForm }) => {
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value={billForm.people}
+        value={people}
         onChange={handlePeople}
         fullWidth
       >
@@ -56,7 +60,7 @@ const EditPeople: React.SFC<EditPeopleProps> = ({ billForm, setBillForm }) => {
       </AddTitle>
       <AddContent>
         <Input 
-          value={billForm.representative}
+          value={representative}
           onChange={handleRep}
           placeholder="모임의 대표자를 입력해주세요."
           fullWidth

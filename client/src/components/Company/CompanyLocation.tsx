@@ -12,7 +12,7 @@ interface CompanyLocationProps {
   setCompanyEditForm: (value: React.SetStateAction<Company>) => void;
 }
 
-const CompanyLocation: React.SFC<CompanyLocationProps> = ({ editEnabled, companyInfo, companyEditForm, handleEditForm, setCompanyEditForm }) => {
+const CompanyLocation: React.FC<CompanyLocationProps> = ({ editEnabled, companyInfo, companyEditForm, handleEditForm, setCompanyEditForm }) => {
   const [keyword, setKeyword] = useState<string>('');
   const [result, setResult] = useState<any[]>([]);
 

@@ -30,7 +30,7 @@ interface Service {
 interface Bill {
   _id: string | null;
   companyID: string;
-  date: string;
+  date: Date;
   people: number;
   representative: string;
   order: Order[];
@@ -42,7 +42,7 @@ interface Bill {
 }
 
 interface Form {
-  date: string;
+  date: Date;
   people: number;
   representative: string;
   order: Order[];

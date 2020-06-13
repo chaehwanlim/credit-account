@@ -36,11 +36,24 @@ router.get('/company/:id', (req, res) => {
   })
 });
 
+//특정 계산서 정보 가져오기
+router.get('/:id', (req, res) => {
+  Bill.findOne({ _id: req.params.id }, (err, bill) => {
+    if (err) {
+      console.log(err);
+      res.send({ fail: 1 });
+    }
+    else {
+      res.json(bill);
+    }
+  })
+})
+
 //계산서 추가하기
 router.post('/', (req, res) => {
   const bill = new Bill();
   bill.companyID = req.body.companyID;
-  bill.date = req.body.date;
+  bill.date.push(req.body.date);
   bill.people = parseInt(req.body.people);
   bill.representative = req.body.representative;
   bill.order = req.body.order;

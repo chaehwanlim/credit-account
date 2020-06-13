@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme, GlobalStyles } from './components/GlobalStyles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +8,10 @@ import { lightMode, darkMode } from './modules/globalTheme';
 import Appbar from './components/Appbar/Appbar';
 import Home from './components/Home/Home';
 import Bill from './components/Bill/Bill';
-import Add from './components/Add/Add';
+import BillRouter from './components/Bill/BillRouter';
+import Edit from './components/Edit/Edit';
+import EditRouter from './components/Edit/EditRouter';
+import Add from './components/Edit/Edit';
 import Company from './components/Company/Company';
 import Login from './components/Account/Login';
 import Footer from './components/Footer';
@@ -46,8 +49,7 @@ const App: React.FC = () => {
 
         <BrowserRouter>
           <Route exact path="/" component={Home} />
-          <Route path="/bill" component={Bill} />
-          <Route path="/add" component={Add} />
+          <Route path="/bill" component={BillRouter} />
           <Route path="/company" component={Company} />
           <Route path="/login" component={Login} />
         </BrowserRouter>

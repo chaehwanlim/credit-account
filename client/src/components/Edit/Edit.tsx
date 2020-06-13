@@ -10,6 +10,7 @@ import EditOrder from './EditOrder';
 import EditService from './EditService';
 import EditPeople from './EditPeople';
 import EditMemo from './EditMemo';
+import { RouteComponentProps } from 'react-router-dom';
 
 const dateToString = (date: Date | null) => {
   let dateStr = ""
@@ -31,21 +32,24 @@ const dateToString = (date: Date | null) => {
   return dateStr;
 }
 
-const Add: React.FC = () => {
+interface EditProps {
+  editMode: boolean;
+  billID: string;
+  billFormToEdit: Form | null;
+}
+
+const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ editMode, billID, billFormToEdit }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [billForm, setBillForm] = useState<Form>({
-    date: dateToString(selectedDate),
-    people: 1,
-    representative: "",
-    order: [],
-    service: [],
-    memo: "",
-    total: 0
-  });
+  const [billForm, setBillForm] = useState<Form>(billFormToEdit);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
 
   useEffect(() => {
     document.title = "외상장부 - 추가";
+
+    if (!sessionStorage.getItem('companyID')) {
+      alert('로그인이 필요합니다.')
+      location.assign('/login');
+    }
 
     Axios({
       method: 'get',
@@ -55,16 +59,21 @@ const Add: React.FC = () => {
     .then(() => calculateTotal())
     .catch(err => console.log(err));
 
-  }, [selectedDate, billForm.people, billForm.representative]);
+  }, []);
 
   const handleDate = (date: Date | null) => {
     setSelectedDate(date);
+    console.log(date.toUTCString())
   }
 
   const calculateTotal = () => {
     let total = 0;
 
-    billForm.order.map((item) => (total = total + item.quantity * companyInfo.price[item.name]));
+    billForm.order.map((item) => {
+      if (item.name === "") return;
+      
+      total = total + item.quantity * companyInfo.price[item.name];
+    });
 
     setBillForm({
       ...billForm,
@@ -104,6 +113,33 @@ const Add: React.FC = () => {
     .catch(err => console.log(err));
   }
 
+  const submitEditBill = (e: React.MouseEvent<HTMLButtonElement>) => {
+    Axios({
+      method: 'put',
+      url: `/api/bills/${billID}`,
+      data: {
+        ...billForm,
+        date: dateToString(selectedDate),
+        companyID: sessionStorage.getItem('companyID'),
+        isPaid: 0,
+        isDeleted: 0
+      }
+    })
+    .then(res => {
+      if (res.data.success === 1) {
+        alert('계산서를 수정했습니다!');
+        location.assign('/bill');
+      } else if (res.data.fail === 1) {
+        alert('계산서 수정에 오류가 발생했습니다. 다시 시도해주세요.');
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
+  const handleEditCancle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    location.assign('/bill');
+  }
+
   if(!companyInfo) {
     return <LinearProgress />
   }
@@ -112,7 +148,7 @@ const Add: React.FC = () => {
     <Container maxWidth="md">
       <StylesProvider injectFirst>
 
-        <Title>추가</Title>
+        <Title>{editMode ? "수정" : "추가"}</Title>
         <Company>{companyInfo.name}</Company>
         
         <StyledBox>
@@ -142,9 +178,7 @@ const Add: React.FC = () => {
             />
 
             <EditService
-              menuDisplay={companyInfo.menuDisplay}
               billForm={billForm}
-              calculateTotal={calculateTotal}
               setBillForm={setBillForm}
             />
 
@@ -162,9 +196,23 @@ const Add: React.FC = () => {
             1인 {(billForm.total / billForm.people).toLocaleString()}원
           </AddTotalPerPerson>
 
-          <StyledAddButtonBig onClick={submitForm}>
+          {editMode ? 
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <StyledAddButtonBig colored={true} onClick={submitEditBill}>
+                수정하기
+              </StyledAddButtonBig>
+            </Grid>
+            <Grid item xs={6}>
+              <StyledAddButtonBig onClick={handleEditCancle}>
+                취소하기
+              </StyledAddButtonBig>
+            </Grid>
+          </Grid>
+          : 
+          <StyledAddButtonBig colored={true} onClick={submitForm}>
             추가하기
-          </StyledAddButtonBig>
+          </StyledAddButtonBig>}
 
         </StyledBox>
       </StylesProvider>
@@ -172,4 +220,18 @@ const Add: React.FC = () => {
   )
 }
 
-export default Add;
+Edit.defaultProps = {
+  editMode: false,
+  billID: '',
+  billFormToEdit: {
+    date: new Date(),
+    people: 1,
+    representative: "",
+    order: [],
+    service: [],
+    memo: "",
+    total: 0
+  }
+}
+
+export default Edit;

@@ -165,12 +165,12 @@ export const AddTotalPerPerson = styled(AddContent)`
 
 `;
 
-export const StyledAddButtonBig = styled(Button)`
+export const StyledAddButtonBig = styled(Button)<{ colored?: boolean }>`
   width: 100%;
   font-size: 2rem;
   font-weight: 700;
-  background: ${({ theme }) => theme.button};
-  color: white;
+  background: ${( props ) => ( props.colored === true ? ({ theme }) => theme.button : ({ theme }) => theme.bg )};
+  color: ${( props ) => ( props.colored === true ? 'white' : ({ theme }) => theme.text )};
   border-radius: 1rem;
 
   margin-top: 2rem;
@@ -311,7 +311,12 @@ export const ModalBox = styled(StyledBox)`
   position: 50%;
   max-width: 40rem;
   outline: 0;
-`
+`;
+
+export const BillSearchBar = styled(LoginInput)`
+  background: ${({ theme }) => theme.elementBg};
+  margin: 0;
+`;
 
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;

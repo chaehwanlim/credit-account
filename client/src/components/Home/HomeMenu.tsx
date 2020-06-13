@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { StyledBox, BoxTitle, BoxSubTitle, StyledDivider, BoxContent, MenuName, Price, HomeButton } from '../styled';
 
-const HomeMenu: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) => {
+const HomeMenu: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
 
   return (
     <StyledBox>

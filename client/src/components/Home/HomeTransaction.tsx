@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyledBox, BoxTitle, BoxTotal, StyledDivider, BoxContent, Debtor, CreditAmount, Remain, HomeButton } from '../styled';
 import Axios from 'axios';
 
-const HomeTransaction: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) => {
+const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
   const [remain, setRemain] = useState(0);
   const [totalUnpaid, setTotalUnpaid] = useState<number>(0);
   const [bills, setBills] = useState<Bill[]>([]);

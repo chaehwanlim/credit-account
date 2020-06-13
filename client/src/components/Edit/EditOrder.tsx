@@ -19,10 +19,15 @@ interface EditOrderProps {
   setBillForm: (value: React.SetStateAction<Form>) => void;
 }
 
-const EditOrder: React.SFC<EditOrderProps> = ({ menuDisplay, billForm, calculateTotal, setBillForm }) => {
+const EditOrder: React.FC<EditOrderProps> = ({ menuDisplay, billForm, calculateTotal, setBillForm }) => {
   const [selectedOrder, setSelectedOrder] = useState<string>("메뉴를 선택해주세요.");
 
-  const handleOrder = (e: React.ChangeEvent<{ value: string }>) => setSelectedOrder(e.target.value);
+  const handleOrder = (e: React.ChangeEvent<{ value: string }>) => {
+    if (e.target.value === null) {
+      return;
+    }
+    setSelectedOrder(e.target.value);
+  }
 
   const OrderSelection: React.FC = () => (
     <Select 
@@ -31,6 +36,7 @@ const EditOrder: React.SFC<EditOrderProps> = ({ menuDisplay, billForm, calculate
       value={selectedOrder}
       onChange={handleOrder}
       fullWidth
+      type="number"
     >
       <MenuItem value="메뉴를 선택해주세요.">
         메뉴를 선택해주세요.
@@ -56,6 +62,9 @@ const EditOrder: React.SFC<EditOrderProps> = ({ menuDisplay, billForm, calculate
 
   const handleOrderAdd = () => {
     let orderExists: boolean = false;
+
+    if(selectedOrder === "")
+      setSelectedOrder('메뉴를 선택해주세요.');
 
     if(selectedOrder === "메뉴를 선택해주세요.")
       return;

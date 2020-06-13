@@ -7,17 +7,36 @@ interface BillItemProps {
   companyInfo: Company;
   bill: Bill;
   handlePaid: (id: string, isPaid: number) => void;
-  handleEdit: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleEdit: (id: string) => void;
   handleDelete: (id: string, representative: string, date: string) => void;
   handleCopy: (representative: string, date: string) => void;
 }
 
-const BillItem: React.SFC<BillItemProps> = ({ companyInfo, bill, handlePaid, handleEdit, handleDelete, handleCopy }) => {
-  const DateStr = `${bill.date.substring(0, 4)}년 ${bill.date.substring(4, 6)}월 ${bill.date.substring(6, 8)}일`;
+const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, handleEdit, handleDelete, handleCopy }) => {
+  const dateToString = (date: Date | null) => {
+    const newDate = new Date(date);
+    let dateStr = ""
+  
+    dateStr = dateStr.concat(newDate.getFullYear().toString() + "년 ");
+    
+    if (newDate.getMonth() + 1 < 10) {
+      dateStr = dateStr.concat("0" + (newDate.getMonth() + 1).toString() + "월 ");
+    } else {
+      dateStr = dateStr.concat((newDate.getMonth() + 1).toString() + "월 ");
+    }
+  
+    if (newDate.getDate() < 10) {
+      dateStr = dateStr.concat("0" + newDate.getDate().toString() + "일");
+    } else {
+      dateStr = dateStr.concat(newDate.getDate().toString() + "일");
+    }
+  
+    return dateStr;
+  }
 
-  const message = (date: string) => {  
+  const message = () => {  
     return (
-      `안녕하세요. ${companyInfo.name}을 방문해주셔서 감사합니다. \n${date} 발생한 외상거래의 상세내역입니다. \n\n[인원] ${bill.people}명 \n[주문] ${bill.order.map((item) => (item.name + "(" + item.quantity + ")"))} \n[서비스] ${bill.service.map((item) => (item.name))} \n[총합] ${bill.total.toLocaleString()}원 (1인 ${(bill.total/bill.people).toLocaleString()}원) \n\n[주소] ${companyInfo.location} \n[문의] ${companyInfo.phone}`
+      `안녕하세요. ${companyInfo.name}을 방문해주셔서 감사합니다. \n${dateToString(bill.date)} 발생한 외상거래의 상세내역입니다. \n\n[인원] ${bill.people}명 \n[주문] ${bill.order.map((item) => (item.name + "(" + item.quantity + ")"))} \n[서비스] ${bill.service.map((item) => (item.name))} \n[총합] ${bill.total.toLocaleString()}원 (1인 ${(bill.total/bill.people).toLocaleString()}원) \n\n[주소] ${companyInfo.location} \n[문의] ${companyInfo.phone}`
     )
   }
 
@@ -30,7 +49,7 @@ const BillItem: React.SFC<BillItemProps> = ({ companyInfo, bill, handlePaid, han
 
         <BillSubTitle>
           <PeopleRemained>포함 {bill.people}명</PeopleRemained>
-          <BillDate>{DateStr}</BillDate>
+          <BillDate>{dateToString(bill.date)}</BillDate>
         </BillSubTitle>
 
         <StyledDivider />
@@ -108,14 +127,14 @@ const BillItem: React.SFC<BillItemProps> = ({ companyInfo, bill, handlePaid, han
             </BillButton>
           </Grid>
           <Grid item xs={3} md={6}>
-            <BillButton onClick={handleEdit}>수정</BillButton>
+            <BillButton onClick={() => handleEdit(bill._id)}>수정</BillButton>
           </Grid>
           <Grid item xs={3} md={6}>
-            <BillButton onClick={() => handleDelete(bill._id, bill.representative, DateStr)}>삭제</BillButton>
+            <BillButton onClick={() => handleDelete(bill._id, bill.representative, dateToString(bill.date))}>삭제</BillButton>
           </Grid>
           <Grid item xs={3} md={6}>
-            <CopyToClipboard text={message(DateStr)}>
-              <BillButton onClick={() => handleCopy(bill.representative, DateStr)}>복사</BillButton>
+            <CopyToClipboard text={message()}>
+              <BillButton onClick={() => handleCopy(bill.representative, dateToString(bill.date))}>복사</BillButton>
             </CopyToClipboard>
           </Grid>
         </Grid>

@@ -3,7 +3,7 @@ import { StyledBox, BoxTitle, StyledDivider, BoxContent, Attribute, Info, HomeBu
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Axios from 'axios';
 
-const HomeCompany: React.SFC<{ companyInfo: Company }> = ({ companyInfo }) => {
+const HomeCompany: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
   useEffect(() => {
 
   }, []);

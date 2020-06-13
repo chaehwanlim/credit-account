@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Route } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { Title, Company, StyledBox, BoxTitle, BoxTotal, BoxContent, BillTitle, BillButton, BillSnackbar, StyledModal, ModalBox } from '../styled';
+import { Title, Company, StyledBox, BoxTitle, BoxTotal, BoxContent, BillTitle, BillButton, BillSnackbar, StyledModal, ModalBox, BillSearchBar } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -23,6 +24,7 @@ const Bill: React.FC = () => {
   })
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>('');
   
   useEffect(() => {
     document.title = "외상장부 - 계산서";
@@ -59,6 +61,10 @@ const Bill: React.FC = () => {
     return overallTotal;
   }
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value as string);
+  }
+
   const handlePaid = (id: string, isPaid: number) => {
     Axios({
       method: 'put',
@@ -76,8 +82,8 @@ const Bill: React.FC = () => {
     .catch(err => console.log(err));
   }
 
-  const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    
+  const handleEdit = (id: string) => {
+    location.assign(`/bill/editor/${id}`);
   }
 
   const handleDelete = (id: string, representative: string, date: string) => {
@@ -116,18 +122,25 @@ const Bill: React.FC = () => {
     setAlertOpen(true);
   }
 
-  const RenderBills = () => (
-    bills.map((bill, index) => (
-      <BillItem key={index}
-        companyInfo={companyInfo}
-        bill={bill}
-        handlePaid={handlePaid}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-        handleCopy={handleCopy}
-      />
-    ))
-  )
+  const RenderBills = () => {
+    const filteredBills = bills.filter((bill: Bill) => (
+      (bill.representative.includes(keyword)) ||
+      (bill.memo.includes(keyword))
+    ));
+
+    return (
+      filteredBills.map((bill, index) => (
+        <BillItem key={index}
+          companyInfo={companyInfo}
+          bill={bill}
+          handlePaid={handlePaid}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          handleCopy={handleCopy}
+        />
+      ))
+    )
+  }
 
   const RenderNoBills: React.FC = () => (
     <Grid item xs={12}>
@@ -168,6 +181,15 @@ const Bill: React.FC = () => {
                 </BoxTotal>
               </BoxTitle>
             </StyledBox>
+          </Grid>
+
+          <Grid item xs={12}>
+            <BillSearchBar 
+              placeholder="대표자나 메모로 검색하세요."
+              value={keyword}
+              onChange={handleSearch}
+              fullWidth
+            />
           </Grid>
         
           {bills.length !== 0 ? RenderBills() : <RenderNoBills />}

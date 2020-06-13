@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
 import { AddTitle, AddContent, AddContentItem } from '../styled';
 
@@ -10,9 +8,11 @@ interface EditMemoProps {
   setBillForm: (value: React.SetStateAction<Form>) => void;
 }
 
-const EditMemo: React.SFC<EditMemoProps> = ({ billForm, setBillForm }) => {
+const EditMemo: React.FC<EditMemoProps> = ({ billForm, setBillForm }) => {
+  const [memo, setMemo] = useState<string>(billForm.memo);
 
   const handleMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMemo(e.target.value as string);
     setBillForm({
       ...billForm,
       memo: e.target.value as string
@@ -26,7 +26,7 @@ const EditMemo: React.SFC<EditMemoProps> = ({ billForm, setBillForm }) => {
       </AddTitle>
       <AddContent>
         <Input 
-          value={billForm.memo}
+          value={memo}
           onChange={handleMemo}
           placeholder="메모를 입력하세요."
           fullWidth

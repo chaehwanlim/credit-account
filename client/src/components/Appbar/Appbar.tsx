@@ -37,7 +37,7 @@ const ElevationScroll = (props: ElevationProps) => {
 
 }
 
-const Appbar: React.SFC<AppbarPropsType> = (props: AppbarPropsType) => {
+const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
   const [scrollPos, setScrollPos] = useState(0);
   const [appbarTitle, setAppbarTitle] = useState('');
   const [menuOpen, setMenuOpen] = useState<boolean>(false);

@@ -6,6 +6,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import Modal from '@material-ui/core/Modal';
+import Fab from '@material-ui/core/Fab';
 
 //Boxes
 const centerItems = css`
@@ -22,6 +23,7 @@ export const StyledBox = styled(Box)`
 
 export const ArrayBox = styled(StyledBox)`
   background-color: ${({ theme }) => theme.bg};
+  margin-top: 1rem;
 `;
 
 export const CenteredBox = styled(StyledBox)`
@@ -214,6 +216,17 @@ export const StyledModal = styled(Modal)`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const StyledFab = styled(Fab)`
+  background: ${({ theme }) => theme.button};
+  color: white;
+  position: fixed;
+  bottom: 2rem;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+
 `;
 
 

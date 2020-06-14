@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { PageTitle, PageSubtitle, StyledBox, BoxTitle, BoxHeader, BoxSubheader, BoxContent, StyledButton, StyledSnackbar, StyledModal, ModalBox, SearchBar } from '../styled';
+import { PageTitle, PageSubtitle, StyledBox, BoxTitle, BoxHeader, BoxSubheader, BoxContent, StyledButton, StyledSnackbar, StyledModal, ModalBox, SearchBar, StyledFab } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import AddIcon from '@material-ui/icons/AddRounded';
 import BillItem from './BillItem';
 import Axios from 'axios';
 
-const Bill: React.FC = () => {
+const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => {
   const [bills, setBills] = useState<Bill[]>([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
   const [copiedBill, setCopiedBill] = useState<{ representative: string, date: string }>({
@@ -31,6 +32,7 @@ const Bill: React.FC = () => {
   
   useEffect(() => {
     document.title = "외상장부 - 계산서";
+    setTitle('계산서');
 
     Axios({
       method: 'get',
@@ -238,6 +240,10 @@ const Bill: React.FC = () => {
             </ModalBox>
           </Fade>
         </StyledModal>
+
+        <StyledFab onClick={() => location.assign('/bill/new')}>
+          <AddIcon />
+        </StyledFab>
 
       </StylesProvider>
     </Container>

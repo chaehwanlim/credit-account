@@ -9,11 +9,17 @@ import { PageTitle, PageSubtitle } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Axios from 'axios';
 
-const Home: React.FC = () => {
+const Home: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => {
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);  
 
   useEffect(() => {
     const company = sessionStorage.getItem('companyID');
+
+    setTitle('홈');
+<<<<<<< HEAD
+    document.title = '외상장부 - 홈';
+=======
+>>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
 
     if (company) {
       Axios({

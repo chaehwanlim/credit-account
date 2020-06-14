@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { Title, Company, StyledBox, AddTotal, StyledAddButtonBig, AddTotalPerPerson } from '../styled';
+import { PageTitle, PageSubtitle, StyledBox, StyledButton, EditHeader, EditSubheader } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Axios from 'axios';
 import EditDate from './EditDate';
@@ -10,27 +10,6 @@ import EditOrder from './EditOrder';
 import EditService from './EditService';
 import EditPeople from './EditPeople';
 import EditMemo from './EditMemo';
-import { RouteComponentProps } from 'react-router-dom';
-
-const dateToString = (date: Date | null) => {
-  let dateStr = ""
-
-  dateStr = dateStr.concat(date.getFullYear().toString());
-  
-  if (date.getMonth() + 1 < 10) {
-    dateStr = dateStr.concat("0" + (date.getMonth() + 1).toString());
-  } else {
-    dateStr = dateStr.concat((date.getMonth() + 1).toString());
-  }
-
-  if (date.getDate() < 10) {
-    dateStr = dateStr.concat("0" + date.getDate().toString());
-  } else {
-    dateStr = dateStr.concat(date.getDate().toString());
-  }
-
-  return dateStr;
-}
 
 interface EditProps {
   editMode: boolean;
@@ -42,11 +21,14 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
   const [billForm, setBillForm] = useState<Form>(billFormToEdit);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
 
+  if (!sessionStorage.getItem('companyID')) {
+    location.assign('/login');
+  }
+
   useEffect(() => {
     document.title = "외상장부 - 추가";
 
     if (!sessionStorage.getItem('companyID')) {
-      alert('로그인이 필요합니다.')
       location.assign('/login');
     }
 
@@ -140,11 +122,10 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
     <Container maxWidth="md">
       <StylesProvider injectFirst>
 
-        <Title>{editMode ? "수정" : "추가"}</Title>
-        <Company>{companyInfo.name}</Company>
+        <PageTitle>{editMode ? "수정" : "추가"}</PageTitle>
+        <PageSubtitle>{companyInfo.name}</PageSubtitle>
         
         <StyledBox>
-
           <Grid container
             direction="row"
             justify="space-between"
@@ -181,30 +162,30 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
             
           </Grid>
 
-          <AddTotal>
+          <EditHeader>
             합계 {billForm.total.toLocaleString()}원
-          </AddTotal>
-          <AddTotalPerPerson>
+          </EditHeader>
+          <EditSubheader>
             1인 {(billForm.total / billForm.people).toLocaleString()}원
-          </AddTotalPerPerson>
+          </EditSubheader>
 
           {editMode ? 
           <Grid container spacing={1}>
             <Grid item xs={6}>
-              <StyledAddButtonBig colored={true} onClick={submitEditBill}>
-                수정하기
-              </StyledAddButtonBig>
+              <StyledButton big onClick={handleEditCancle}>
+                취소하기
+              </StyledButton>
             </Grid>
             <Grid item xs={6}>
-              <StyledAddButtonBig onClick={handleEditCancle}>
-                취소하기
-              </StyledAddButtonBig>
+              <StyledButton big colored={true} onClick={submitEditBill}>
+                수정하기
+              </StyledButton>
             </Grid>
           </Grid>
           : 
-          <StyledAddButtonBig colored={true} onClick={submitForm}>
+          <StyledButton big colored={true} onClick={submitForm}>
             추가하기
-          </StyledAddButtonBig>}
+          </StyledButton>}
 
         </StyledBox>
       </StylesProvider>

@@ -1,52 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { StyledBox, BoxTitle, StyledDivider, BoxContent, Attribute, Info, HomeButton } from '../styled';
+import React, { useEffect } from 'react';
+import { BoxHeader, StyledBox, HeaderButton, BoxContent, GreyContent, StyledDivider, Attribute, Info } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Axios from 'axios';
 
 const HomeCompany: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
-  useEffect(() => {
-
-  }, []);
-
   if (!companyInfo){
     return <LinearProgress />
   }
 
   return (
     <StyledBox>
-      <HomeButton onClick={() => location.assign('/company')}>
-        <BoxTitle>
+      <HeaderButton onClick={() => location.assign('/company')}>
+        <BoxHeader>
           업체 정보&nbsp;&#xE001;
-        </BoxTitle>
-      </HomeButton>
+        </BoxHeader>
+      </HeaderButton>
 
       <StyledDivider />
 
       <BoxContent>
-        <Attribute>
+        <GreyContent>
           업체명
-        </Attribute>
-        <Info>
+        </GreyContent>
           {companyInfo.name}
-        </Info>
       </BoxContent>
       
       <BoxContent>
-        <Attribute>
+        <GreyContent>
           주소
-        </Attribute>
-        <Info>
+        </GreyContent>
           {companyInfo.location}
-        </Info>
       </BoxContent>
       
       <BoxContent>
-        <Attribute>
+        <GreyContent>
           전화번호
-        </Attribute>
-        <Info>
+        </GreyContent>
           {companyInfo.phone}
-        </Info>
       </BoxContent>
     </StyledBox>
   )

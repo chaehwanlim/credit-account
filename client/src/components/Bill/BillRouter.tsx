@@ -9,6 +9,10 @@ interface MatchParams {
 }
 
 const BillRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
+  if (!sessionStorage.getItem('companyID')) {
+    location.assign('/login');
+  }
+
   return (
     <div>
       <Route exact path={`${match.path}`} component={Bill} />

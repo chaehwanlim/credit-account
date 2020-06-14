@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Title, Company, StyledBox, CompanyTitle, CompanySubtitle, CompanyContent, CompanyArrayBox, MenuName, Price, CompanyButton, CompanyInput, CompanyMenuInput, AddButton, RemoveButton } from '../styled';
+import { PageTitle, PageSubtitle, StyledBox, BoxTitle, StyledButton, BoxContent, StyledInput } from '../styled';
 import Container from '@material-ui/core/Container';
 import { StylesProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -13,6 +13,10 @@ const _Company: React.FC = () => {
   const [editEnabled, setEditEnabled] = useState<boolean>(false);
   const [companyEditForm, setCompanyEditForm] = useState<Company | null>(null);
   const [companyEditFormBackup, setCompanyEditFormBackup] = useState<Company | null>(null);
+
+  if (!sessionStorage.getItem('companyID')) {
+    location.assign('/login');
+  }
   
   useEffect(() => {
     document.title = "외상장부 - 내 기업";
@@ -85,11 +89,10 @@ const _Company: React.FC = () => {
   return (
     <Container maxWidth="md">
       <StylesProvider injectFirst>
-        <Title>내 기업</Title>
-        <Company>{companyInfo.name}</Company>
+        <PageTitle>내 기업</PageTitle>
+        <PageSubtitle>{companyInfo.name}</PageSubtitle>
 
         <StyledBox>
-
           <Grid container
             direction="row"
             justify="space-between"
@@ -97,19 +100,20 @@ const _Company: React.FC = () => {
             spacing={5}
           >
             <Grid item xs={12}>
-              <CompanyTitle>
+              <BoxTitle stickTop>
                 업체명
-              </CompanyTitle>
+              </BoxTitle>
               {editEnabled ? 
-              <CompanyInput
-                defaultValue={companyInfo.name}
-                name="name"
-                value={companyEditForm.name}
-                onChange={handleEditForm}
-              /> :
-              <CompanyContent>
-                {companyInfo.name}
-              </CompanyContent>
+                <StyledInput
+                  defaultValue={companyInfo.name}
+                  name="name"
+                  value={companyEditForm.name}
+                  onChange={handleEditForm}
+                  fullWidth
+                /> :
+                <BoxContent>
+                  {companyInfo.name}
+                </BoxContent>
               }
             </Grid>
 
@@ -122,19 +126,20 @@ const _Company: React.FC = () => {
             />
 
             <Grid item xs={12}>
-              <CompanyTitle>
+              <BoxTitle stickTop>
                 전화번호
-              </CompanyTitle>
+              </BoxTitle>
               {editEnabled ? 
-              <CompanyInput
+              <StyledInput
                 defaultValue={companyInfo.phone}
                 name="phone"
                 value={companyEditForm.phone}
                 onChange={handleEditForm}
+                fullWidth
               /> :
-              <CompanyContent>
+              <BoxContent>
                 {companyInfo.phone}
-              </CompanyContent>
+              </BoxContent>
               }
             </Grid>
 
@@ -142,7 +147,6 @@ const _Company: React.FC = () => {
               editEnabled={editEnabled}
               companyInfo={companyInfo}
               companyEditForm={companyEditForm}
-              handleEditForm={handleEditForm}
               setCompanyEditForm={setCompanyEditForm}
             />
             
@@ -150,14 +154,14 @@ const _Company: React.FC = () => {
               <Grid container spacing={1}>
                 {editEnabled ? 
                 <Grid item xs={6}>
-                  <CompanyButton onClick={toggleCancle}>취소하기</CompanyButton>
+                  <StyledButton big onClick={toggleCancle}>취소하기</StyledButton>
                 </Grid> :
                 <Grid item xs={12}>
-                  <CompanyButton onClick={toggleEdit}>수정하기</CompanyButton>
+                  <StyledButton big colored onClick={toggleEdit}>수정하기</StyledButton>
                 </Grid>}
                 {editEnabled ?
                 <Grid item xs={6}>
-                  <CompanyButton onClick={handleSave}>저장하기</CompanyButton>
+                  <StyledButton big colored onClick={handleSave}>저장하기</StyledButton>
                 </Grid> : null}
               </Grid>
             </Grid>

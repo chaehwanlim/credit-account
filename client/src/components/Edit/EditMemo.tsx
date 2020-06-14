@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
-import { AddTitle, AddContent, AddContentItem } from '../styled';
+import { BoxTitle } from '../styled';
 
 interface EditMemoProps {
   billForm: Form;
@@ -21,17 +21,15 @@ const EditMemo: React.FC<EditMemoProps> = ({ billForm, setBillForm }) => {
 
   return (
     <Grid item xs={12}>
-      <AddTitle>
+      <BoxTitle stickTop>
         메모
-      </AddTitle>
-      <AddContent>
-        <Input 
-          value={memo}
-          onChange={handleMemo}
-          placeholder="메모를 입력하세요."
-          fullWidth
-        />
-      </AddContent>
+      </BoxTitle>
+      <Input 
+        value={memo}
+        onChange={handleMemo}
+        placeholder="메모를 입력하세요."
+        fullWidth
+      />
     </Grid>
   )
 }

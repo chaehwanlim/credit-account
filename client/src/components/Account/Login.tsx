@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Title, Company, LoginBox, LoginBoxTitle, LoginInput, LoginButton, RegisterButton, LoginForm } from '../styled';
+import React, { useState } from 'react';
+import { PageTitle, PageSubtitle, CenteredBox, CenteredBoxTitle, StyledInput, LoginButton, LoginForm } from '../styled';
 import Container from '@material-ui/core/Container';
 import { StylesProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -116,72 +116,72 @@ const Login: React.FC = () => {
   return (
     <Container maxWidth="md">
       <StylesProvider injectFirst>
-        <Title>계정</Title>
-        <Company></Company>
+        <PageTitle>계정</PageTitle>
+        <PageSubtitle></PageSubtitle>
 
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <LoginBox>
-              <LoginBoxTitle>
+            <CenteredBox>
+              <CenteredBoxTitle>
                 로그인
-              </LoginBoxTitle>
+              </CenteredBoxTitle>
 
 
               <LoginForm noValidate onSubmit={handleLoginSubmit}>
-                <LoginInput 
+                <StyledInput 
                   placeholder="아이디"
                   name="id"
                   value={loginForm.id}
                   onChange={handleLoginForm}
                 />
-                <LoginInput 
+                <StyledInput 
                   placeholder="패스워드"
                   type="password"
                   name="password"
                   value={loginForm.password}
                   onChange={handleLoginForm}
                 />
-                <LoginButton type="submit">
+                <LoginButton big colored type="submit">
                   로그인
                 </LoginButton>
 
               </LoginForm>
               
-            </LoginBox>
+            </CenteredBox>
           </Grid>
           <Grid item xs={12}>
-            <LoginBox>
-              <LoginBoxTitle>
+            <CenteredBox>
+              <CenteredBoxTitle>
                 회원가입
-              </LoginBoxTitle>
+              </CenteredBoxTitle>
 
               <LoginForm noValidate onSubmit={handleRegisterSubmit}>
-                <LoginInput 
+                <StyledInput 
                   placeholder="아이디"
                   name="id"
                   value={registerForm.id}
                   onChange={handleRegisterForm}
                 />
-                <LoginInput 
+                <StyledInput 
                   placeholder="패스워드"
                   type="password"
                   name="password"
                   value={registerForm.password}
                   onChange={handleRegisterForm}
                 />
-                <LoginInput 
+                <StyledInput 
                   placeholder="업체명"
                   name="name"
                   value={registerForm.name}
                   onChange={handleRegisterForm}
                 />
-                <RegisterButton type="submit">
+                <LoginButton big colored sub type="submit">
                   회원가입
-                </RegisterButton>
+                </LoginButton>
 
               </LoginForm>
 
-            </LoginBox>
+            </CenteredBox>
           </Grid>
         </Grid>
       </StylesProvider>

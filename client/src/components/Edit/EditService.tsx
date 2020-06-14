@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/AddRounded';
 import ClearIcon from '@material-ui/icons/ClearRounded';
-import { AddTitle, AddContent, AddContentItem, AddArrayBox, MenuName, Quantity, QuantityButton } from '../styled';
+import { BoxTitle, BoxContent, ArrayBox, StyledIconButton } from '../styled';
 
 interface EditServiceProps {
   billForm: Form;
@@ -49,37 +48,31 @@ const EditService: React.FC<EditServiceProps> = ({ billForm,setBillForm }) => {
 
   return (
     <Grid item xs={12} sm={6}>
-      <AddTitle>
+      <BoxTitle stickTop>
         서비스
-      </AddTitle>
-      <AddContent>
+      </BoxTitle>
+      <BoxContent stickTop>
         <Input value={serviceInput} 
           onChange={handleServiceValueChange}
           placeholder="제공한 서비스를 입력해주세요."
           fullWidth
         />
-        <AddContentItem>
-          <IconButton onClick={handleServiceAdd}>
-            <AddIcon />
-          </IconButton>
-        </AddContentItem>
-      </AddContent>
+        <StyledIconButton wide onClick={handleServiceAdd}>
+          <AddIcon />
+        </StyledIconButton>
+      </BoxContent>
 
       {billForm.service.length !== 0 ?
-        <AddArrayBox>
-        {
-          billForm.service.map((service, index) => (
-            <AddContent>
-              <MenuName>
-                {service.name}
-              </MenuName>
-              <Quantity>
-                <QuantityButton onClick={() => {handleServiceRemove(index)}}><ClearIcon /></QuantityButton>
-              </Quantity>
-            </AddContent>
-          ))
-        }
-        </AddArrayBox>
+        <ArrayBox>
+        {billForm.service.map((service, index) => (
+          <BoxContent stickTop>
+            {service.name}
+            <StyledIconButton onClick={() => {handleServiceRemove(index)}}>
+              <ClearIcon />
+            </StyledIconButton>
+          </BoxContent>
+        ))}
+        </ArrayBox>
       : null}
     </Grid>
   )

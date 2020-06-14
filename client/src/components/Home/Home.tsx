@@ -5,22 +5,17 @@ import Grid from '@material-ui/core/Grid';
 import HomeTransaction from './HomeTransaction';
 import HomeCompany from './HomeCompany';
 import HomeMenu from './HomeMenu';
-import { Title, Company, HomeButton } from '../styled';
+import { PageTitle, PageSubtitle } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Axios from 'axios';
 
 const Home: React.FC = () => {
-  const [isLogined, setIsLogined] = useState<boolean>(false);
-  const [companyID, setCompanyID] = useState<string>('');
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);  
 
   useEffect(() => {
     const company = sessionStorage.getItem('companyID');
 
     if (company) {
-      setCompanyID(company);
-      setIsLogined(true);
-
       Axios({
         method: 'get',
         url: `/api/company/${company}`
@@ -41,8 +36,9 @@ const Home: React.FC = () => {
   return (
     <Container maxWidth="md">
       <StylesProvider injectFirst>
-        <Title>외상장부</Title>
-        <Company>{companyInfo.name}</Company>
+        <PageTitle>외상장부</PageTitle>
+        <PageSubtitle>{companyInfo.name}</PageSubtitle>
+
         <Grid container spacing={2} 
           direction="row"
           justify="flex-start"
@@ -58,6 +54,7 @@ const Home: React.FC = () => {
             <HomeMenu companyInfo={companyInfo} />
           </Grid>
         </Grid>
+
       </StylesProvider>
     </Container>
   )

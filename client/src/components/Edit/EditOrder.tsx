@@ -3,11 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/AddRounded';
 import RemoveIcon from '@material-ui/icons/RemoveRounded';
 import ClearIcon from '@material-ui/icons/ClearRounded';
-import { AddTitle, AddContent, AddContentItem, AddArrayBox, MenuName, Quantity, QuantityButton } from '../styled';
+import { BoxTitle, BoxContent, ArrayBox, StyledIconButton } from '../styled';
 
 interface EditOrderProps {
   menuDisplay: { 
@@ -134,39 +133,35 @@ const EditOrder: React.FC<EditOrderProps> = ({ menuDisplay, billForm, calculateT
 
   return (
     <Grid item xs={12} sm={6}>
-      <AddTitle>
+      <BoxTitle stickTop>
         주문
-      </AddTitle>
-      <AddContent>
+      </BoxTitle>
+      <BoxContent stickTop>
         <OrderSelection />
-        <AddContentItem>
-          <IconButton onClick={handleOrderAdd}>
-            <AddIcon />
-          </IconButton>
-        </AddContentItem>
-      </AddContent>
+        <StyledIconButton wide onClick={handleOrderAdd}>
+          <AddIcon />
+        </StyledIconButton>
+      </BoxContent>
 
       {billForm.order.length !== 0 ? 
-        <AddArrayBox>
-        {
-          billForm.order.map((item, index) => (
-            <AddContent>
-              <MenuName>
-                {item.name}
-                &nbsp;·&nbsp;
-                {item.quantity}
-              </MenuName>
-              
-              <Quantity>
-                <QuantityButton onClick={() => {handleQuantityAdd(index)}}><AddIcon />
-                </QuantityButton>
-                <QuantityButton onClick={() => {handleQuantityRemove(index)}}><RemoveIcon /></QuantityButton>
-                <QuantityButton onClick={() => {handleQuantityRemoveAll(index)}}><ClearIcon /></QuantityButton>
-              </Quantity>
-            </AddContent>
-          ))
-        }
-        </AddArrayBox>
+      <ArrayBox>
+        {billForm.order.map((item, index) => (
+          <BoxContent stickTop>
+            {item.name} &nbsp;·&nbsp; {item.quantity}
+            <div>
+              <StyledIconButton onClick={() => {handleQuantityAdd(index)}}>
+                <AddIcon />
+              </StyledIconButton>
+              <StyledIconButton onClick={() => {handleQuantityRemove(index)}}>
+                <RemoveIcon />
+              </StyledIconButton>
+              <StyledIconButton onClick={() => {handleQuantityRemoveAll(index)}}>
+                <ClearIcon />
+              </StyledIconButton>
+            </div>
+          </BoxContent>
+        ))}
+      </ArrayBox>
       : null}
     </Grid>
   )

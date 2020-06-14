@@ -1,51 +1,45 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { StyledBox, BoxTitle, BoxSubTitle, StyledDivider, BoxContent, MenuName, Price, HomeButton } from '../styled';
+import { BoxHeader, StyledBox, HeaderButton, GreyTitle, StyledDivider, BoxContent, GreyContent, MenuName, Price, } from '../styled';
 
 const HomeMenu: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
 
   return (
     <StyledBox>
-      <HomeButton onClick={() => location.assign('/company')}>
-        <BoxTitle>
+      <HeaderButton onClick={() => location.assign('/company')}>
+        <BoxHeader>
           메뉴&nbsp;&#xE001;
-        </BoxTitle>
-      </HomeButton>
+        </BoxHeader>
+      </HeaderButton>
+
       <StyledDivider />
+
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <BoxSubTitle>
+          <GreyTitle>
             음료
-          </BoxSubTitle>
-          {
-            companyInfo.menuDisplay.drink.map((item, index) => (
-              <BoxContent key={index}>
-                <MenuName>
-                  {item.name}
-                </MenuName>
-                <Price>
-                  {item.price.toLocaleString()}원
-                </Price>
-              </BoxContent>
-            ))
-          }
+          </GreyTitle>
+          {companyInfo.menuDisplay.drink.map((item, index) => (
+            <BoxContent key={index}>
+              {item.name}
+              <GreyContent>
+                {item.price.toLocaleString()}원
+              </GreyContent>
+            </BoxContent>
+          ))}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <BoxSubTitle>
+          <GreyTitle>
             음식
-          </BoxSubTitle>
-          {
-            companyInfo.menuDisplay.food.map((item, index) => (
-              <BoxContent key={index}>
-                <MenuName>
-                  {item.name}
-                </MenuName>
-                <Price>
-                  {item.price.toLocaleString()}원
-                </Price>
-              </BoxContent>
-            ))
-          }
+          </GreyTitle>
+          {companyInfo.menuDisplay.food.map((item, index) => (
+            <BoxContent key={index}>
+              {item.name}
+              <GreyContent>
+                {item.price.toLocaleString()}원
+              </GreyContent>
+            </BoxContent>
+          ))}
         </Grid>
       </Grid>
     </StyledBox>

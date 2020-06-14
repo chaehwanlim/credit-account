@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyledBox, BoxTitle, BoxTotal, StyledDivider, BoxContent, Debtor, CreditAmount, Remain, HomeButton } from '../styled';
+import { StyledBox, BoxHeader, BoxSubheader, HeaderButton, StyledDivider, BoxContent, GreyContent } from '../styled';
 import Axios from 'axios';
 
 const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
@@ -37,8 +37,6 @@ const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) =>
       billsToDisplay.push(bills[bills.length-i-1]);
     }
 
-    console.log(billsToDisplay);
-
     setRemain(bills.length - 3);
 
     calculateTotal();
@@ -47,12 +45,10 @@ const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) =>
       <div>
       {billsToDisplay.map((bill: Bill, index) => (
         <BoxContent key={index}>
-          <Debtor>
             {bill.representative}님
-          </Debtor>
-          <CreditAmount>
+          <GreyContent>
             {bill.total.toLocaleString()}원
-          </CreditAmount>
+          </GreyContent>
         </BoxContent>
       ))}
       </div>
@@ -69,22 +65,24 @@ const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) =>
 
   return (
     <StyledBox>
-      <HomeButton onClick={() => location.assign('/bill')}>
-        <BoxTitle>
+      <HeaderButton onClick={() => location.assign('/bill')}>
+        <BoxHeader>
           미수금
-          <BoxTotal>
+          <BoxSubheader>
             {totalUnpaid.toLocaleString()}원&nbsp;&#xE001;
-          </BoxTotal>
-        </BoxTitle>
-      </HomeButton>
+          </BoxSubheader>
+        </BoxHeader>
+      </HeaderButton>
       
       <StyledDivider />
 
       {bills.length !== 0 ? <DisplayBills /> : <DisplayNothing />}
       {bills.length !== 0 ? 
-      <Remain>
+      <GreyContent marginTop>
         외 {remain}건의 매출채권
-      </Remain> : null}
+      </GreyContent>: null}
+      
+      
     </StyledBox>
   )
 

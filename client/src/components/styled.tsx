@@ -1,32 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Check from '@material-ui/icons/CheckCircleOutline';
-import NotChecked from '@material-ui/icons/NotInterested';
 import Button from '@material-ui/core/Button';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
-import EditRounded from '@material-ui/icons/EditRounded';
-import SaveRounded from '@material-ui/icons/SaveRounded';
 import Snackbar from '@material-ui/core/Snackbar';
 import Modal from '@material-ui/core/Modal';
 
-export const Title = styled.div`
-  margin-top: 4rem;
-  font-size: 5rem;
-  font-weight: 700;
-`;
-
-export const Company = styled.div`
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.subtext};
-  margin-bottom: 4rem;
-`;
-
-export const BillGridContainer = styled(Grid)`
-  margin-top: 3rem;
+//Boxes
+const centerItems = css`
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const StyledBox = styled(Box)`
@@ -35,32 +20,116 @@ export const StyledBox = styled(Box)`
   padding: 1.5rem;
 `;
 
-export const BoxTitle = styled.div`
+export const ArrayBox = styled(StyledBox)`
+  background-color: ${({ theme }) => theme.bg};
+`;
+
+export const CenteredBox = styled(StyledBox)`
+  display: flex;
+  ${centerItems};
+`;
+
+export const ModalBox = styled(StyledBox)`
+  position: 50%;
+  max-width: 40rem;
+  outline: 0;
+`;
+
+
+
+//Typography
+export const PageTitle = styled.div`
+  margin-top: 4rem;
+  font-size: 5rem;
+  font-weight: 700;
+`;
+
+export const PageSubtitle = styled.div`
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.subtext};
+  margin-bottom: 4rem;
+`;
+
+export const BoxHeader = styled.div`
   font-size: 2.5rem;
   font-weight: 700;
   flex-grow: 1;
 `;
 
-export const BoxSubTitle = styled.div`
-  font-size: 2rem;
-  font-weight: 700;
-  flex-grow: 1;
-`;
-
-export const BoxTotal = styled.span`
+export const BoxSubheader = styled.span`
   font-size: 2.5rem;
   font-weight: 400;
   color: ${({ theme }) => theme.subtext};
   margin-left: 1rem;
 `;
 
+export const BoxTitle = styled.div<{ stickTop?: boolean }>`
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1rem 0rem 0rem 0rem;
+  margin-top: ${( props ) => ( props.stickTop ? '0rem' : null )};
+`;
+export const BoxSubtitle = styled.div<{ alignRight?: boolean }>`
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  color: ${({ theme }) => theme.subtext};
+  text-align: ${( props ) => props.alignRight ? 'right' : null };
+`
+export const CenteredBoxTitle = styled(BoxHeader)`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+export const IsPaid = styled(BoxTitle)<{ isPaid: number }>`
+  color: ${( props ) => (props.isPaid === 1 ? "#1ABF80" : "#FF4444")};
+`;
+
+export const GreyTitle = styled.div`
+  font-size: 2rem;
+  color: ${({ theme }) => theme.subtext};
+`;
+
+export const GreyContent = styled.div<{ marginTop?: boolean, edit?: boolean }>`
+  font-size: 1.8rem;
+  color: ${({ theme }) => theme.subtext};
+  margin-top: ${( props ) => props.marginTop ? '1rem' : null };
+  min-width: ${( props ) => props.edit ? '6rem' : null };
+  text-align: ${( props ) => props.edit ? 'center' : null };
+`;
+
+export const EditHeader = styled.div`
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: right;
+  justify-content: flex-end;
+  margin-top: 4rem;
+`;
+
+export const EditSubheader = styled(EditHeader)`
+  color: ${({ theme }) => theme.subtext};
+  font-size: 2rem;
+  margin-top: 0rem;
+  margin-bottom: 4rem;
+`;
+
+
+
+//Divider
 export const StyledDivider = styled(Divider)`
   background-color: ${({ theme }) => theme.divider};
   margin: 1.5rem 0rem 1.5rem 0rem;
 `;
 
-export const BoxContent = styled.div`
+
+
+//item이 두개 있을때 사용
+export const BoxContent = styled.div<{ stickTop?: boolean, marginLeft?: boolean, noSpace?: boolean }>`
   margin: 1rem 0rem 0rem 0rem;
+  margin-top: ${( props ) => props.stickTop ? '0rem' : null };
+  margin-left: ${( props ) => props.marginLeft ? '1rem' : null };
+  margin: ${( props ) => props.noSpace ? '0rem' : null };
   font-size: 1.8rem;
   font-weight: 400;
   display: flex;
@@ -68,168 +137,21 @@ export const BoxContent = styled.div`
   justify-content: space-between;
 `;
 
-//HomeTransaction
-export const Debtor = styled.span`
-  color: ${({ theme }) => theme.text};
-`;
-export const CreditAmount = styled.span`
-  color: ${({ theme }) => theme.subtext};
-`;
-export const Remain = styled(BoxContent)`
-  flex-grow: 1;
-  text-align: right;
-`;
 
-//HomeCompany
-export const Attribute = styled(CreditAmount)`
-  margin-left: 0;
-`;
-export const Info = Debtor;
 
-//HomeMenu
-export const MenuName = Debtor;
-export const Price = CreditAmount;
-
-//Bill
-export const BillTitle = styled(BoxContent)`
+//Buttons
+export const StyledButton = styled(Button)<{ big?: boolean, colored?: boolean, sub?: boolean }>`
+  width: 100%;
   font-size: 2rem;
   font-weight: 700;
-  margin: 0;
-`;
-export const BillSubTitle = styled(BoxContent)`
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin: 0;
-`;
-export const PeopleRemained = CreditAmount;
-export const BillDate = CreditAmount;
-export const BillAttribute = BoxSubTitle;
-export const IsPaid = styled(BillTitle)<{ isPaid: number }>`
-  color: ${( props ) => (props.isPaid === 1 ? "#1ABF80" : "#FF4444")};
-`;
-export const Total = BillTitle;
-export const Quantity = Attribute;
-
-export const CheckIcon = styled(Check)`
-  font-size: 2rem;
-  background-color: '#1ABF80';
-  margin-left: 0.5rem;
-`
-export const NotCheckedIcon = styled(NotChecked)`
-  font-size: 2rem;
-  background-color: '#FF4444';
-  margin-left: 0.5rem;
-`;
-export const TotalPerPerson = styled(CreditAmount)`
-  font-size: 1.5rem;
-  font-weight: 500;
-  width: 100%;
-  text-align: right;
-`;
-
-//Add
-export const AddTitleFirst = BillTitle;
-export const AddTitle = styled(BillTitle)`
-
-`;
-export const AddContent = styled(BoxContent)`
-  margin: 0.5rem 0;
-  width: 100%;
-  justify-content: space-between;
-`
-export const AddContentItem = styled.span`
-  margin-left: 1rem;
-  min-width: 4rem;
-`
-export const StyledAddButton = styled(Button)`
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text};
-  background-color: ${({ theme }) => theme.button};
-  text-decoration: none;
-  min-width: 6rem;
+  background: ${( props ) => ( props.colored  ? ({ theme }) => theme.button : ({ theme }) => theme.bg )};
+  background: ${( props ) => ( props.sub ? ({ theme }) => theme.subButton : null )};
+  color: ${( props ) => ( props.colored ? 'white' : ({ theme }) => theme.subtext )};
   border-radius: 1rem;
+  padding: ${( props ) => props.big ? '2rem 0rem' : null };
 `;
 
-
-export const AddTotal = styled(AddContent)`
-  font-size: 2.5rem;
-  font-weight: 700;
-  justify-content: flex-end;
-
-  margin-top: 4rem;
-`;
-export const AddTotalPerPerson = styled(AddContent)`
-  font-size: 2rem;
-  justify-content: flex-end;
-
-`;
-
-export const StyledAddButtonBig = styled(Button)<{ colored?: boolean }>`
-  width: 100%;
-  font-size: 2rem;
-  font-weight: 700;
-  background: ${( props ) => ( props.colored === true ? ({ theme }) => theme.button : ({ theme }) => theme.bg )};
-  color: ${( props ) => ( props.colored === true ? 'white' : ({ theme }) => theme.text )};
-  border-radius: 1rem;
-
-  margin-top: 2rem;
-  padding: 2rem 0rem;
-`;
-
-export const AddArrayBox = styled(StyledBox)`
-  background-color: ${({ theme }) => theme.bg};
-  margin-top: 1rem;
-`
-
-export const QuantityButton = styled(IconButton)`
-  padding: 0.5rem;
-`
-
-//Company
-export const CompanyTitle = BillTitle;
-export const CompanySubtitle = styled(BoxContent)`
-  font-size: 2rem;
-  color: ${({ theme }) => theme.subtext};
-`
-export const CompanyContent = AddContent;
-export const CompanyArrayBox = AddArrayBox;
-
-export const CompanyButton = styled(StyledAddButtonBig)`
-  background: ${({ theme }) => theme.bg};
-  color: ${({ theme }) => theme.text};
-`;
-
-export const EditIcon = styled(EditRounded)`
-  margin-right: 1rem;
-`;
-export const SaveIcon = styled(SaveRounded)`
-  margin-right: 1rem;
-`;
-export const SearchButton = styled(IconButton)`
-  padding: 0.5rem;
-`;
-
-export const SearchResult = styled(Button)`
-  display: block;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-export const SearchResultCompany = styled(BillSubTitle)`
-  color: ${({ theme }) => theme.subtext};
-  text-align: left;
-`;
-export const SearchResultLocation = styled(BoxContent)`
-  margin: 0;
-  font-weight: 400;
-  text-align: left;
-`;
-export const AddButton = SearchButton;
-export const RemoveButton = SearchButton;
-
-
-//Home
-export const HomeButton = styled(StyledAddButtonBig)`
+export const HeaderButton = styled(StyledButton)`
   background: ${({ theme }) => theme.elementBg};
   color: ${({ theme }) => theme.text};
   margin: 0;
@@ -237,32 +159,39 @@ export const HomeButton = styled(StyledAddButtonBig)`
   text-align: left;
 `;
 
-export const BillButton = styled(StyledAddButtonBig)`
-  background: ${({ theme }) => theme.bg};
-  color: ${({ theme }) => theme.subtext};
-  padding: 1rem 0rem;
-  margin: 0;
+export const LoginButton = styled(StyledButton)`
+  margin: 1rem 0rem 4rem 0rem;
 `;
 
-//Login
-export const LoginBox = styled(StyledBox)`
-  display: flex;
+export const StyledIconButton = styled(IconButton)<{ wide?: boolean }>`
+  padding: 0.5rem;
+  padding: ${( props ) => props.wide ? '1.5rem' : null };
+  margin-left: ${( props ) => props.wide ? '1rem' : null };
+`;
+
+export const SearchResult = styled(Button)`
+  display: block;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
-export const LoginBoxTitle = styled(BoxTitle)`
-  text-align: center;
-  margin-bottom: 2rem;
+  align-items: flex-start;
+  text-align: left;
+  font-weight: 400;
 `;
 
-export const LoginInput = styled(InputBase)`
+
+//Input
+export const StyledInput = styled(InputBase)<{ noSpace?: boolean }>`
   background: ${({ theme }) => theme.bg};
   margin-top: 1rem;
   padding: 1rem 1.5rem;
   border-radius: 1rem;
-  font-weight: 400;
+  font-weight: 500;
+  margin: ${( props ) => props.noSpace ? '0rem' : null };
+  padding: ${( props ) => props.noSpace ? '0rem' : null };
+`;
+
+export const SearchBar = styled(StyledInput)`
+  background: ${({ theme }) => theme.elementBg};
+  margin: 0;
 `;
 
 export const LoginForm = styled.form`
@@ -273,29 +202,9 @@ export const LoginForm = styled.form`
   width: 30rem;
 `;
 
-export const LoginButton = styled(StyledAddButtonBig)`
-  margin: 1rem 0rem 4rem 0rem;
-  padding: 1.5rem;
-`
 
-export const RegisterButton = styled(StyledAddButtonBig)`
-  background: ${({ theme }) => theme.subButton};
-  margin: 1rem 0rem 4rem 0rem;
-  padding: 1.5rem;
-`;
-
-
-//
-export const CompanyInput = styled(LoginInput)`
-  font-weight: 300;
-  width: 100%;
-`;
-
-export const CompanyMenuInput = styled(InputBase)`
-  border-bottom: 1rem ${({ theme }) => theme.text};
-`;
-
-export const BillSnackbar = styled(Snackbar)`
+//etc
+export const StyledSnackbar = styled(Snackbar)`
   background: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text};
   font-size: 1.4rem;
@@ -307,16 +216,6 @@ export const StyledModal = styled(Modal)`
   justify-content: center;
 `;
 
-export const ModalBox = styled(StyledBox)`
-  position: 50%;
-  max-width: 40rem;
-  outline: 0;
-`;
-
-export const BillSearchBar = styled(LoginInput)`
-  background: ${({ theme }) => theme.elementBg};
-  margin: 0;
-`;
 
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;

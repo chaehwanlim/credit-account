@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
-import { AddTitle, AddContent, AddContentItem } from '../styled';
+import { BoxTitle, BoxContent, GreyContent } from '../styled';
 
 interface EditPeopleProps {
   billForm: Form;
@@ -43,7 +43,7 @@ const EditPeople: React.FC<EditPeopleProps> = ({ billForm, setBillForm }) => {
         id="demo-simple-select"
         value={people}
         onChange={handlePeople}
-        fullWidth
+        style={{minWidth: '6rem'}}
       >
       {menuItems.map((item, index) => (
         <MenuItem value={item.value} key={index}>{item.name}</MenuItem>
@@ -55,23 +55,21 @@ const EditPeople: React.FC<EditPeopleProps> = ({ billForm, setBillForm }) => {
 
   return (
     <Grid item xs={12} sm={6}>
-      <AddTitle>
+      <BoxTitle stickTop>
         인원
-      </AddTitle>
-      <AddContent>
+      </BoxTitle>
+      <BoxContent>
         <Input 
           value={representative}
           onChange={handleRep}
           placeholder="모임의 대표자를 입력해주세요."
           fullWidth
         />
-        <AddContentItem>
-          포함
-        </AddContentItem>
-        <AddContentItem>
-          <PeopleSelection />
-        </AddContentItem>
-      </AddContent>
+        <GreyContent edit>
+        포함
+        </GreyContent>
+        <PeopleSelection />
+      </BoxContent>
     </Grid>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import {CompanyTitle, CompanySubtitle, CompanyContent, CompanyInput, AddButton, CompanyArrayBox, CompanyMenuInput, RemoveButton, MenuName, Price} from '../styled';
+import { BoxTitle, BoxContent, GreyTitle, GreyContent, ArrayBox, StyledInput, StyledIconButton } from '../styled';
 import AddIcon from '@material-ui/icons/AddRounded';
 import ClearIcon from '@material-ui/icons/ClearRounded';
 
@@ -8,11 +8,10 @@ interface CompanyMenuProps {
   editEnabled: boolean;
   companyInfo: Company;
   companyEditForm: Company;
-  handleEditForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setCompanyEditForm: (value: React.SetStateAction<Company>) => void;
 }
 
-const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, companyEditForm, handleEditForm, setCompanyEditForm }) => {
+const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, companyEditForm, setCompanyEditForm }) => {
   const [drinkInput, setDrinkInput] = useState<string>('');
   const [foodInput, setFoodInput] = useState<string>('');
 
@@ -88,114 +87,108 @@ const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, com
 
   return (
     <Grid item xs={12}>
-      <CompanyTitle>
+      <BoxTitle>
         메뉴
-      </CompanyTitle>
+      </BoxTitle>
 
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
-            <CompanySubtitle>
+            <GreyTitle>
               음료
-            </CompanySubtitle>
+            </GreyTitle>
             {editEnabled ?
-              <CompanyContent>
-                <CompanyInput 
-                  placeholder="추가할 음료를 입력해주세요."
-                  name="drink"
-                  value={drinkInput}
-                  onChange={handleMenuInput}
-                  endAdornment={
-                    <AddButton onClick={handleMenuAdd.bind(this, "drink")}>
-                      <AddIcon />
-                    </AddButton>
-                  }
-                />
-              </CompanyContent>
+              <StyledInput 
+                placeholder="추가할 음료를 입력해주세요."
+                name="drink"
+                value={drinkInput}
+                onChange={handleMenuInput}
+                endAdornment={
+                  <StyledIconButton onClick={handleMenuAdd.bind(this, "drink")}>
+                    <AddIcon />
+                  </StyledIconButton>
+                }
+                fullWidth
+              />
             : null}
             {editEnabled ? 
-              <CompanyArrayBox>
+              <ArrayBox>
               {companyEditForm.menuDisplay.drink.map((item, index) => (
-                <CompanyContent>
-                  <CompanyMenuInput 
+                <BoxContent noSpace>
+                  <StyledInput noSpace
                     defaultValue={item.name} 
                     value={companyEditForm.menuDisplay.drink[index].name} 
                     name="drink"
                     onChange={handleMenuChange.bind(this, index)}
                   />
-                  <CompanyMenuInput 
+                  <StyledInput noSpace
                     defaultValue={item.price}
                     value={companyEditForm.menuDisplay.drink[index].price}
                     name="drink"
                     onChange={handlePriceChange.bind(this, index)} 
                   />
-                  <RemoveButton onClick={() => handleMenuRemove(index, "drink")}>
+                  <StyledIconButton onClick={() => handleMenuRemove(index, "drink")}>
                     <ClearIcon />
-                  </RemoveButton>
-                </CompanyContent>
+                  </StyledIconButton>
+                </BoxContent>
               ))}
-              </CompanyArrayBox> :
+              </ArrayBox> :
               companyInfo.menuDisplay.drink.map((item, index) => (
-                <CompanyContent>
-                  <MenuName>
-                    {item.name}
-                  </MenuName>
-                  <Price>
+                <BoxContent>
+                  {item.name}
+                  <GreyContent>
                     {item.price.toLocaleString()}원
-                  </Price>
-                </CompanyContent>
+                  </GreyContent>
+                </BoxContent>
               ))
             }
           </Grid>
           <Grid item xs={12} sm={6}>
-            <CompanySubtitle>
+            <GreyTitle>
               음식
-            </CompanySubtitle>
+            </GreyTitle>
             {editEnabled ?
-              <CompanyContent>
-                <CompanyInput 
-                  placeholder="추가할 음식을 입력해주세요."
-                  name="food"
-                  value={foodInput}
-                  onChange={handleMenuInput}
-                  endAdornment={
-                    <AddButton onClick={handleMenuAdd.bind(this, "food")}>
-                      <AddIcon />
-                    </AddButton>
-                  }
-                />
-              </CompanyContent>
+              <StyledInput 
+                placeholder="추가할 음식을 입력해주세요."
+                name="food"
+                value={foodInput}
+                onChange={handleMenuInput}
+                endAdornment={
+                  <StyledIconButton onClick={handleMenuAdd.bind(this, "food")}>
+                    <AddIcon />
+                  </StyledIconButton>
+                }
+                fullWidth
+              />
             : null}
             {editEnabled ?
-              <CompanyArrayBox>
+              <ArrayBox>
               {companyEditForm.menuDisplay.food.map((item, index) => (
-                <CompanyContent>
-                  <CompanyMenuInput 
+                <BoxContent noSpace>
+                  <StyledInput noSpace
                     defaultValue={item.name} 
                     value={companyEditForm.menuDisplay.food[index].name} 
                     name="food"
                     onChange={handleMenuChange.bind(this, index)}
                   />
-                  <CompanyMenuInput 
+                  <StyledInput noSpace
                     defaultValue={item.price}
                     value={companyEditForm.menuDisplay.food[index].price}
                     name="food"
                     onChange={handlePriceChange.bind(this, index)} 
                   />
-                  <RemoveButton onClick={() => handleMenuRemove(index, "food")}>
+                  <StyledIconButton onClick={() => handleMenuRemove(index, "food")}>
                     <ClearIcon />
-                  </RemoveButton>
-                </CompanyContent>
+                  </StyledIconButton>
+                </BoxContent>
               ))}
-              </CompanyArrayBox> : 
+              </ArrayBox> : 
               companyInfo.menuDisplay.food.map((item, index) => (
-                <CompanyContent>
-                  <MenuName>
+                <BoxContent>
                     {item.name}
-                  </MenuName>
-                  <Price>
+                  <GreyContent>
                     {item.price.toLocaleString()}원
-                  </Price>
-                </CompanyContent>
+                  </GreyContent>
+                </BoxContent>
               ))
             }
           </Grid>

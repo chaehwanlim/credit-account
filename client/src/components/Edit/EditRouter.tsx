@@ -20,6 +20,10 @@ const EditRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
   });
   const [isFetched, setIsFetched] = useState<boolean>(false);
 
+  if (!sessionStorage.getItem('companyID')) {
+    location.assign('/login');
+  }
+
   useEffect(() => {
     Axios({
       method: 'get',

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { AddTitleFirst, AddContent } from '../styled';
+import { BoxTitle, BoxContent } from '../styled';
 
 interface EditDateProps {
   billForm: Form;
@@ -23,29 +23,29 @@ const EditDate: React.FC<EditDateProps> = ({ billForm, setBillForm }) => {
 
   return (
     <Grid item xs={12} sm={6}>
-      <AddTitleFirst>
+      <BoxTitle stickTop>
         거래 발생일
-      </AddTitleFirst>
-      <AddContent>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="yyyy년 MM월 dd일"
-          margin="normal"
-          id="date-picker-inline-local"
-          value={selectedDate}
-          onChange={handleDate}
-          KeyboardButtonProps={{
-            'aria-label': 'change date'
-          }}
-          style={{
-            margin: '0'
-          }}
-          fullWidth
-        />
-      </MuiPickersUtilsProvider>
-      </AddContent>
+      </BoxTitle>
+      <BoxContent>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="yyyy년 MM월 dd일"
+            margin="normal"
+            id="date-picker-inline-local"
+            value={selectedDate}
+            onChange={handleDate}
+            KeyboardButtonProps={{
+              'aria-label': 'change date'
+            }}
+            style={{
+              margin: '0'
+            }}
+            fullWidth
+          />
+        </MuiPickersUtilsProvider>
+      </BoxContent>
     </Grid>
   )
 }

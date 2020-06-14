@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Route } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { Title, Company, StyledBox, BoxTitle, BoxTotal, BoxContent, BillTitle, BillButton, BillSnackbar, StyledModal, ModalBox, BillSearchBar } from '../styled';
+import { PageTitle, PageSubtitle, StyledBox, BoxTitle, BoxHeader, BoxSubheader, BoxContent, StyledButton, StyledSnackbar, StyledModal, ModalBox, SearchBar } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -25,6 +24,10 @@ const Bill: React.FC = () => {
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
+
+  if (!sessionStorage.getItem('companyID')) {
+    location.assign('/login');
+  }
   
   useEffect(() => {
     document.title = "외상장부 - 계산서";
@@ -164,8 +167,8 @@ const Bill: React.FC = () => {
     <Container maxWidth="md">
       <StylesProvider injectFirst>
 
-        <Title>계산서</Title>
-        <Company>{companyInfo.name}</Company>
+        <PageTitle>계산서</PageTitle>
+        <PageSubtitle>{companyInfo.name}</PageSubtitle>
 
         <Grid container spacing={3}
           direction="row"
@@ -174,17 +177,17 @@ const Bill: React.FC = () => {
         >
           <Grid item xs={12}>
             <StyledBox>
-              <BoxTitle>
+              <BoxHeader>
                 미수금
-                <BoxTotal>
+                <BoxSubheader>
                   {calculateTotal().toLocaleString()}원
-                </BoxTotal>
-              </BoxTitle>
+                </BoxSubheader>
+              </BoxHeader>
             </StyledBox>
           </Grid>
 
           <Grid item xs={12}>
-            <BillSearchBar 
+            <SearchBar 
               placeholder="대표자나 메모로 검색하세요."
               value={keyword}
               onChange={handleSearch}
@@ -196,7 +199,7 @@ const Bill: React.FC = () => {
 
         </Grid>
 
-        <BillSnackbar 
+        <StyledSnackbar 
           open={alertOpen} 
           message={`계산서 복사됨 · ${copiedBill.representative}님 (${copiedBill.date})`} 
         />
@@ -212,22 +215,23 @@ const Bill: React.FC = () => {
         >
           <Fade in={modalOpen}>
             <ModalBox>
-              <BillTitle>
+              <BoxTitle stickTop>
                 계산서 · {billToDelete.representative}님 ({billToDelete.date})
-              </BillTitle>
+              </BoxTitle>
               <BoxContent style={{marginBottom: '2rem'}}>
                 정말로 삭제하시겠습니까?
               </BoxContent>
+              
               <Grid container spacing={1}>
                 <Grid item xs={6}>
-                  <BillButton onClick={() => setModalOpen(false)}>
+                  <StyledButton onClick={() => setModalOpen(false)}>
                     취소
-                  </BillButton>
+                  </StyledButton>
                 </Grid>
                 <Grid item xs={6}>
-                  <BillButton style={{color: '#FF4444'}} onClick={() => executeDeletion(billToDelete.id)}>
+                  <StyledButton style={{color: '#FF4444'}} onClick={() => executeDeletion(billToDelete.id)}>
                     삭제
-                  </BillButton>
+                  </StyledButton>
                 </Grid>
               </Grid>
               

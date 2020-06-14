@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import {CompanyTitle, CompanyInput, CompanyContent, SearchButton, CompanyArrayBox, SearchResult, SearchResultCompany, SearchResultLocation} from '../styled';
+import { BoxTitle, BoxSubtitle, BoxContent, StyledInput, StyledIconButton, ArrayBox, SearchResult } from '../styled';
 import SearchIcon from '@material-ui/icons/SearchRounded';
 import Axios from 'axios';
 
@@ -48,49 +48,51 @@ const CompanyLocation: React.FC<CompanyLocationProps> = ({ editEnabled, companyI
 
   return (
     <Grid item xs={12}>
-      <CompanyTitle>
+      <BoxTitle stickTop>
         주소
-      </CompanyTitle>
+      </BoxTitle>
       {editEnabled ? 
-      <CompanyInput
-        defaultValue={companyInfo.location}
-        name="location"
-        value={companyEditForm.location}
-        onChange={handleEditForm}
-      /> :
-      <CompanyContent>
-        {companyInfo.location}
-      </CompanyContent>
+        <StyledInput
+          defaultValue={companyInfo.location}
+          name="location"
+          value={companyEditForm.location}
+          onChange={handleEditForm}
+          fullWidth
+        /> :
+        <BoxContent>
+          {companyInfo.location}
+        </BoxContent>
       }
       {editEnabled ?
-      <CompanyInput
-        placeholder="업체명을 입력하세요."
-        value={keyword}
-        onChange={handleKeyword}
-        endAdornment={
-          <SearchButton onClick={handleSearch}>
-            <SearchIcon />
-          </SearchButton>
-        }
-      />
-      : null}
+        <StyledInput
+          placeholder="업체명을 입력하세요."
+          value={keyword}
+          onChange={handleKeyword}
+          endAdornment={
+            <StyledIconButton onClick={handleSearch}>
+              <SearchIcon />
+            </StyledIconButton>
+          }
+          fullWidth
+        /> : null
+      }
       {result.length > 0 && editEnabled ? 
-      <CompanyArrayBox>
+      <ArrayBox>
         {result.map((item, index) => {
           const address: string = item.roadAddress !== '' ? item.roadAddress : item.address;
 
           return (
             <SearchResult onClick={() => handleResult(address)} fullWidth>
-              <SearchResultCompany>
+              <BoxSubtitle>
                 {removeBTags(item.title)}
-              </SearchResultCompany>
-              <SearchResultLocation>
+              </BoxSubtitle>
+              <BoxContent stickTop>
                 {address}
-              </SearchResultLocation>
+              </BoxContent>
             </SearchResult>
           )
         })}
-      </CompanyArrayBox>
+      </ArrayBox>
       : null}
     </Grid>
   )

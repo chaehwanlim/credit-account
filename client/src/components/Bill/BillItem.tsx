@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { StyledBox, BillTitle, BillSubTitle, Debtor, PeopleRemained, BillDate, StyledDivider, BoxContent, BillAttribute, MenuName, Quantity, IsPaid, Total, TotalPerPerson, BillButton } from '../styled';
+import { StyledBox, BoxTitle, BoxSubtitle, GreyContent, StyledButton, StyledDivider, BoxContent, IsPaid } from '../styled';
 
 interface BillItemProps {
   companyInfo: Company;
@@ -43,59 +43,48 @@ const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, hand
   return (
     <Grid item md={4} sm={6} xs={12}>
       <StyledBox>
-        <BillTitle>
-          <Debtor>{bill.representative}님</Debtor>
-        </BillTitle>
+        <BoxTitle stickTop>
+          {bill.representative}님
+        </BoxTitle>
 
-        <BillSubTitle>
-          <PeopleRemained>포함 {bill.people}명</PeopleRemained>
-          <BillDate>{dateToString(bill.date)}</BillDate>
-        </BillSubTitle>
+        <BoxContent stickTop>
+          <BoxSubtitle>인원 {bill.people}명</BoxSubtitle>
+          <BoxSubtitle>{dateToString(bill.date)}</BoxSubtitle>
+        </BoxContent>
 
         <StyledDivider />
 
-        <BoxContent>
-          <BillAttribute>
-            주문
-          </BillAttribute>
-        </BoxContent>
+        <BoxTitle stickTop>
+          주문
+        </BoxTitle>
 
-        {
-          bill.order.map((item) => (
-            <BoxContent>
-              <MenuName>
-                {item.name}
-              </MenuName>
-              <Quantity>
-                {item.quantity}
-              </Quantity>
-            </BoxContent>
-          ))
-        }
+        {bill.order.map((item) => (
+          <BoxContent marginLeft>
+            {item.name}
+            <GreyContent>
+              {item.quantity}
+            </GreyContent>
+          </BoxContent>
+        ))}
 
-        <BoxContent>
-          <BillAttribute>
+        {bill.service ?
+          <BoxTitle>
             서비스
-          </BillAttribute>
-        </BoxContent>
+          </BoxTitle>
+        : null}
 
-        {
-          bill.service.map((item) => (
-            <BoxContent>
-              <MenuName>
-                {item.name}
-              </MenuName>
-            </BoxContent>
-          ))
-        }
+        {bill.service.map((item) => (
+          <BoxContent marginLeft>
+            {item.name}
+          </BoxContent>
+        ))}
+
         {bill.memo ? 
           <div>
-          <BoxContent>
-            <BillAttribute>
-              메모
-            </BillAttribute>
-          </BoxContent>
-          <BoxContent>
+          <BoxTitle>
+            메모
+          </BoxTitle>
+          <BoxContent marginLeft>
             {bill.memo}
           </BoxContent>
           </div>
@@ -103,38 +92,36 @@ const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, hand
         
         <StyledDivider />
 
-        <BoxContent>
-          <IsPaid isPaid={bill.isPaid}>
+        <BoxContent stickTop>
+          <IsPaid stickTop isPaid={bill.isPaid}>
             {bill.isPaid ? "계산됨" : "계산되지 않음"}
           </IsPaid>
-          <Total>
+          <BoxTitle stickTop>
             {bill.total.toLocaleString()}원
-          </Total>
+          </BoxTitle>
         </BoxContent>
 
-        <BillSubTitle>
-          <TotalPerPerson>
-            1인 {(bill.total / bill.people).toLocaleString()}원
-          </TotalPerPerson>
-        </BillSubTitle>
+        <BoxSubtitle alignRight>
+          1인 {(bill.total / bill.people).toLocaleString()}원
+        </BoxSubtitle>
         
         <StyledDivider />
 
         <Grid container spacing={1}>
           <Grid item xs={3} md={6}>
-            <BillButton onClick={() => handlePaid(bill._id, bill.isPaid)}>
+            <StyledButton onClick={() => handlePaid(bill._id, bill.isPaid)}>
               {bill.isPaid ? "취소" : "완료"}
-            </BillButton>
+            </StyledButton>
           </Grid>
           <Grid item xs={3} md={6}>
-            <BillButton onClick={() => handleEdit(bill._id)}>수정</BillButton>
+            <StyledButton onClick={() => handleEdit(bill._id)}>수정</StyledButton>
           </Grid>
           <Grid item xs={3} md={6}>
-            <BillButton onClick={() => handleDelete(bill._id, bill.representative, dateToString(bill.date))}>삭제</BillButton>
+            <StyledButton onClick={() => handleDelete(bill._id, bill.representative, dateToString(bill.date))}>삭제</StyledButton>
           </Grid>
           <Grid item xs={3} md={6}>
             <CopyToClipboard text={message()}>
-              <BillButton onClick={() => handleCopy(bill.representative, dateToString(bill.date))}>복사</BillButton>
+              <StyledButton onClick={() => handleCopy(bill.representative, dateToString(bill.date))}>복사</StyledButton>
             </CopyToClipboard>
           </Grid>
         </Grid>

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { RouteComponentProps, Route } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import Edit from './Edit';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Axios from 'axios';
+
+import { useDispatch } from 'react-redux';
+import { setTitle } from '../../modules/title';
 
 interface MatchParams {
   id: string;
@@ -19,6 +22,12 @@ const EditRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
     total: 0
   });
   const [isFetched, setIsFetched] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+
+  const _setTitle = (title: string) => {
+    dispatch(setTitle(title));
+  }
 
   if (!sessionStorage.getItem('companyID')) {
     location.assign('/login');
@@ -49,7 +58,7 @@ const EditRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
   }, []);
 
   return (
-    isFetched ? <Edit editMode={true} billID={match.params.id} billFormToEdit={bill}/> : <LinearProgress />
+    isFetched ? <Edit editMode={true} billID={match.params.id} billFormToEdit={bill} setTitle={_setTitle} /> : <LinearProgress />
   )
 }
 

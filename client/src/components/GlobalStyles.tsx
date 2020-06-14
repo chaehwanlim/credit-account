@@ -16,7 +16,8 @@ export const lightTheme = {
   progress: '0181FF',
   button: 'linear-gradient(45deg, #2176FF 30%, #21CBFF 80%)',
   subButton: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  backdrop: 'brightness(98%)'
+  backdrop: 'brightness(98%)',
+  appbarBg: 'rgba(255, 255, 255, 0.6)'
 }
 
 export const darkTheme = {
@@ -28,7 +29,8 @@ export const darkTheme = {
   progress: '05CDFF',
   button: 'linear-gradient(45deg, #2176FF 30%, #21CBFF 80%)',
   subButton: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  backdrop: 'brightness(120%)'
+  backdrop: 'brightness(120%)',
+  appbarBg: 'rgba(0, 0, 0, 0.6)'
 }
 
 export const GlobalStyles = createGlobalStyle<{ theme: globalThemeType }>`
@@ -39,6 +41,10 @@ export const GlobalStyles = createGlobalStyle<{ theme: globalThemeType }>`
     background-color: ${({ theme }) => theme.bg};
     color: ${({ theme }) => theme.text};
     transition: all 0.25s linear;
+  }
+
+  .MuiToolbar-regular {
+    min-height: 5rem;
   }
 
   @media screen and (max-width: 600px) {

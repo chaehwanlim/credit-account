@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageTitle, PageSubtitle, CenteredBox, CenteredBoxTitle, StyledInput, LoginButton, LoginForm } from '../styled';
 import Container from '@material-ui/core/Container';
 import { StylesProvider } from '@material-ui/core/styles';
@@ -17,7 +17,7 @@ interface RegisterForm {
   location: string;
 }
 
-const Login: React.FC = () => {
+const Login: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => {
   const [loginForm, setLoginForm] = useState<LoginForm>({
     id: "",
     password: ""
@@ -28,6 +28,10 @@ const Login: React.FC = () => {
     name: "",
     location: ""
   });
+
+  useEffect(() => {
+    setTitle('로그인');
+  }, []);
 
   const handleLoginForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({

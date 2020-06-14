@@ -15,9 +15,10 @@ interface EditProps {
   editMode: boolean;
   billID: string;
   billFormToEdit: Form | null;
+  setTitle?: (title: string) => void;
 }
 
-const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ editMode, billID, billFormToEdit }) => {
+const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ editMode, billID, billFormToEdit, setTitle }) => {
   const [billForm, setBillForm] = useState<Form>(billFormToEdit);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
 
@@ -26,7 +27,11 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
   }
 
   useEffect(() => {
-    document.title = "외상장부 - 추가";
+    if(editMode) {
+      setTitle('수정');
+    } else {
+      setTitle('추가');
+    }
 
     if (!sessionStorage.getItem('companyID')) {
       location.assign('/login');

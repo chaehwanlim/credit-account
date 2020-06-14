@@ -27,6 +27,7 @@ export const MuiTheme = createMuiTheme({
     MuiTypography: {
       body1: {
         fontSize: '1.7rem',
+        marginLeft: '1.5rem'
       },
       body2: {
         fontSize: '1.4rem',
@@ -117,6 +118,7 @@ export const MuiThemeDark = createMuiTheme({
     MuiTypography: {
       body1: {
         fontSize: '1.7rem',
+        marginLeft: '1.5rem'
       },
       body2: {
         fontSize: '1.4rem',

@@ -1,64 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
-import Toolbar from '@material-ui/core/Toolbar';
-import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/MenuRounded';
-import { StyledAppBar, StyledAppBarMini, StyledTitle, StyledButton } from './styled';
+import { StyledAppBar, StyledAppBarMini, StyledTitle, StyledButton, StyledToolbar } from './styled';
 import Menu from './Menu';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 
 interface AppbarPropsType {
   globalThemeMode: string;
+  title: string;
   lightMode: () => void;
   darkMode: () => void;
 }
 
-interface ElevationProps {
-  window?: () => Window;
-  children: React.ReactElement;
-}
+const setTitleOnScroll = () => {
+  const [pos, setPos] = useState<{x: number, y: number}>({ x: 0, y: 0 });
 
-const ElevationScroll = (props: ElevationProps) => {
-  const { window, children } = props;
+  const onScroll = () => {
+    setPos({ x: window.scrollX, y: window.scrollY });
+  }
 
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window(): undefined,
-  });
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
 
-  return React.cloneElement(children, {
-    backgroundColor: trigger ? 'red' : 'blue',
-  });
+    //componentWillUnmount
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return pos;
 
 }
 
 const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
-  const [scrollPos, setScrollPos] = useState(0);
   const [appbarTitle, setAppbarTitle] = useState('');
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-  });
-
-  const handleScroll = (e) => {
-    let scrollTop = document.body.scrollTop;
-
-    if (scrollTop > 10) {
-      setAppbarTitle('홈');
-      console.log('scrolling');
-    }
-
-  }
+  const { y } = setTitleOnScroll();
 
   const nextMode = () => {
     if (props.globalThemeMode === 'lightMode')
@@ -98,32 +76,35 @@ const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
 
         {/* 600px 이상일 때 */}
         <StyledAppBar position="sticky" 
-          onScroll={handleScroll} 
           elevation={0}
+          blur={y > 50 ? true : false}
         >
           <Container maxWidth="md">
-            <Toolbar style={{padding: 0}}>
-              <StyledTitle>
-                {appbarTitle}
-              </StyledTitle>
-              <Menu />
-              <StyledButton onClick={toggleThemeMode}>
-                {nextMode()}
-              </StyledButton>
-              <StyledButton onClick={handleAccount}>
-                {accountMode()}
-              </StyledButton>
-            </Toolbar>
+            <StyledToolbar style={{padding: 0}}>
+              {y > 50 ? <StyledTitle>{props.title}</StyledTitle> : <div></div>}
+              
+              <div>
+                <Menu />
+                <StyledButton onClick={toggleThemeMode}>
+                  {nextMode()}
+                </StyledButton>
+                <StyledButton onClick={handleAccount}>
+                  {accountMode()}
+                </StyledButton>
+              </div>
+
+            </StyledToolbar>
           </Container>
         </StyledAppBar>
 
 
         {/* 599px 이하일 때 */}
-        <StyledAppBarMini position="sticky" elevation={0}>
-          <Toolbar style={{padding: '0 0 0 16px'}}>
-            <StyledTitle>
-              {appbarTitle}
-            </StyledTitle>
+        <StyledAppBarMini position="sticky" 
+          elevation={0} 
+          blur={y > 50 ? true : false}
+        >
+          <StyledToolbar style={{padding: '0 0 0 0'}}>
+            {y > 50 ? <StyledTitle>{props.title}</StyledTitle> : <div></div>}
             
             <React.Fragment>
               <IconButton onClick={() => setMenuOpen(true)}>
@@ -144,7 +125,7 @@ const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
                 </StyledButton>
               </SwipeableDrawer>
             </React.Fragment>
-          </Toolbar>
+          </StyledToolbar>
         </StyledAppBarMini>
 
     </StylesProvider>

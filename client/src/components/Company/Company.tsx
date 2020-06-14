@@ -8,7 +8,7 @@ import CompanyLocation from './CompanyLocation';
 import CompanyMenu from './CompanyMenu';
 import Axios from 'axios';
 
-const _Company: React.FC = () => {
+const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => {
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
   const [editEnabled, setEditEnabled] = useState<boolean>(false);
   const [companyEditForm, setCompanyEditForm] = useState<Company | null>(null);
@@ -20,6 +20,7 @@ const _Company: React.FC = () => {
   
   useEffect(() => {
     document.title = "외상장부 - 내 기업";
+    setTitle('내 기업');
 
     getCompanyInfo();
   }, []);

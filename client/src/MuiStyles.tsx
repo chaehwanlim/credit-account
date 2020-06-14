@@ -28,7 +28,11 @@ export const MuiTheme = createMuiTheme({
       body1: {
         fontSize: '1.7rem',
 <<<<<<< HEAD
+<<<<<<< HEAD
         marginLeft: '15px'
+=======
+        marginLeft: '1.5rem'
+>>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
 =======
         marginLeft: '1.5rem'
 >>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
@@ -123,7 +127,11 @@ export const MuiThemeDark = createMuiTheme({
       body1: {
         fontSize: '1.7rem',
 <<<<<<< HEAD
+<<<<<<< HEAD
         marginLeft: '15px'
+=======
+        marginLeft: '1.5rem'
+>>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
 =======
         marginLeft: '1.5rem'
 >>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06

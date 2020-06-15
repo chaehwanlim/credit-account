@@ -12,4 +12,4 @@ const companySchema = new Schema({
   versionKey: false
 });
 
-module.exports = mongoose.model('Company', companySchema);
+module.exports = mongoose.model('company', companySchema, 'companies');

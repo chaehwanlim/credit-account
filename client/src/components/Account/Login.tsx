@@ -30,14 +30,8 @@ const Login: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) =>
   });
 
   useEffect(() => {
-    setTitle('로그인');
-<<<<<<< HEAD
-<<<<<<< HEAD
-    document.title = '외상장부 - 로그인';
-=======
->>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
-=======
->>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
+    setTitle('계정');
+    document.title = '외상장부 - 계정';
   }, []);
 
   const handleLoginForm = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -161,6 +161,10 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
     setModalOpen(false);
   }
 
+  const handleAlertClose = () => {
+    setAlertOpen(false);
+  }
+
   if (!companyInfo || bills.length === 0 ) {
     return <LinearProgress />
   }
@@ -201,8 +205,10 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
 
         </Grid>
 
-        <StyledSnackbar 
+        <StyledSnackbar
           open={alertOpen} 
+          onClose={handleAlertClose}
+          autoHideDuration={5000}
           message={`계산서 복사됨 · ${copiedBill.representative}님 (${copiedBill.date})`} 
         />
 

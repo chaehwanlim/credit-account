@@ -45,6 +45,16 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
     });
   }
 
+  const handleEditAccountForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompanyEditForm({
+      ...companyEditForm,
+      account: {
+        ...companyEditForm.account,
+        [e.target.name]: e.target.value
+      }
+    });
+  }
+
   const toggleEdit = () => {
     setEditEnabled(true);
   }
@@ -140,6 +150,44 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
               /> :
               <BoxContent>
                 {companyInfo.phone}
+              </BoxContent>
+              }
+            </Grid>
+
+            <Grid item xs={12}>
+              <BoxTitle stickTop>
+                계좌
+              </BoxTitle>
+              {editEnabled ? 
+              <span>
+                <StyledInput
+                  placeholder="금융기관"
+                  defaultValue={companyInfo.account.bank}
+                  name="bank"
+                  value={companyEditForm.account.bank}
+                  onChange={handleEditAccountForm}
+                  fullWidth
+                />
+                <StyledInput
+                  placeholder="예금주"
+                  defaultValue={companyInfo.account.accountName}
+                  name="accountName"
+                  value={companyEditForm.account.accountName}
+                  onChange={handleEditAccountForm}
+                  fullWidth
+                />
+                <StyledInput
+                  placeholder="계좌번호"
+                  defaultValue={companyInfo.account.accountNumber}
+                  name="accountNumber"
+                  value={companyEditForm.account.accountNumber}
+                  onChange={handleEditAccountForm}
+                  fullWidth
+                />
+              </span>
+               :
+              <BoxContent>
+                {companyInfo.account.bank} · {companyInfo.account.accountName} · {companyInfo.account.accountNumber}
               </BoxContent>
               }
             </Grid>

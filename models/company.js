@@ -6,6 +6,7 @@ const companySchema = new Schema({
   name: { type: String },
   location: { type: String, default: '' },
   phone: { type: String, default: '' },
+  account: { type: Object, default: {} },
   price: { type: Object, default: {} },
   menuDisplay: { type: Object, default: { drink: [], food: [] } }
 }, {

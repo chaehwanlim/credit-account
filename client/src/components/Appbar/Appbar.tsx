@@ -103,7 +103,7 @@ const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
           elevation={0} 
           blur={y > 50 ? true : false}
         >
-          <StyledToolbar style={{padding: '0 0 0 0'}}>
+          <StyledToolbar style={{padding: 0}}>
             {y > 50 ? <StyledTitle>{props.title}</StyledTitle> : <div></div>}
             
             <React.Fragment>

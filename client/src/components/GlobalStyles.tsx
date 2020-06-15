@@ -63,7 +63,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: globalThemeType }>`
 
   @media screen and (max-width: 600px) {
     html {
-      font-size: 8.5px;
+      font-size: 9px;
     }
   }
 

@@ -65,7 +65,7 @@ const CompanyLocation: React.FC<CompanyLocationProps> = ({ editEnabled, companyI
       }
       {editEnabled ?
         <StyledInput
-          placeholder="업체명을 입력하세요."
+          placeholder="업체명으로 검색하세요."
           value={keyword}
           onChange={handleKeyword}
           endAdornment={

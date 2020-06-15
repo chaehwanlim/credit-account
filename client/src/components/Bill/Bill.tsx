@@ -8,6 +8,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import AddIcon from '@material-ui/icons/AddRounded';
 import ClearIcon from '@material-ui/icons/ClearRounded';
+import SearchIcon from '@material-ui/icons/SearchRounded';
 import BillItem from './BillItem';
 import Axios from 'axios';
 
@@ -198,6 +199,9 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
               placeholder="대표자나 메모로 검색하세요."
               value={keyword}
               onChange={handleSearch}
+              endAdornment={
+                <SearchIcon />
+              }
               fullWidth
             />
           </Grid>

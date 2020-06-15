@@ -52,9 +52,6 @@ export const StyledTitle = styled(Typography)`
   font-weight: 700; 
   color: ${({ theme }) => theme.text};
   flex-grow: 1;
-  position: flex;
-  transition: opacity .25s ease,transform .25s ease,-webkit-transform .25s ease;
-  margin-left: 1rem;
 `;
 
 export const StyledAppBarMini = styled(AppBar)<{ blur?: boolean }>`

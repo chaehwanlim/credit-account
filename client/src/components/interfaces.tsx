@@ -8,11 +8,18 @@ interface MenuDisplay {
   food: Menu[];
 }
 
+interface Account {
+  accountNumber: string;
+  bank: string;
+  accountName: string;
+}
+
 interface Company {
   _id: null | string;
   name: string;
   location: string;
   phone: string;
+  account: Account;
   price: object;
   menuDisplay: MenuDisplay;
 }

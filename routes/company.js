@@ -43,6 +43,7 @@ router.post('/', (req, res) => {
   company.name = req.body.name;
   company.location = req.body.location;
   company.phone = req.body.phone;
+  company.account = req.body.account;
   company.price = req.body.price;
   company.menuDisplay = req.body.menuDisplay;
 

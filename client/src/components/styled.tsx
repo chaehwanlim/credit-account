@@ -88,9 +88,10 @@ export const IsPaid = styled(BoxTitle)<{ isPaid: number }>`
   color: ${( props ) => (props.isPaid === 1 ? "#1ABF80" : "#FF4444")};
 `;
 
-export const GreyTitle = styled.div`
+export const GreyTitle = styled.div<{ marginTop?: boolean }>`
   font-size: 2rem;
   color: ${({ theme }) => theme.subtext};
+  margin-top: ${( props ) => props.marginTop ? '1rem' : null };
 `;
 
 export const GreyContent = styled.div<{ marginTop?: boolean, edit?: boolean }>`

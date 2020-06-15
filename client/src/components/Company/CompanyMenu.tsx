@@ -93,7 +93,7 @@ const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, com
 
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
-            <GreyTitle>
+            <GreyTitle marginTop>
               음료
             </GreyTitle>
             {editEnabled ?
@@ -143,7 +143,7 @@ const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, com
             }
           </Grid>
           <Grid item xs={12} sm={6}>
-            <GreyTitle>
+            <GreyTitle marginTop>
               음식
             </GreyTitle>
             {editEnabled ?

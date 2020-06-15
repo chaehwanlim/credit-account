@@ -208,9 +208,7 @@ export const LoginForm = styled.form`
 
 //etc
 export const StyledSnackbar = styled(Snackbar)`
-  background: ${({ theme }) => theme.bg};
-  color: ${({ theme }) => theme.text};
-  font-size: 1.4rem;
+  bottom: 10rem;
 `;
 
 export const StyledModal = styled(Modal)`

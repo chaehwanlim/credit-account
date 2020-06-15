@@ -9,7 +9,7 @@ const blurBg = css`
   backdrop-filter: saturate(150%) blur(2rem);
   opacity: 1; 
   border-bottom: 0.05rem solid rgba(0, 0, 0, 0.2);
-`
+`;
 
 export const StyledAppBar = styled(AppBar)<{ blur?: boolean }>`
   background: transparent;

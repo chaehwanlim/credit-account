@@ -5,6 +5,12 @@ export interface globalThemeType {
   elementBg: string;
   text: string;
   subtext: string;
+  divider: string;
+  progress: string;
+  button: string;
+  subButton: string;
+  backdrop: string;
+  appbarBg: string;
 }
 
 export const lightTheme = {
@@ -45,6 +51,14 @@ export const GlobalStyles = createGlobalStyle<{ theme: globalThemeType }>`
 
   .MuiToolbar-regular {
     min-height: 5rem;
+  }
+
+  .MuiSnackbarContent-root {
+    background: ${({ theme }) => theme.appbarBg};
+    color: ${({ theme }) => theme.text};
+    backdrop-filter: saturate(150%) blur(2rem);
+    opacity: 1; 
+    font-size: 1.5rem;
   }
 
   @media screen and (max-width: 600px) {

@@ -27,15 +27,7 @@ export const MuiTheme = createMuiTheme({
     MuiTypography: {
       body1: {
         fontSize: '1.7rem',
-<<<<<<< HEAD
-<<<<<<< HEAD
         marginLeft: '15px'
-=======
-        marginLeft: '1.5rem'
->>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
-=======
-        marginLeft: '1.5rem'
->>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
       },
       body2: {
         fontSize: '1.4rem',
@@ -80,13 +72,6 @@ export const MuiTheme = createMuiTheme({
         borderBottomRightRadius: '2rem'
       }
     },
-    MuiSnackbarContent: {
-      root: {
-        backgroundColor: '#F2F2F4',
-        color: '#181F29',
-        fontSize: '1.5rem'
-      }
-    },
     MuiPopover: {
       paper: {
         borderRadius: '1rem'
@@ -126,15 +111,7 @@ export const MuiThemeDark = createMuiTheme({
     MuiTypography: {
       body1: {
         fontSize: '1.7rem',
-<<<<<<< HEAD
-<<<<<<< HEAD
         marginLeft: '15px'
-=======
-        marginLeft: '1.5rem'
->>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
-=======
-        marginLeft: '1.5rem'
->>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
       },
       body2: {
         fontSize: '1.4rem',
@@ -178,13 +155,6 @@ export const MuiThemeDark = createMuiTheme({
       paperAnchorTop: {
         borderBottomLeftRadius: '2rem',
         borderBottomRightRadius: '2rem'
-      }
-    },
-    MuiSnackbarContent: {
-      root: {
-        backgroundColor: '#18171C',
-        color: 'white',
-        fontSize: '1.5rem'
       }
     },
     MuiPopover: {

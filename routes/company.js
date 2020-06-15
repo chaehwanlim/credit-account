@@ -41,6 +41,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const company = new Company();
   company.name = req.body.name;
+  company.businessNumber = req.body.businessNumber;
   company.location = req.body.location;
   company.phone = req.body.phone;
   company.account = req.body.account;

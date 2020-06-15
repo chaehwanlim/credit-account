@@ -128,6 +128,24 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
               }
             </Grid>
 
+            <Grid item xs={12}>
+              <BoxTitle stickTop>
+                사업자등록번호
+              </BoxTitle>
+              {editEnabled ? 
+                <StyledInput
+                  defaultValue={companyInfo.businessNumber}
+                  name="businessNumber"
+                  value={companyEditForm.businessNumber}
+                  onChange={handleEditForm}
+                  fullWidth
+                /> :
+                <BoxContent>
+                  {companyInfo.businessNumber}
+                </BoxContent>
+              }
+            </Grid>
+
             <CompanyLocation
               editEnabled={editEnabled}
               companyInfo={companyInfo}

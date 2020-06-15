@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const companySchema = new Schema({
   name: { type: String },
+  businessNumber: { type: String, default: '' },
   location: { type: String, default: '' },
   phone: { type: String, default: '' },
   account: { type: Object, default: {} },

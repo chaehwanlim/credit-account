@@ -36,7 +36,7 @@ const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, hand
 
   const message = () => {  
     return (
-      `안녕하세요. ${companyInfo.name}을 방문해주셔서 감사합니다. \n${dateToString(bill.date)} 발생한 외상거래의 상세내역입니다. \n\n[인원] ${bill.people}명 \n[주문] ${bill.order.map((item) => (item.name + "(" + item.quantity + ")"))} \n[서비스] ${bill.service.map((item) => (item.name))} \n[총합] ${bill.total.toLocaleString()}원 (1인 ${(bill.total/bill.people).toLocaleString()}원) \n[계좌] ${companyInfo.account.bank} · ${companyInfo.account.accountName} · ${companyInfo.account.accountNumber}\n\n[주소] ${companyInfo.location} \n[문의] ${companyInfo.phone}`
+      `안녕하세요. ${companyInfo.name}을 방문해주셔서 감사합니다. \n${dateToString(bill.date)} 발생한 외상거래의 상세내역입니다. \n\n[인원] ${bill.people}명 \n[주문] ${bill.order.map((item) => (item.name + "(" + item.quantity + ")"))} \n[서비스] ${bill.service.map((item) => (item.name))} \n[총합] ${bill.total.toLocaleString()}원 (1인 ${(bill.total/bill.people).toLocaleString()}원) \n[계좌] ${companyInfo.account.bank} · ${companyInfo.account.accountName} · ${companyInfo.account.accountNumber} \n\n[사업자등록번호] ${companyInfo.businessNumber} \n[주소] ${companyInfo.location} \n[문의] ${companyInfo.phone}`
     )
   }
 

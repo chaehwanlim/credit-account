@@ -23,6 +23,13 @@ const HomeCompany: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
         </GreyContent>
           {companyInfo.name}
       </BoxContent>
+
+      <BoxContent>
+        <GreyContent>
+          사업자등록번호
+        </GreyContent>
+          {companyInfo.businessNumber}
+      </BoxContent>
       
       <BoxContent>
         <GreyContent>
@@ -37,6 +44,7 @@ const HomeCompany: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
         </GreyContent>
           {companyInfo.phone}
       </BoxContent>
+      
     </StyledBox>
   )
 }

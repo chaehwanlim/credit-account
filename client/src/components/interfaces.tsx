@@ -17,6 +17,7 @@ interface Account {
 interface Company {
   _id: null | string;
   name: string;
+  businessNumber: string;
   location: string;
   phone: string;
   account: Account;

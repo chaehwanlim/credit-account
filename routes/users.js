@@ -22,8 +22,8 @@ mongoose.connect(dbKey.mongoDB.string, { useNewUrlParser: true, useUnifiedTopolo
   .catch((err) => console.log(err));
 
 //document 구조를 정의하는 스키마 설정
-const User = require('../models/user');
-const Company = require('../models/company');
+const User = require(path.resolve(__dirname, '../', 'models/user'));
+const Company = require(path.resolve(__dirname, '../', 'models/company'));
 
 //로그인
 router.post('/', (req, res) => {

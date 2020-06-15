@@ -23,7 +23,7 @@ mongoose.connect(dbKey.mongoDB.string, { useNewUrlParser: true, useUnifiedTopolo
   .catch((err) => console.log(err));
 
 //document 구조를 정의하는 스키마 설정
-const Bill = require('../models/bill');
+const Bill = require(path.resolve(__dirname, '../', 'models/bill'));
 
 //특정 기업의 모든 bill 가져오기
 router.get('/company/:id', (req, res) => {

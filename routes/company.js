@@ -22,7 +22,7 @@ mongoose.connect(dbKey.mongoDB.string, { useNewUrlParser: true, useUnifiedTopolo
   .catch((err) => console.log(err));
 
 //document 구조를 정의하는 스키마 설정
-const Company = require('../models/company');
+const Company = require(path.resolve(__dirname, '../', 'models/company'));
 
 //특정 기업의 정보 가져오기
 router.get('/:id', (req, res) => {

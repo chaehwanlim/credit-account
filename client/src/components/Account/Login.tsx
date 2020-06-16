@@ -14,7 +14,6 @@ interface RegisterForm {
   id: string;
   password: string;
   name: string;
-  location: string;
 }
 
 const Login: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => {
@@ -26,7 +25,6 @@ const Login: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) =>
     id: "",
     password: "",
     name: "",
-    location: ""
   });
 
   useEffect(() => {

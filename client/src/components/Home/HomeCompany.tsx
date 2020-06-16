@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BoxHeader, StyledBox, HeaderButton, BoxContent, GreyContent, StyledDivider, Attribute, Info } from '../styled';
+import React from 'react';
+import { BoxHeader, StyledBox, HeaderButton, BoxContent, GreyContent, StyledDivider } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const HomeCompany: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {

@@ -75,7 +75,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',                // 생성한 템플릿 파일
-      filename: './index.html'
+      filename: './index.html',
+      favicon: './src/favicon.ico'
     }),
   ],
 

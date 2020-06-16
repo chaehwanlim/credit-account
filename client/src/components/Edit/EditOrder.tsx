@@ -40,19 +40,20 @@ const EditOrder: React.FC<EditOrderProps> = ({ menuDisplay, billForm, calculateT
       <MenuItem value="메뉴를 선택해주세요.">
         메뉴를 선택해주세요.
       </MenuItem>
-      <ListSubheader>
-        음료
-      </ListSubheader>
-      {
-        menuDisplay.drink.map((item, index) => (
-        <MenuItem value={item.name} key={index}>{item.name} · {item.price.toLocaleString()}원</MenuItem>
-        ))
-      }
+      
       <ListSubheader>
         음식
       </ListSubheader>
       {
         menuDisplay.food.map((item, index) => (
+        <MenuItem value={item.name} key={index}>{item.name} · {item.price.toLocaleString()}원</MenuItem>
+        ))
+      }
+      <ListSubheader>
+        음료
+      </ListSubheader>
+      {
+        menuDisplay.drink.map((item, index) => (
         <MenuItem value={item.name} key={index}>{item.name} · {item.price.toLocaleString()}원</MenuItem>
         ))
       }

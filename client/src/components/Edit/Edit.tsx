@@ -29,20 +29,10 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
   useEffect(() => {
     if(editMode) {
       setTitle('수정');
-<<<<<<< HEAD
-<<<<<<< HEAD
       document.title = '외상장부 - 수정';
     } else {
       setTitle('추가');
       document.title = '외상장부 - 추가';
-=======
-    } else {
-      setTitle('추가');
->>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
-=======
-    } else {
-      setTitle('추가');
->>>>>>> 0e6ef6ee47d45c3827662c12dc2e32f73823ba06
     }
 
     if (!sessionStorage.getItem('companyID')) {

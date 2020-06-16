@@ -152,7 +152,7 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
   const RenderNoBills: React.FC = () => (
     <Grid item xs={12}>
       <StyledBox>
-        <BoxTitle>
+        <BoxTitle stickTop>
           외상 거래가 없습니다.
         </BoxTitle>
       </StyledBox>
@@ -167,7 +167,7 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
     setAlertOpen(false);
   }
 
-  if (!companyInfo || bills.length === 0 ) {
+  if (!companyInfo) {
     return <LinearProgress />
   }
 

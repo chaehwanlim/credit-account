@@ -88,9 +88,8 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
     })
   }
 
-  const toggleCancle = () => {
-    setEditEnabled(false);
-    setCompanyEditForm(companyEditFormBackup);
+  const handleCancle = () => {
+    location.assign('/company');
   }
 
   if (!companyInfo) {
@@ -205,7 +204,9 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
               </span>
                :
               <BoxContent>
-                {companyInfo.account.bank} · {companyInfo.account.accountName} · {companyInfo.account.accountNumber}
+                {companyInfo.account.bank && companyInfo.account.accountName && companyInfo.account.accountNumber ? 
+                `${companyInfo.account.bank} · ${companyInfo.account.accountName} · ${companyInfo.account.accountNumber}` 
+                : null}
               </BoxContent>
               }
             </Grid>
@@ -221,7 +222,7 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
               <Grid container spacing={1}>
                 {editEnabled ? 
                 <Grid item xs={6}>
-                  <StyledButton big onClick={toggleCancle}>취소하기</StyledButton>
+                  <StyledButton big onClick={handleCancle}>취소하기</StyledButton>
                 </Grid> :
                 <Grid item xs={12}>
                   <StyledButton big colored onClick={toggleEdit}>수정하기</StyledButton>

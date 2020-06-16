@@ -3,7 +3,6 @@ import { StyledBox, BoxHeader, BoxSubheader, HeaderButton, StyledDivider, BoxCon
 import Axios from 'axios';
 
 const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
-  const [remain, setRemain] = useState(0);
   const [totalUnpaid, setTotalUnpaid] = useState<number>(0);
   const [bills, setBills] = useState<Bill[]>([]);
 
@@ -33,11 +32,14 @@ const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) =>
   const DisplayBills: React.FC = () => {
     let billsToDisplay = [];
 
-    for(let i=0; i<3; i++) {
-      billsToDisplay.push(bills[bills.length-i-1]);
+    if (bills.length < 3) {
+      billsToDisplay = bills;
+    } 
+    else {
+      for(let i=0; i<3; i++) {
+        billsToDisplay.push(bills[bills.length-i-1]);
+      }
     }
-
-    setRemain(bills.length - 3);
 
     calculateTotal();
     
@@ -79,9 +81,8 @@ const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) =>
       {bills.length !== 0 ? <DisplayBills /> : <DisplayNothing />}
       {bills.length !== 0 ? 
       <GreyContent marginTop>
-        외 {remain}건의 매출채권
+        포함 {bills.length}건의 외상거래
       </GreyContent>: null}
-      
       
     </StyledBox>
   )

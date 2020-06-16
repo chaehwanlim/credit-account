@@ -67,7 +67,7 @@ const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, hand
           </BoxContent>
         ))}
 
-        {bill.service ?
+        {bill.service.length !== 0 ?
           <BoxTitle>
             서비스
           </BoxTitle>

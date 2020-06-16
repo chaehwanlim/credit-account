@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { BoxHeader, StyledBox, HeaderButton, GreyTitle, StyledDivider, BoxContent, GreyContent, MenuName, Price, } from '../styled';
+import { BoxHeader, StyledBox, HeaderButton, GreyTitle, StyledDivider, BoxContent, GreyContent } from '../styled';
 
 const HomeMenu: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
 
@@ -17,9 +17,9 @@ const HomeMenu: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <GreyTitle>
-            음료
+            음식
           </GreyTitle>
-          {companyInfo.menuDisplay.drink.map((item, index) => (
+          {companyInfo.menuDisplay.food.map((item, index) => (
             <BoxContent key={index}>
               {item.name}
               <GreyContent>
@@ -30,9 +30,9 @@ const HomeMenu: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <GreyTitle>
-            음식
+            음료
           </GreyTitle>
-          {companyInfo.menuDisplay.food.map((item, index) => (
+          {companyInfo.menuDisplay.drink.map((item, index) => (
             <BoxContent key={index}>
               {item.name}
               <GreyContent>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyledBox, BoxHeader, BoxSubheader, HeaderButton, StyledDivider, BoxContent, GreyContent } from '../styled';
+import { StyledBox, BoxHeader, BoxSubheader, HeaderButton, StyledDivider, BoxContent, GreyContent, StyledLink } from '../styled';
 import Axios from 'axios';
 
 const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
@@ -67,14 +67,16 @@ const HomeTransaction: React.FC<{ companyInfo: Company }> = ({ companyInfo }) =>
 
   return (
     <StyledBox>
-      <HeaderButton onClick={() => location.assign('/bill')}>
-        <BoxHeader>
-          미수금
-          <BoxSubheader>
-            {totalUnpaid.toLocaleString()}원&nbsp;&#xE001;
-          </BoxSubheader>
-        </BoxHeader>
-      </HeaderButton>
+      <StyledLink to="/bill">
+        <HeaderButton>
+          <BoxHeader>
+            미수금
+            <BoxSubheader>
+              {totalUnpaid.toLocaleString()}원&nbsp;&#xE001;
+            </BoxSubheader>
+          </BoxHeader>
+        </HeaderButton>
+      </StyledLink>
       
       <StyledDivider />
 

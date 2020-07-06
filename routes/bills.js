@@ -8,9 +8,10 @@ const Bill = require(path.resolve(__dirname, '../', 'models/bill'));
 
 //특정 기업의 모든 bill 가져오기
 router.get('/company/:id', (req, res) => {
-  Bill.find({ companyID: req.params.id, isDeleted: 0 }, {}, { sort: { date: 1 }})
-  .then(bills => res.json(bills))
-  .catch(err => console.log(err))
+  Bill.find({ companyID: req.params.id, isDeleted: 0 }, {})
+    .sort({ date: 1 })
+    .then(bills => res.json(bills))
+    .catch(err => console.log(err))
 });
 
 //특정 계산서 정보 가져오기

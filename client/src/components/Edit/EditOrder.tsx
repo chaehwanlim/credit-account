@@ -147,7 +147,7 @@ const EditOrder: React.FC<EditOrderProps> = ({ menuDisplay, billForm, calculateT
       {billForm.order.length !== 0 ? 
       <ArrayBox>
         {billForm.order.map((item, index) => (
-          <BoxContent stickTop>
+          <BoxContent stickTop key={index}>
             {item.name} &nbsp;·&nbsp; {item.quantity}
             <div>
               <StyledIconButton onClick={() => {handleQuantityAdd(index)}}>

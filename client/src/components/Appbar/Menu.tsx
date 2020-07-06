@@ -1,5 +1,5 @@
 import React from 'react';
-import { StylesProvider } from '@material-ui/core/styles';
+import { StyledLink } from '../styled';
 import { StyledButton } from './styled';
 
 interface MenuItem {
@@ -27,13 +27,28 @@ const Menu: React.FC = () => {
     }
   ];
 
-  return (
-    <StylesProvider injectFirst>
+  if (!sessionStorage.getItem('companyID')) {
+    return (
+      <span>
       {menuObjects.map((menuObject: MenuItem, index) => (
-        <StyledButton key={index} onClick={() => location.assign(menuObject.link)}>{menuObject.name}
+        <StyledButton key={index} onClick={() => alert('로그인이 필요합니다.')}>
+          {menuObject.name}
         </StyledButton>
       ))}
-    </StylesProvider>
+      </span>
+    );
+  }
+
+  return (
+    <span>
+    {menuObjects.map((menuObject: MenuItem, index) => (
+      <StyledLink to={menuObject.link}  key={index}>
+        <StyledButton>
+          {menuObject.name}
+        </StyledButton>
+      </StyledLink>
+    ))}
+    </span>
   );
 }
 

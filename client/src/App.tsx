@@ -14,7 +14,7 @@ import BillRouter from './components/Bill/BillRouter';
 import Company from './components/Company/Company';
 import Login from './components/Account/Login';
 import Footer from './components/Footer';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, StylesProvider } from '@material-ui/core/styles';
 import { MuiTheme, MuiThemeDark } from './MuiStyles';
 
 
@@ -40,29 +40,32 @@ const App: React.FC = () => {
     return <div></div>
 
   return (
-    <ThemeProvider theme={globalThemeMode === 'lightMode' ? lightTheme : darkTheme}>
-      <MuiThemeProvider theme={globalThemeMode === 'lightMode' ? MuiTheme : MuiThemeDark }>
+    <StylesProvider injectFirst>
+      <ThemeProvider theme={globalThemeMode === 'lightMode' ? lightTheme : darkTheme}>
+        <MuiThemeProvider
+          theme={globalThemeMode === 'lightMode' ? MuiTheme : MuiThemeDark }
+        >
 
-        <GlobalStyles />
+          <GlobalStyles />
 
-        <Appbar 
-          globalThemeMode={globalThemeMode}
-          lightMode={_lightMode}
-          darkMode={_darkMode}
-          title={title}
-        />
+          <BrowserRouter>
+            <Appbar 
+              globalThemeMode={globalThemeMode}
+              lightMode={_lightMode}
+              darkMode={_darkMode}
+              title={title}
+            />
+            <Route exact path="/" render={() => <Home setTitle={_setTitle} />} />
+            <Route path="/bill" component={BillRouter} />
+            <Route path="/company" render={() => <Company setTitle={_setTitle} />} />
+            <Route path="/login" render={() => <Login setTitle={_setTitle} />} />
+          </BrowserRouter>
 
-        <BrowserRouter>
-          <Route exact path="/" render={() => <Home setTitle={_setTitle} />} />
-          <Route path="/bill" component={BillRouter} />
-          <Route path="/company" render={() => <Company setTitle={_setTitle} />} />
-          <Route path="/login" render={() => <Login setTitle={_setTitle} />} />
-        </BrowserRouter>
+          <Footer />
 
-        <Footer />
-
-      </MuiThemeProvider>
-    </ThemeProvider>
+        </MuiThemeProvider>
+      </ThemeProvider>
+    </StylesProvider>
   )
 }
 

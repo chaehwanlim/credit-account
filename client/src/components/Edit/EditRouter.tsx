@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import Edit from './Edit';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../modules/title';
@@ -19,7 +20,8 @@ const EditRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
     order: [],
     service: [],
     memo: "",
-    total: 0
+    total: 0,
+    isPaid: 0
   });
   const [isFetched, setIsFetched] = useState<boolean>(false);
 
@@ -30,7 +32,7 @@ const EditRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
   }
 
   if (!sessionStorage.getItem('companyID')) {
-    location.assign('/login');
+    return <Redirect to="/login" />
   }
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const EditRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
     .then(res => {
       if (res.data.fail === 1) {
         alert('존재하지 않는 계산서입니다.');
-        location.assign('/bills');
+        location.assign('/bill');
       }
 
       setBill({
@@ -51,7 +53,8 @@ const EditRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
         order: res.data.order,
         service: res.data.service,
         memo: res.data.memo,
-        total: res.data.total
+        total: res.data.total,
+        isPaid: res.data.isPaid
       });
       setIsFetched(true);
     })

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { PageTitle, PageSubtitle, StyledBox, StyledButton, EditHeader, EditSubheader } from '../styled';
+import { PageTitle, PageSubtitle, StyledBox, StyledButton, EditHeader, EditSubheader, StyledLink } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Axios from 'axios';
 import EditDate from './EditDate';
@@ -10,6 +9,7 @@ import EditOrder from './EditOrder';
 import EditService from './EditService';
 import EditPeople from './EditPeople';
 import EditMemo from './EditMemo';
+import { Redirect } from 'react-router-dom';
 
 interface EditProps {
   editMode: boolean;
@@ -23,20 +23,14 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
 
   if (!sessionStorage.getItem('companyID')) {
-    location.assign('/login');
+    return <Redirect to="/login" />
   }
 
   useEffect(() => {
-    if(editMode) {
+    if (editMode) {
       setTitle('수정');
-      document.title = '외상장부 - 수정';
     } else {
       setTitle('추가');
-      document.title = '외상장부 - 추가';
-    }
-
-    if (!sessionStorage.getItem('companyID')) {
-      location.assign('/login');
     }
 
     Axios({
@@ -44,7 +38,10 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
       url: `/api/company/${sessionStorage.getItem('companyID')}`
     })
     .then(res => setCompanyInfo(res.data[0]))
-    .then(() => calculateTotal())
+    .then(() => {
+      if (!editMode)
+        calculateTotal()
+    })
     .catch(err => console.log(err));
 
   }, []);
@@ -80,7 +77,6 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
       data: {
         ...billForm,
         companyID: sessionStorage.getItem('companyID'),
-        isPaid: 0,
         isDeleted: 0
       }
     })
@@ -102,7 +98,6 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
       data: {
         ...billForm,
         companyID: sessionStorage.getItem('companyID'),
-        isPaid: 0,
         isDeleted: 0
       }
     })
@@ -117,85 +112,80 @@ const Edit: React.FC<EditProps> & { defaultProps: Partial<EditProps> } = ({ edit
     .catch(err => console.log(err));
   }
 
-  const handleEditCancle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    location.assign('/bill');
-  }
-
   if(!companyInfo) {
     return <LinearProgress />
   }
 
   return (
     <Container maxWidth="md">
-      <StylesProvider injectFirst>
+      <PageTitle>{editMode ? "수정" : "추가"}</PageTitle>
+      <PageSubtitle>{companyInfo.name}</PageSubtitle>
+      
+      <StyledBox>
+        <Grid container
+          direction="row"
+          justify="space-between"
+          alignItems="stretch"
+          spacing={5}
+        >
 
-        <PageTitle>{editMode ? "수정" : "추가"}</PageTitle>
-        <PageSubtitle>{companyInfo.name}</PageSubtitle>
-        
-        <StyledBox>
-          <Grid container
-            direction="row"
-            justify="space-between"
-            alignItems="stretch"
-            spacing={5}
-          >
-
-            <EditDate 
-              billForm={billForm}
-              setBillForm={setBillForm}
-            />
-            
-            <EditPeople
-              billForm={billForm}
-              setBillForm={setBillForm}
-            />
+          <EditDate 
+            billForm={billForm}
+            setBillForm={setBillForm}
+          />
           
-            <EditOrder 
-              menuDisplay={companyInfo.menuDisplay}
-              billForm={billForm}
-              calculateTotal={calculateTotal}
-              setBillForm={setBillForm}
-            />
+          <EditPeople
+            billForm={billForm}
+            setBillForm={setBillForm}
+          />
+        
+          <EditOrder 
+            menuDisplay={companyInfo.menuDisplay}
+            billForm={billForm}
+            calculateTotal={calculateTotal}
+            setBillForm={setBillForm}
+          />
 
-            <EditService
-              billForm={billForm}
-              setBillForm={setBillForm}
-            />
+          <EditService
+            billForm={billForm}
+            setBillForm={setBillForm}
+          />
 
-            <EditMemo
-              billForm={billForm}
-              setBillForm={setBillForm}
-            />
-            
-          </Grid>
+          <EditMemo
+            billForm={billForm}
+            setBillForm={setBillForm}
+          />
+          
+        </Grid>
 
-          <EditHeader>
-            합계 {billForm.total.toLocaleString()}원
-          </EditHeader>
-          <EditSubheader>
-            1인 {(billForm.total / billForm.people).toLocaleString()}원
-          </EditSubheader>
+        <EditHeader>
+          합계 {billForm.total.toLocaleString()}원
+        </EditHeader>
+        <EditSubheader>
+          1인 {(billForm.total / billForm.people).toLocaleString()}원
+        </EditSubheader>
 
-          {editMode ? 
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <StyledButton big onClick={handleEditCancle}>
+        {editMode ? 
+        <Grid container spacing={1}>
+          <Grid item xs={6}>
+            <StyledLink to="/bill">
+              <StyledButton big >
                 취소하기
               </StyledButton>
-            </Grid>
-            <Grid item xs={6}>
-              <StyledButton big colored={true} onClick={submitEditBill}>
-                수정하기
-              </StyledButton>
-            </Grid>
+            </StyledLink>
           </Grid>
-          : 
-          <StyledButton big colored={true} onClick={submitForm}>
-            추가하기
-          </StyledButton>}
+          <Grid item xs={6}>
+            <StyledButton big colored={true} onClick={submitEditBill}>
+              수정하기
+            </StyledButton>
+          </Grid>
+        </Grid>
+        : 
+        <StyledButton big colored={true} onClick={submitForm}>
+          추가하기
+        </StyledButton>}
 
-        </StyledBox>
-      </StylesProvider>
+      </StyledBox>
     </Container>
   )
 }
@@ -210,7 +200,8 @@ Edit.defaultProps = {
     order: [],
     service: [],
     memo: "",
-    total: 0
+    total: 0,
+    isPaid: 0
   }
 }
 

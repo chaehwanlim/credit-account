@@ -111,7 +111,7 @@ const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, com
             {editEnabled ?
               <ArrayBox>
               {companyEditForm.menuDisplay.food.map((item, index) => (
-                <BoxContent noSpace>
+                <BoxContent noSpace key={index}>
                   <StyledInput noSpace
                     defaultValue={item.name} 
                     value={companyEditForm.menuDisplay.food[index].name} 
@@ -131,7 +131,7 @@ const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, com
               ))}
               </ArrayBox> : 
               companyInfo.menuDisplay.food.map((item, index) => (
-                <BoxContent>
+                <BoxContent key={index}>
                     {item.name}
                   <GreyContent>
                     {item.price.toLocaleString()}원
@@ -161,7 +161,7 @@ const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, com
             {editEnabled ? 
               <ArrayBox>
               {companyEditForm.menuDisplay.drink.map((item, index) => (
-                <BoxContent noSpace>
+                <BoxContent noSpace key={index}>
                   <StyledInput noSpace
                     defaultValue={item.name} 
                     value={companyEditForm.menuDisplay.drink[index].name} 
@@ -181,7 +181,7 @@ const CompanyMenu: React.FC<CompanyMenuProps> = ({ editEnabled, companyInfo, com
               ))}
               </ArrayBox> :
               companyInfo.menuDisplay.drink.map((item, index) => (
-                <BoxContent>
+                <BoxContent key={index}>
                   {item.name}
                   <GreyContent>
                     {item.price.toLocaleString()}원

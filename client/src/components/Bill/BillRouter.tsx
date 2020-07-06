@@ -3,6 +3,7 @@ import { RouteComponentProps, Route } from 'react-router-dom';
 import Bill from './Bill';
 import Edit from '../Edit/Edit';
 import EditRouter from '../Edit/EditRouter';
+import { Redirect } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../modules/title';
@@ -19,7 +20,7 @@ const BillRouter: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
   }
 
   if (!sessionStorage.getItem('companyID')) {
-    location.assign('/login');
+    return <Redirect to="/login" />
   }
 
   return (

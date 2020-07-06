@@ -65,7 +65,7 @@ const EditService: React.FC<EditServiceProps> = ({ billForm,setBillForm }) => {
       {billForm.service.length !== 0 ?
         <ArrayBox>
         {billForm.service.map((service, index) => (
-          <BoxContent stickTop>
+          <BoxContent stickTop key={index}>
             {service.name}
             <StyledIconButton onClick={() => {handleServiceRemove(index)}}>
               <ClearIcon />

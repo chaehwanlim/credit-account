@@ -228,6 +228,13 @@ export const StyledFab = styled(Fab)`
 `;
 
 
+
+import { Link } from 'react-router-dom';
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+`
+
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;
 $bookGreen : #1ABF80;

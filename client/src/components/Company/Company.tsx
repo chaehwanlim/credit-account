@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { PageTitle, PageSubtitle, StyledBox, BoxTitle, StyledButton, BoxContent, StyledInput } from '../styled';
 import Container from '@material-ui/core/Container';
-import { StylesProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CompanyLocation from './CompanyLocation';
 import CompanyMenu from './CompanyMenu';
 import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => {
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
@@ -15,11 +15,10 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
   const [companyEditFormBackup, setCompanyEditFormBackup] = useState<Company | null>(null);
 
   if (!sessionStorage.getItem('companyID')) {
-    location.assign('/login');
+    return <Redirect to="/login" />
   }
   
   useEffect(() => {
-    document.title = "외상장부 - 내 기업";
     setTitle('내 기업');
 
     getCompanyInfo();
@@ -89,7 +88,8 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
   }
 
   const handleCancle = () => {
-    location.assign('/company');
+    getCompanyInfo();
+    setEditEnabled(false);
   }
 
   if (!companyInfo) {
@@ -98,146 +98,144 @@ const _Company: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle })
 
   return (
     <Container maxWidth="md">
-      <StylesProvider injectFirst>
-        <PageTitle>내 기업</PageTitle>
-        <PageSubtitle>{companyInfo.name}</PageSubtitle>
+      <PageTitle>내 기업</PageTitle>
+      <PageSubtitle>{companyInfo.name}</PageSubtitle>
 
-        <StyledBox>
-          <Grid container
-            direction="row"
-            justify="space-between"
-            alignItems="stretch"
-            spacing={5}
-          >
-            <Grid item xs={12}>
-              <BoxTitle stickTop>
-                업체명
-              </BoxTitle>
-              {editEnabled ? 
-                <StyledInput
-                  defaultValue={companyInfo.name}
-                  name="name"
-                  value={companyEditForm.name}
-                  onChange={handleEditForm}
-                  fullWidth
-                /> :
-                <BoxContent>
-                  {companyInfo.name}
-                </BoxContent>
-              }
-            </Grid>
-
-            <Grid item xs={12}>
-              <BoxTitle stickTop>
-                사업자등록번호
-              </BoxTitle>
-              {editEnabled ? 
-                <StyledInput
-                  defaultValue={companyInfo.businessNumber}
-                  name="businessNumber"
-                  value={companyEditForm.businessNumber}
-                  onChange={handleEditForm}
-                  fullWidth
-                /> :
-                <BoxContent>
-                  {companyInfo.businessNumber}
-                </BoxContent>
-              }
-            </Grid>
-
-            <CompanyLocation
-              editEnabled={editEnabled}
-              companyInfo={companyInfo}
-              companyEditForm={companyEditForm}
-              handleEditForm={handleEditForm}
-              setCompanyEditForm={setCompanyEditForm}
-            />
-
-            <Grid item xs={12}>
-              <BoxTitle stickTop>
-                전화번호
-              </BoxTitle>
-              {editEnabled ? 
+      <StyledBox>
+        <Grid container
+          direction="row"
+          justify="space-between"
+          alignItems="stretch"
+          spacing={5}
+        >
+          <Grid item xs={12}>
+            <BoxTitle stickTop>
+              업체명
+            </BoxTitle>
+            {editEnabled ? 
               <StyledInput
-                defaultValue={companyInfo.phone}
-                name="phone"
-                value={companyEditForm.phone}
+                defaultValue={companyInfo.name}
+                name="name"
+                value={companyEditForm.name}
                 onChange={handleEditForm}
                 fullWidth
               /> :
               <BoxContent>
-                {companyInfo.phone}
+                {companyInfo.name}
               </BoxContent>
-              }
-            </Grid>
-
-            <Grid item xs={12}>
-              <BoxTitle stickTop>
-                계좌
-              </BoxTitle>
-              {editEnabled ? 
-              <span>
-                <StyledInput
-                  placeholder="금융기관"
-                  defaultValue={companyInfo.account.bank}
-                  name="bank"
-                  value={companyEditForm.account.bank}
-                  onChange={handleEditAccountForm}
-                  fullWidth
-                />
-                <StyledInput
-                  placeholder="예금주"
-                  defaultValue={companyInfo.account.accountName}
-                  name="accountName"
-                  value={companyEditForm.account.accountName}
-                  onChange={handleEditAccountForm}
-                  fullWidth
-                />
-                <StyledInput
-                  placeholder="계좌번호"
-                  defaultValue={companyInfo.account.accountNumber}
-                  name="accountNumber"
-                  value={companyEditForm.account.accountNumber}
-                  onChange={handleEditAccountForm}
-                  fullWidth
-                />
-              </span>
-               :
-              <BoxContent>
-                {companyInfo.account.bank && companyInfo.account.accountName && companyInfo.account.accountNumber ? 
-                `${companyInfo.account.bank} · ${companyInfo.account.accountName} · ${companyInfo.account.accountNumber}` 
-                : null}
-              </BoxContent>
-              }
-            </Grid>
-
-            <CompanyMenu
-              editEnabled={editEnabled}
-              companyInfo={companyInfo}
-              companyEditForm={companyEditForm}
-              setCompanyEditForm={setCompanyEditForm}
-            />
-            
-            <Grid item xs={12}>
-              <Grid container spacing={1}>
-                {editEnabled ? 
-                <Grid item xs={6}>
-                  <StyledButton big onClick={handleCancle}>취소하기</StyledButton>
-                </Grid> :
-                <Grid item xs={12}>
-                  <StyledButton big colored onClick={toggleEdit}>수정하기</StyledButton>
-                </Grid>}
-                {editEnabled ?
-                <Grid item xs={6}>
-                  <StyledButton big colored onClick={handleSave}>저장하기</StyledButton>
-                </Grid> : null}
-              </Grid>
-            </Grid>
-            
+            }
           </Grid>
 
-        </StyledBox>
-      </StylesProvider>
+          <Grid item xs={12}>
+            <BoxTitle stickTop>
+              사업자등록번호
+            </BoxTitle>
+            {editEnabled ? 
+              <StyledInput
+                defaultValue={companyInfo.businessNumber}
+                name="businessNumber"
+                value={companyEditForm.businessNumber}
+                onChange={handleEditForm}
+                fullWidth
+              /> :
+              <BoxContent>
+                {companyInfo.businessNumber}
+              </BoxContent>
+            }
+          </Grid>
+
+          <CompanyLocation
+            editEnabled={editEnabled}
+            companyInfo={companyInfo}
+            companyEditForm={companyEditForm}
+            handleEditForm={handleEditForm}
+            setCompanyEditForm={setCompanyEditForm}
+          />
+
+          <Grid item xs={12}>
+            <BoxTitle stickTop>
+              전화번호
+            </BoxTitle>
+            {editEnabled ? 
+            <StyledInput
+              defaultValue={companyInfo.phone}
+              name="phone"
+              value={companyEditForm.phone}
+              onChange={handleEditForm}
+              fullWidth
+            /> :
+            <BoxContent>
+              {companyInfo.phone}
+            </BoxContent>
+            }
+          </Grid>
+
+          <Grid item xs={12}>
+            <BoxTitle stickTop>
+              계좌
+            </BoxTitle>
+            {editEnabled ? 
+            <span>
+              <StyledInput
+                placeholder="금융기관"
+                defaultValue={companyInfo.account.bank}
+                name="bank"
+                value={companyEditForm.account.bank}
+                onChange={handleEditAccountForm}
+                fullWidth
+              />
+              <StyledInput
+                placeholder="예금주"
+                defaultValue={companyInfo.account.accountName}
+                name="accountName"
+                value={companyEditForm.account.accountName}
+                onChange={handleEditAccountForm}
+                fullWidth
+              />
+              <StyledInput
+                placeholder="계좌번호"
+                defaultValue={companyInfo.account.accountNumber}
+                name="accountNumber"
+                value={companyEditForm.account.accountNumber}
+                onChange={handleEditAccountForm}
+                fullWidth
+              />
+            </span>
+              :
+            <BoxContent>
+              {companyInfo.account.bank && companyInfo.account.accountName && companyInfo.account.accountNumber ? 
+              `${companyInfo.account.bank} · ${companyInfo.account.accountName} · ${companyInfo.account.accountNumber}` 
+              : null}
+            </BoxContent>
+            }
+          </Grid>
+
+          <CompanyMenu
+            editEnabled={editEnabled}
+            companyInfo={companyInfo}
+            companyEditForm={companyEditForm}
+            setCompanyEditForm={setCompanyEditForm}
+          />
+          
+          <Grid item xs={12}>
+            <Grid container spacing={1}>
+              {editEnabled ? 
+              <Grid item xs={6}>
+                <StyledButton big onClick={handleCancle}>취소하기</StyledButton>
+              </Grid> :
+              <Grid item xs={12}>
+                <StyledButton big colored onClick={toggleEdit}>수정하기</StyledButton>
+              </Grid>}
+              {editEnabled ?
+              <Grid item xs={6}>
+                <StyledButton big colored onClick={handleSave}>저장하기</StyledButton>
+              </Grid> : null}
+            </Grid>
+          </Grid>
+          
+        </Grid>
+
+      </StyledBox>
     </Container>
   )
 }

@@ -1,18 +1,17 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { StyledBox, BoxTitle, BoxSubtitle, GreyContent, StyledButton, StyledDivider, BoxContent, IsPaid } from '../styled';
+import { StyledBox, BoxTitle, BoxSubtitle, GreyContent, StyledButton, StyledDivider, BoxContent, IsPaid, StyledLink } from '../styled';
 
 interface BillItemProps {
   companyInfo: Company;
   bill: Bill;
   handlePaid: (id: string, isPaid: number) => void;
-  handleEdit: (id: string) => void;
   handleDelete: (id: string, representative: string, date: string) => void;
   handleCopy: (representative: string, date: string) => void;
 }
 
-const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, handleEdit, handleDelete, handleCopy }) => {
+const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, handleDelete, handleCopy }) => {
   const dateToString = (date: Date | null) => {
     const newDate = new Date(date);
     let dateStr = ""
@@ -58,8 +57,8 @@ const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, hand
           주문
         </BoxTitle>
 
-        {bill.order.map((item) => (
-          <BoxContent marginLeft>
+        {bill.order.map((item, index) => (
+          <BoxContent marginLeft key={index}>
             {item.name}
             <GreyContent>
               {item.quantity}
@@ -73,8 +72,8 @@ const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, hand
           </BoxTitle>
         : null}
 
-        {bill.service.map((item) => (
-          <BoxContent marginLeft>
+        {bill.service.map((item, index) => (
+          <BoxContent marginLeft key={index}>
             {item.name}
           </BoxContent>
         ))}
@@ -114,7 +113,9 @@ const BillItem: React.FC<BillItemProps> = ({ companyInfo, bill, handlePaid, hand
             </StyledButton>
           </Grid>
           <Grid item xs={3} md={6}>
-            <StyledButton onClick={() => handleEdit(bill._id)}>수정</StyledButton>
+            <StyledLink to={`/bill/editor/${bill._id}`}>
+              <StyledButton>수정</StyledButton>
+            </StyledLink>
           </Grid>
           <Grid item xs={3} md={6}>
             <StyledButton onClick={() => handleDelete(bill._id, bill.representative, dateToString(bill.date))}>삭제</StyledButton>

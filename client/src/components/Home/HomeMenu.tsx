@@ -1,16 +1,18 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { BoxHeader, StyledBox, HeaderButton, GreyTitle, StyledDivider, BoxContent, GreyContent } from '../styled';
+import { BoxHeader, StyledBox, HeaderButton, GreyTitle, StyledDivider, BoxContent, GreyContent, StyledLink } from '../styled';
 
 const HomeMenu: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
 
   return (
     <StyledBox>
-      <HeaderButton onClick={() => location.assign('/company')}>
-        <BoxHeader>
-          메뉴&nbsp;&#xE001;
-        </BoxHeader>
-      </HeaderButton>
+      <StyledLink to="/company">
+        <HeaderButton>
+          <BoxHeader>
+            메뉴&nbsp;&#xE001;
+          </BoxHeader>
+        </HeaderButton>
+      </StyledLink>
 
       <StyledDivider />
 

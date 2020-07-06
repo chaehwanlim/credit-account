@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { PageTitle, PageSubtitle, StyledBox, BoxTitle, BoxHeader, BoxSubheader, BoxContent, StyledButton, StyledSnackbar, StyledModal, ModalBox, SearchBar, StyledFab, StyledIconButton } from '../styled';
+import { PageTitle, PageSubtitle, StyledBox, BoxTitle, BoxHeader, BoxSubheader, BoxContent, StyledButton, StyledSnackbar, StyledModal, ModalBox, SearchBar, StyledFab, StyledIconButton, StyledLink } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -11,6 +10,7 @@ import ClearIcon from '@material-ui/icons/ClearRounded';
 import SearchIcon from '@material-ui/icons/SearchRounded';
 import BillItem from './BillItem';
 import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => {
   const [bills, setBills] = useState<Bill[]>([]);
@@ -29,11 +29,10 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
   const [keyword, setKeyword] = useState<string>('');
 
   if (!sessionStorage.getItem('companyID')) {
-    location.assign('/login');
+    return <Redirect to="/login" />
   }
   
   useEffect(() => {
-    document.title = "외상장부 - 계산서";
     setTitle('계산서');
 
     Axios({
@@ -89,10 +88,6 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
     .catch(err => console.log(err));
   }
 
-  const handleEdit = (id: string) => {
-    location.assign(`/bill/editor/${id}`);
-  }
-
   const handleDelete = (id: string, representative: string, date: string) => {
     setBillToDelete({
       id: id,
@@ -141,7 +136,6 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
           companyInfo={companyInfo}
           bill={bill}
           handlePaid={handlePaid}
-          handleEdit={handleEdit}
           handleDelete={handleDelete}
           handleCopy={handleCopy}
         />
@@ -173,98 +167,97 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
 
   return (
     <Container maxWidth="md">
-      <StylesProvider injectFirst>
+      <PageTitle>계산서</PageTitle>
+      <PageSubtitle>{companyInfo.name}</PageSubtitle>
 
-        <PageTitle>계산서</PageTitle>
-        <PageSubtitle>{companyInfo.name}</PageSubtitle>
-
-        <Grid container spacing={3}
-          direction="row"
-          justify="flex-start"
-          alignItems="stretch"
-        >
-          <Grid item xs={12}>
-            <StyledBox>
-              <BoxHeader>
-                미수금
-                <BoxSubheader>
-                  {calculateTotal().toLocaleString()}원
-                </BoxSubheader>
-              </BoxHeader>
-            </StyledBox>
-          </Grid>
-
-          <Grid item xs={12}>
-            <SearchBar 
-              placeholder="대표자나 메모로 검색하세요."
-              value={keyword}
-              onChange={handleSearch}
-              endAdornment={
-                <SearchIcon />
-              }
-              fullWidth
-            />
-          </Grid>
-        
-          {bills.length !== 0 ? RenderBills() : <RenderNoBills />}
-
+      <Grid container spacing={3}
+        direction="row"
+        justify="flex-start"
+        alignItems="stretch"
+      >
+        <Grid item xs={12}>
+          <StyledBox>
+            <BoxHeader>
+              미수금
+              <BoxSubheader>
+                {calculateTotal().toLocaleString()}원
+              </BoxSubheader>
+            </BoxHeader>
+          </StyledBox>
         </Grid>
 
-        <StyledSnackbar
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          open={alertOpen} 
-          onClose={handleAlertClose}
-          autoHideDuration={5000}
-          message={`계산서 복사됨 · ${copiedBill.representative}님 (${copiedBill.date})`} 
-          action={
-            <React.Fragment>
-              <StyledIconButton onClick={handleAlertClose}>
-                <ClearIcon />
-              </StyledIconButton>
-            </React.Fragment>
-          }
-        />
+        <Grid item xs={12}>
+          <SearchBar 
+            placeholder="대표자나 메모로 검색하세요."
+            value={keyword}
+            onChange={handleSearch}
+            endAdornment={
+              <SearchIcon />
+            }
+            fullWidth
+          />
+        </Grid>
+      
+        {bills.length !== 0 ? RenderBills() : <RenderNoBills />}
 
-        <StyledModal
-          open={modalOpen}
-          onClose={handleModalClose}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500
-          }}
-        >
-          <Fade in={modalOpen}>
-            <ModalBox>
-              <BoxTitle stickTop>
-                계산서 · {billToDelete.representative}님 ({billToDelete.date})
-              </BoxTitle>
-              <BoxContent style={{marginBottom: '2rem'}}>
-                정말로 삭제하시겠습니까?
-              </BoxContent>
-              
-              <Grid container spacing={1}>
-                <Grid item xs={6}>
-                  <StyledButton onClick={() => setModalOpen(false)}>
-                    취소
-                  </StyledButton>
-                </Grid>
-                <Grid item xs={6}>
-                  <StyledButton style={{color: '#FF4444'}} onClick={() => executeDeletion(billToDelete.id)}>
-                    삭제
-                  </StyledButton>
-                </Grid>
+      </Grid>
+
+      <StyledSnackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={alertOpen} 
+        onClose={handleAlertClose}
+        autoHideDuration={5000}
+        message={`계산서 복사됨 · ${copiedBill.representative}님 (${copiedBill.date})`} 
+        action={
+          <React.Fragment>
+            <StyledIconButton onClick={handleAlertClose}>
+              <ClearIcon />
+            </StyledIconButton>
+          </React.Fragment>
+        }
+      />
+
+      <StyledModal
+        open={modalOpen}
+        onClose={handleModalClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500
+        }}
+      >
+        <Fade in={modalOpen}>
+          <ModalBox>
+            <BoxTitle stickTop>
+              계산서 · {billToDelete.representative}님 ({billToDelete.date})
+            </BoxTitle>
+            <BoxContent style={{marginBottom: '2rem'}}>
+              정말로 삭제하시겠습니까?
+            </BoxContent>
+            
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <StyledButton onClick={() => setModalOpen(false)}>
+                  취소
+                </StyledButton>
               </Grid>
-              
-            </ModalBox>
-          </Fade>
-        </StyledModal>
+              <Grid item xs={6}>
+                <StyledButton style={{color: '#FF4444'}} onClick={() => executeDeletion(billToDelete.id)}>
+                  삭제
+                </StyledButton>
+              </Grid>
+            </Grid>
+            
+          </ModalBox>
+        </Fade>
+      </StyledModal>
 
-        <StyledFab onClick={() => location.assign('/bill/new')}>
+      <StyledLink to="/bill/new">
+        <StyledFab>
           <AddIcon />
         </StyledFab>
+      </StyledLink>
 
-      </StylesProvider>
     </Container>
   )
 }

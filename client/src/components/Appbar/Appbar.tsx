@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { StylesProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/MenuRounded';
@@ -34,7 +33,6 @@ const setTitleOnScroll = () => {
 }
 
 const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
-  const [appbarTitle, setAppbarTitle] = useState('');
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { y } = setTitleOnScroll();
 
@@ -72,63 +70,62 @@ const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
   }
   
   return (
-    <StylesProvider injectFirst>
-
-        {/* 600px 이상일 때 */}
-        <StyledAppBar position="sticky" 
-          elevation={0}
-          blur={y > 50 ? true : false}
-        >
-          <Container maxWidth="md">
-            <StyledToolbar style={{padding: 0}}>
-              {y > 50 ? <StyledTitle>{props.title}</StyledTitle> : <div></div>}
-              
-              <div>
-                <Menu />
-                <StyledButton onClick={toggleThemeMode}>
-                  {nextMode()}
-                </StyledButton>
-                <StyledButton onClick={handleAccount}>
-                  {accountMode()}
-                </StyledButton>
-              </div>
-
-            </StyledToolbar>
-          </Container>
-        </StyledAppBar>
-
-
-        {/* 599px 이하일 때 */}
-        <StyledAppBarMini position="sticky" 
-          elevation={0} 
-          blur={y > 50 ? true : false}
-        >
+    <span>
+      {/* 600px 이상일 때 */}
+      <StyledAppBar position="sticky" 
+        elevation={0}
+        blur={y > 50 ? true : false}
+      >
+        <Container maxWidth="md">
           <StyledToolbar style={{padding: 0}}>
             {y > 50 ? <StyledTitle>{props.title}</StyledTitle> : <div></div>}
             
-            <React.Fragment>
-              <IconButton onClick={() => setMenuOpen(true)}>
-                <MenuIcon />
-              </IconButton>
-              <SwipeableDrawer
-                anchor={"top"}
-                open={menuOpen}
-                onClose={() => setMenuOpen(false)}
-                onOpen={() => setMenuOpen(true)}
-              >
-                <Menu />
-                <StyledButton onClick={toggleThemeMode}>
-                  {nextMode()}
-                </StyledButton>
-                <StyledButton onClick={handleAccount}>
-                  {accountMode()}
-                </StyledButton>
-              </SwipeableDrawer>
-            </React.Fragment>
-          </StyledToolbar>
-        </StyledAppBarMini>
+            <div>
+              <Menu />
+              <StyledButton onClick={toggleThemeMode}>
+                {nextMode()}
+              </StyledButton>
+              <StyledButton onClick={handleAccount}>
+                {accountMode()}
+              </StyledButton>
+            </div>
 
-    </StylesProvider>
+          </StyledToolbar>
+        </Container>
+      </StyledAppBar>
+
+
+      {/* 599px 이하일 때 */}
+      <StyledAppBarMini position="sticky" 
+        elevation={0} 
+        blur={y > 50 ? true : false}
+      >
+        <StyledToolbar style={{padding: 0}}>
+          {y > 50 ? <StyledTitle>{props.title}</StyledTitle> : <div></div>}
+          
+          <React.Fragment>
+            <IconButton onClick={() => setMenuOpen(true)}>
+              <MenuIcon />
+            </IconButton>
+            <SwipeableDrawer
+              anchor={"top"}
+              open={menuOpen}
+              onClose={() => setMenuOpen(false)}
+              onOpen={() => setMenuOpen(true)}
+            >
+              <Menu />
+              <StyledButton onClick={toggleThemeMode}>
+                {nextMode()}
+              </StyledButton>
+              <StyledButton onClick={handleAccount}>
+                {accountMode()}
+              </StyledButton>
+            </SwipeableDrawer>
+          </React.Fragment>
+        </StyledToolbar>
+      </StyledAppBarMini>
+
+    </span>
   )
 }
 

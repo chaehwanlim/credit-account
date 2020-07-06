@@ -82,7 +82,7 @@ const CompanyLocation: React.FC<CompanyLocationProps> = ({ editEnabled, companyI
           const address: string = item.roadAddress !== '' ? item.roadAddress : item.address;
 
           return (
-            <SearchResult onClick={() => handleResult(address)} fullWidth>
+            <SearchResult key={index} onClick={() => handleResult(address)} fullWidth>
               <BoxSubtitle>
                 {removeBTags(item.title)}
               </BoxSubtitle>

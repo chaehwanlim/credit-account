@@ -57,4 +57,5 @@ interface Form {
   service: Service[];
   memo: string;
   total: number;
+  isPaid: number;
 }

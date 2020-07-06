@@ -1,5 +1,5 @@
 import React from 'react';
-import { BoxHeader, StyledBox, HeaderButton, BoxContent, GreyContent, StyledDivider } from '../styled';
+import { BoxHeader, StyledBox, HeaderButton, BoxContent, GreyContent, StyledDivider, StyledLink } from '../styled';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const HomeCompany: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
@@ -9,11 +9,13 @@ const HomeCompany: React.FC<{ companyInfo: Company }> = ({ companyInfo }) => {
 
   return (
     <StyledBox>
-      <HeaderButton onClick={() => location.assign('/company')}>
-        <BoxHeader>
-          업체 정보&nbsp;&#xE001;
-        </BoxHeader>
-      </HeaderButton>
+      <StyledLink to="/company">
+        <HeaderButton>
+          <BoxHeader>
+            업체 정보&nbsp;&#xE001;
+          </BoxHeader>
+        </HeaderButton>
+      </StyledLink>
 
       <StyledDivider />
 

@@ -31,7 +31,7 @@ export const StyledToolbar = styled(Toolbar)`
   justify-content: space-between;
 `;
 
-export const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)<{ border?: boolean }>`
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -1px;
@@ -39,6 +39,7 @@ export const StyledButton = styled(Button)`
   text-decoration: none;
   min-width: 0;
   margin-left: 1rem;
+  border-radius: 0;
 
   @media screen and (max-width: 599px) {
     & {
@@ -46,6 +47,8 @@ export const StyledButton = styled(Button)`
       font-size: 2rem;
     }
   }
+
+  border-bottom: ${( props ) => props.border && `2px solid`};
 `;
 
 export const StyledTitle = styled(Typography)`

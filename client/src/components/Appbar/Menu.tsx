@@ -7,7 +7,11 @@ interface MenuItem {
   link: string;
 }
 
-const Menu: React.FC = () => {
+interface MenuProps {
+  title: string;
+}
+
+const Menu: React.FC<MenuProps> = ({ title }) => {
   const menuObjects: MenuItem[] = [
     { 
       name: "홈",
@@ -31,7 +35,8 @@ const Menu: React.FC = () => {
     return (
       <span>
       {menuObjects.map((menuObject: MenuItem, index) => (
-        <StyledButton key={index} onClick={() => alert('로그인이 필요합니다.')}>
+        <StyledButton key={index} 
+          onClick={() => alert('로그인이 필요합니다.')}>
           {menuObject.name}
         </StyledButton>
       ))}
@@ -42,8 +47,8 @@ const Menu: React.FC = () => {
   return (
     <span>
     {menuObjects.map((menuObject: MenuItem, index) => (
-      <StyledLink to={menuObject.link}  key={index}>
-        <StyledButton>
+      <StyledLink to={menuObject.link} key={index}>
+        <StyledButton border={title === menuObject.name}>
           {menuObject.name}
         </StyledButton>
       </StyledLink>

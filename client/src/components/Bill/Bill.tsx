@@ -8,6 +8,8 @@ import Fade from '@material-ui/core/Fade';
 import AddIcon from '@material-ui/icons/AddRounded';
 import ClearIcon from '@material-ui/icons/ClearRounded';
 import SearchIcon from '@material-ui/icons/SearchRounded';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import BillItem from './BillItem';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
@@ -27,6 +29,7 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
+  const [filter, setFilter] = useState<number>(2);
 
   if (!sessionStorage.getItem('companyID')) {
     return <Redirect to="/login" />
@@ -125,10 +128,23 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
   }
 
   const RenderBills = () => {
-    const filteredBills = bills.filter((bill: Bill) => (
-      (bill.representative.includes(keyword)) ||
-      (bill.memo.includes(keyword))
-    ));
+    let filteredBills = bills;
+
+    if (filter === 2) {
+      filteredBills = bills.filter((bill: Bill) => (
+        (bill.representative.includes(keyword)) ||
+        (bill.memo.includes(keyword))
+      ));
+    } else {
+      filteredBills = bills.filter((bill: Bill) => (
+        bill.isPaid === filter
+      ));
+
+      filteredBills = filteredBills.filter((bill: Bill) => (
+        (bill.representative.includes(keyword)) ||
+        (bill.memo.includes(keyword))
+      ));
+    }
 
     return (
       filteredBills.map((bill, index) => (
@@ -161,6 +177,10 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
     setAlertOpen(false);
   }
 
+  const handleFilter = (e: React.ChangeEvent<{ value: unknown }>) => {
+    setFilter(e.target.value as number);
+  }
+
   if (!companyInfo) {
     return <LinearProgress />
   }
@@ -177,12 +197,24 @@ const Bill: React.FC<{ setTitle: (title: string) => void }> = ({ setTitle }) => 
       >
         <Grid item xs={12}>
           <StyledBox>
-            <BoxHeader>
-              미수금
-              <BoxSubheader>
-                {calculateTotal().toLocaleString()}원
-              </BoxSubheader>
-            </BoxHeader>
+            <BoxContent stickTop>
+              <BoxHeader>
+                미수금
+                <BoxSubheader>
+                  {calculateTotal().toLocaleString()}원
+                </BoxSubheader>
+              </BoxHeader>
+
+              <Select
+                value={filter}
+                onChange={handleFilter}
+                type="number"
+              >
+                <MenuItem value={2}>전체</MenuItem>
+                <MenuItem value={1}>계산됨</MenuItem>
+                <MenuItem value={0}>계산되지 않음</MenuItem>
+              </Select>
+            </BoxContent>
           </StyledBox>
         </Grid>
 

@@ -14,7 +14,7 @@ const StyledFooter = styled.footer`
   bottom: 0;
   width: 100%;
   height: 4rem;
-  margin: 4rem 0rem 4rem 0rem;
+  margin: 4rem 0rem 10rem 0rem;
 `;
 
 const StyledLink = styled(Link)`

@@ -81,7 +81,7 @@ const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
             {y > 50 ? <StyledTitle>{props.title}</StyledTitle> : <div></div>}
             
             <div>
-              <Menu />
+              <Menu title={props.title}/>
               <StyledButton onClick={toggleThemeMode}>
                 {nextMode()}
               </StyledButton>
@@ -113,7 +113,7 @@ const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
               onClose={() => setMenuOpen(false)}
               onOpen={() => setMenuOpen(true)}
             >
-              <Menu />
+              <Menu title={props.title} />
               <StyledButton onClick={toggleThemeMode}>
                 {nextMode()}
               </StyledButton>

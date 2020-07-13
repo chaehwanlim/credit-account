@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledLink } from '../styled';
-import { StyledButton } from './styled';
+import { StyledButton, MenuContainer } from './styled';
 
 interface MenuItem {
   name: string;
@@ -9,9 +9,13 @@ interface MenuItem {
 
 interface MenuProps {
   title: string;
+  toggleThemeMode: () => void;
+  nextMode: () => string;
+  handleAccount: () => void;
+  accountMode: () => string;
 }
 
-const Menu: React.FC<MenuProps> = ({ title }) => {
+const Menu: React.FC<MenuProps> = ({ title, toggleThemeMode, nextMode, handleAccount, accountMode }) => {
   const menuObjects: MenuItem[] = [
     { 
       name: "홈",
@@ -31,29 +35,43 @@ const Menu: React.FC<MenuProps> = ({ title }) => {
     }
   ];
 
+  //로그인정보가 없을 때
   if (!sessionStorage.getItem('companyID')) {
     return (
-      <span>
-      {menuObjects.map((menuObject: MenuItem, index) => (
-        <StyledButton key={index} 
-          onClick={() => alert('로그인이 필요합니다.')}>
-          {menuObject.name}
+      <MenuContainer>
+        {menuObjects.map((menuObject: MenuItem, index) => (
+          <StyledButton key={index} 
+            onClick={() => alert('로그인이 필요합니다.')}>
+            {menuObject.name}
+          </StyledButton>
+        ))}
+        <StyledButton onClick={toggleThemeMode}>
+          {nextMode()}
         </StyledButton>
-      ))}
-      </span>
+        <StyledButton onClick={handleAccount}>
+          {accountMode()}
+        </StyledButton>
+      </MenuContainer>
     );
   }
 
+  //로그인정보가 있을 때
   return (
-    <span>
-    {menuObjects.map((menuObject: MenuItem, index) => (
-      <StyledLink to={menuObject.link} key={index}>
-        <StyledButton border={title === menuObject.name}>
-          {menuObject.name}
-        </StyledButton>
-      </StyledLink>
-    ))}
-    </span>
+    <MenuContainer>
+      {menuObjects.map((menuObject: MenuItem, index) => (
+        <StyledLink to={menuObject.link} key={index}>
+          <StyledButton check={title === menuObject.name}>
+            {menuObject.name}
+          </StyledButton>
+        </StyledLink>
+      ))}
+      <StyledButton onClick={toggleThemeMode}>
+        {nextMode()}
+      </StyledButton>
+      <StyledButton onClick={handleAccount}>
+        {accountMode()}
+      </StyledButton>
+    </MenuContainer>
   );
 }
 

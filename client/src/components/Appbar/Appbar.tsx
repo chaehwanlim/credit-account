@@ -80,15 +80,13 @@ const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
           <StyledToolbar style={{padding: 0}}>
             {y > 50 ? <StyledTitle>{props.title}</StyledTitle> : <div></div>}
             
-            <div>
-              <Menu title={props.title}/>
-              <StyledButton onClick={toggleThemeMode}>
-                {nextMode()}
-              </StyledButton>
-              <StyledButton onClick={handleAccount}>
-                {accountMode()}
-              </StyledButton>
-            </div>
+              <Menu 
+                title={props.title} 
+                toggleThemeMode={toggleThemeMode}
+                nextMode={nextMode}
+                handleAccount={handleAccount}
+                accountMode={accountMode}
+              />
 
           </StyledToolbar>
         </Container>
@@ -113,13 +111,14 @@ const Appbar: React.FC<AppbarPropsType> = (props: AppbarPropsType) => {
               onClose={() => setMenuOpen(false)}
               onOpen={() => setMenuOpen(true)}
             >
-              <Menu title={props.title} />
-              <StyledButton onClick={toggleThemeMode}>
-                {nextMode()}
-              </StyledButton>
-              <StyledButton onClick={handleAccount}>
-                {accountMode()}
-              </StyledButton>
+              <Menu 
+                title={props.title} 
+                toggleThemeMode={toggleThemeMode}
+                nextMode={nextMode}
+                handleAccount={handleAccount}
+                accountMode={accountMode}
+              />
+              
             </SwipeableDrawer>
           </React.Fragment>
         </StyledToolbar>

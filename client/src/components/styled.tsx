@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import Modal from '@material-ui/core/Modal';
 import Fab from '@material-ui/core/Fab';
+import { Link } from 'react-router-dom';
 
 //Boxes
 const centerItems = css`
@@ -227,13 +228,10 @@ export const StyledFab = styled(Fab)`
   transform: translateX(-50%);
 `;
 
-
-
-import { Link } from 'react-router-dom';
-
 export const StyledLink = styled(Link)`
   text-decoration: none;
-`
+  text-align: center;
+`;
 
 /* $musicBlue : #018DFF;
 $movieRed : #FF4444;

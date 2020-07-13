@@ -31,7 +31,7 @@ export const StyledToolbar = styled(Toolbar)`
   justify-content: space-between;
 `;
 
-export const StyledButton = styled(Button)<{ border?: boolean }>`
+export const StyledButton = styled(Button)<{ check?: boolean }>`
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -1px;
@@ -41,14 +41,16 @@ export const StyledButton = styled(Button)<{ border?: boolean }>`
   margin-left: 1rem;
   border-radius: 0;
 
+  border-bottom: ${( props ) => props.check && `2px solid`};
+
   @media screen and (max-width: 599px) {
     & {
       margin: 0;
       font-size: 2rem;
+      border-bottom: none;
+      color: ${( props ) => props.check && `#2176FF`}
     }
   }
-
-  border-bottom: ${( props ) => props.border && `2px solid`};
 `;
 
 export const StyledTitle = styled(Typography)`
@@ -69,4 +71,14 @@ export const StyledAppBarMini = styled(AppBar)<{ blur?: boolean }>`
       display: none;
     }
   }
-`
+`;
+
+export const MenuContainer = styled.div`
+  display: flex;
+
+  @media screen and (max-width: 599px) {
+    & {
+      flex-direction: column;
+    }
+  }
+`;
